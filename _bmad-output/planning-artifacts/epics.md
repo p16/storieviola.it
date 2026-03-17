@@ -48,7 +48,7 @@ NFR-SEC1: No sensitive or personal data is collected or processed by the site be
 
 ### Additional Requirements
 
-- **Starter template (Epic 1 Story 1):** Initialise Astro project with minimal template and Tailwind: `npm create astro@latest . -- --template minimal --install --no-git` then `npx astro add tailwind`. This is the first implementation story.
+- **Starter template (Epic 1 Story 1):** Initialise Astro project with minimal template and Tailwind: `npm create astro@latest . -- --template minimal --install --no-git` then `npx astro add tailwind`. This is the first implementation story. The Astro application code lives under the `storieviola-it/` subfolder at the repository root.
 - **Content model:** Astro Content Collections for episodes (title, description, cover, spotifyUrl, tags) and about content; schema validation at build time in `src/content/config.ts`.
 - **Episode schema:** Fields title, description, cover (image path or URL), spotifyUrl, tags (array of strings). CamelCase for all content fields; collection folder `src/content/episodes/`.
 - **About content:** Single document in `src/content/about.md` or `src/content/about/index.md`; no database or CMS.
@@ -160,9 +160,9 @@ So that **content changes go live without manual deploy steps**.
 
 **Acceptance Criteria:**
 
-**Given** the Astro project and content schema from 1.1–1.2,
-**When** I add a GitHub Actions workflow (e.g. `.github/workflows/deploy.yml`) using `withastro/action`,
-**And** set `site` and `base` in `astro.config.mjs` for the target URL (e.g. storieviola.it or github.io),
+**Given** the Astro project and content schema from 1.1–1.2, with all implementation code under `storieviola-it/`,
+**When** I add a GitHub Actions workflow (e.g. `.github/workflows/deploy.yml`) using `withastro/action` configured with `path: ./storieviola-it`,
+**And** set `site` and `base` in `storieviola-it/astro.config.mjs` for the target URL (e.g. storieviola.it or github.io),
 **Then** pushing to the configured branch triggers build and publish to GitHub Pages.
 **And** the live site is reachable at the configured URL (NFR-R1).
 

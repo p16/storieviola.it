@@ -182,12 +182,14 @@ npx astro add tailwind
 ### Structure Patterns
 
 **Project organization:**
-- **Pages:** `src/pages/` — `index.astro` (home), `about.astro`. No extra nesting for MVP.
-- **Components:** `src/components/` — flat: `Header.astro`, `Hero.astro`, `EpisodeCard.astro`, `EpisodeRow.astro`, `TagFilter.astro`. Do not split by route (e.g. avoid `components/home/` vs `components/about/`) unless the tree grows large.
-- **Content:** `src/content/config.ts` (schema); `src/content/episodes/` (one file per episode); `src/content/about.md` or `src/content/about/index.md` for about. Single source of truth per content type.
-- **Layouts:** `src/layouts/BaseLayout.astro`. Shared `<head>`, nav, and Tailwind in base layout.
-- **Static assets:** `public/` for favicon, robots, etc.; episode cover images in `public/` or referenced by URL — one convention for covers.
-- **Config:** `astro.config.mjs`, `tailwind.config.mjs` at repo root.
+- **Repository root:** BMAD planning artifacts (`_bmad-output/`), configuration, and docs. The Astro application code lives inside a dedicated subfolder: `storieviola-it/`.
+- **App root (`storieviola-it/`):**
+  - **Pages:** `storieviola-it/src/pages/` — `index.astro` (home), `about.astro`. No extra nesting for MVP.
+  - **Components:** `storieviola-it/src/components/` — flat: `Header.astro`, `Hero.astro`, `EpisodeCard.astro`, `EpisodeRow.astro`, `TagFilter.astro`. Do not split by route (e.g. avoid `components/home/` vs `components/about/`) unless the tree grows large.
+  - **Content:** `storieviola-it/src/content/config.ts` (schema); `storieviola-it/src/content/episodes/` (one file per episode); `storieviola-it/src/content/about.md` or `storieviola-it/src/content/about/index.md` for about. Single source of truth per content type.
+  - **Layouts:** `storieviola-it/src/layouts/BaseLayout.astro`. Shared `<head>`, nav, and Tailwind in base layout.
+  - **Static assets:** `storieviola-it/public/` for favicon, robots, etc.; episode cover images in `storieviola-it/public/` or referenced by URL — one convention for covers.
+  - **Config:** `storieviola-it/astro.config.mjs`, `storieviola-it/tailwind.config.mjs` at the app root.
 
 **File structure:**
 - One component per file; filename = component name (PascalCase).
@@ -242,46 +244,49 @@ npx astro add tailwind
 
 ```
 storieviola.it/
-├── README.md
-├── package.json
-├── astro.config.mjs
-├── tailwind.config.mjs
-├── tsconfig.json
-├── .gitignore
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # Astro GitHub Pages action
-├── public/
-│   ├── favicon.svg
-│   ├── robots.txt
-│   └── episodes/                # optional: local cover images
-├── src/
-│   ├── content/
-│   │   ├── config.ts            # Content Collections schema (episodes + about)
-│   │   ├── episodes/
-│   │   │   ├── episode-01.md
-│   │   │   └── ...
-│   │   └── about.md             # or about/index.md
-│   ├── layouts/
-│   │   └── BaseLayout.astro
-│   ├── components/
-│   │   ├── Header.astro
-│   │   ├── Hero.astro
-│   │   ├── EpisodeCard.astro
-│   │   ├── EpisodeRow.astro
-│   │   ├── TagFilter.astro
-│   │   └── (shared UI as needed)
-│   ├── pages/
-│   │   ├── index.astro          # Home: hero + episode list + tag filter
-│   │   └── about.astro
-│   ├── lib/                     # optional utilities
-│   │   └── getUniqueTags.ts
-│   └── styles/
-│       └── global.css            # if any global Tailwind/overrides
-├── tests/
-│   ├── unit/                    # Vitest: schema, helpers, components
-│   └── e2e/                     # Playwright: homepage, tag filter, about, a11y
-└── _bmad-output/                # BMAD planning artifacts (existing)
+├── _bmad-output/                 # BMAD planning artifacts (stories, epics, architecture, UX, etc.)
+├── docs/                         # Optional additional project knowledge
+├── storieviola-it/               # Astro application root (all implementation lives here)
+│   ├── README.md
+│   ├── package.json
+│   ├── astro.config.mjs
+│   ├── tailwind.config.mjs
+│   ├── tsconfig.json
+│   ├── .gitignore
+│   ├── public/
+│   │   ├── favicon.svg
+│   │   ├── robots.txt
+│   │   └── episodes/             # optional: local cover images
+│   ├── src/
+│   │   ├── content/
+│   │   │   ├── config.ts         # Content Collections schema (episodes + about)
+│   │   │   ├── episodes/
+│   │   │   │   ├── episode-01.md
+│   │   │   │   └── ...
+│   │   │   └── about.md          # or about/index.md
+│   │   ├── layouts/
+│   │   │   └── BaseLayout.astro
+│   │   ├── components/
+│   │   │   ├── Header.astro
+│   │   │   ├── Hero.astro
+│   │   │   ├── EpisodeCard.astro
+│   │   │   ├── EpisodeRow.astro
+│   │   │   ├── TagFilter.astro
+│   │   │   └── (shared UI as needed)
+│   │   ├── pages/
+│   │   │   ├── index.astro       # Home: hero + episode list + tag filter
+│   │   │   └── about.astro
+│   │   ├── lib/                  # optional utilities
+│   │   │   └── getUniqueTags.ts
+│   │   └── styles/
+│   │       └── global.css        # if any global Tailwind/overrides
+│   ├── tests/
+│   │   ├── unit/                 # Vitest: schema, helpers, components
+│   │   └── e2e/                  # Playwright: homepage, tag filter, about, a11y
+│   └── dist/                     # Build output (ignored in git)
+└── .github/
+    └── workflows/
+        └── deploy.yml            # Astro GitHub Pages action (uses withastro/action with path: ./storieviola-it)
 ```
 
 ### Architectural Boundaries

@@ -1,6 +1,6 @@
 # Story 1.1: Initialise Astro project with minimal template and Tailwind
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -83,18 +83,18 @@ so that **I can build the site locally and add content and components**.
 
 ### Completion Notes List
 
-- Astro 6.0.5 minimal template created; project moved to repo root from create-astro subfolder (tool created `red-resonance` because `.` was not empty). npm install run at root; `npx astro add tailwind --yes` added Tailwind (Tailwind v4 via @tailwindcss/vite; no separate tailwind.config file—config in astro.config.mjs and src/styles/global.css). Import of `../styles/global.css` added in src/pages/index.astro so Tailwind is active. `npm run build` and `npm run dev` (localhost:4321) verified. Structure: src/pages/, src/layouts/, src/components/, public/, src/styles/; package name set to storieviola-it. No tests added (per story scope; Epic 5 adds test frameworks).
+- Astro 6.0.5 minimal template created; project moved to repo root from create-astro subfolder (tool created `red-resonance` because `.` was not empty). npm install run at root; `npx astro add tailwind --yes` added Tailwind (Tailwind v4 via @tailwindcss/vite; no separate tailwind.config file—config in astro.config.mjs and src/styles/global.css). Import of `../styles/global.css` added in src/pages/index.astro so Tailwind is active. `npm run build` and `npm run dev` (localhost:4321) verified. Structure: src/pages/, src/layouts/, src/components/, public/, src/styles/; package name set to storieviola-it. No tests added (per story scope; Epic 5 adds test frameworks). **Post-review:** Implementation moved into `storieviola-it/` subfolder; all app code and config now under `storieviola-it/`. Story 1.3 (deploy) should use `path: ./storieviola-it` in withastro/action.
 
 ### File List
 
-- package.json (added/updated at root; name storieviola-it)
-- package-lock.json (added at root)
-- astro.config.mjs (added at root; Tailwind Vite plugin)
-- tsconfig.json (added at root)
-- src/pages/index.astro (added; global.css import)
-- src/styles/global.css (added by astro add tailwind)
-- src/layouts/ (directory created, empty)
-- src/components/ (directory created, empty)
-- public/favicon.svg (added by minimal template; no favicon.ico specified)
-- src/layouts/.gitkeep, src/components/.gitkeep (added to track empty dirs in git)
-- README.md (added at root by template)
+- storieviola-it/ (project subfolder; all implementation under here)
+- storieviola-it/package.json (name storieviola-it)
+- storieviola-it/package-lock.json
+- storieviola-it/astro.config.mjs (Tailwind Vite plugin)
+- storieviola-it/tsconfig.json
+- storieviola-it/src/pages/index.astro (global.css import)
+- storieviola-it/src/styles/global.css (added by astro add tailwind)
+- storieviola-it/src/layouts/.gitkeep, storieviola-it/src/components/.gitkeep
+- storieviola-it/public/favicon.svg (minimal template; no favicon.ico specified)
+- storieviola-it/.gitignore (dist, node_modules, .astro)
+- storieviola-it/README.md (template)
