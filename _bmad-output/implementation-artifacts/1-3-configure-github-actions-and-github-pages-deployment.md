@@ -1,6 +1,6 @@
 # Story 1.3: Configure GitHub Actions and GitHub Pages deployment
 
-Status: ready-for-dev
+Status: in-progress
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -17,15 +17,15 @@ so that **content changes go live without manual deploy steps**.
 
 ## Tasks / Subtasks
 
-- [ ] Add GitHub Actions workflow (AC: #1)
-  - [ ] Create `.github/workflows/deploy.yml` at repository root (not under `storieviola-it/`)
-  - [ ] Use `withastro/action` (e.g. v5 or latest stable) with `path: ./storieviola-it` so the action runs build from the app subfolder
-  - [ ] Configure trigger (e.g. push to `main` or chosen branch) per project needs
-  - [ ] Ensure workflow has permission to push to GitHub Pages (e.g. `contents: read`, `pages: write`)
-- [ ] Configure Astro for GitHub Pages (AC: #1, #2)
-  - [ ] Set `site` in `storieviola-it/astro.config.mjs` to the full production URL (e.g. `https://storieviola.it` or `https://<user>.github.io/<repo>`)
-  - [ ] Set `base` in `storieviola-it/astro.config.mjs`: use `'/'` for custom domain (storieviola.it) or `'/repo-name/'` for github.io project pages
-  - [ ] Verify local `npm run build` and `npm run preview` still work with the chosen `site`/`base`
+- [x] Add GitHub Actions workflow (AC: #1)
+  - [x] Create `.github/workflows/deploy.yml` at repository root (not under `storieviola-it/`)
+  - [x] Use `withastro/action` (e.g. v5 or latest stable) with `path: ./storieviola-it` so the action runs build from the app subfolder
+  - [x] Configure trigger (e.g. push to `main` or chosen branch) per project needs
+  - [x] Ensure workflow has permission to push to GitHub Pages (e.g. `contents: read`, `pages: write`)
+- [x] Configure Astro for GitHub Pages (AC: #1, #2)
+  - [x] Set `site` in `storieviola-it/astro.config.mjs` to the full production URL (e.g. `https://storieviola.it` or `https://<user>.github.io/<repo>`)
+  - [x] Set `base` in `storieviola-it/astro.config.mjs`: use `'/'` for custom domain (storieviola.it) or `'/repo-name/'` for github.io project pages
+  - [x] Verify local `npm run build` and `npm run preview` still work with the chosen `site`/`base`
 - [ ] Verify deploy and reachability (AC: #2)
   - [ ] Push to the configured branch and confirm workflow runs and deploys to GitHub Pages
   - [ ] Confirm the live site is reachable at the configured URL (NFR-R1)
@@ -83,10 +83,30 @@ so that **content changes go live without manual deploy steps**.
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+GPT-5.2
 
 ### Debug Log References
 
+Local validation:
+- `storieviola-it/`: `npm run build` succeeded
+- `storieviola-it/`: `npm run preview` served at `http://127.0.0.1:4321/storieviola.it/`
+
 ### Completion Notes List
 
+✅ Implemented:
+- GitHub Pages deployment workflow at repo root using `withastro/action@v5` with `path: ./storieviola-it`.
+- Astro GitHub Pages config in `storieviola-it/astro.config.mjs` for repo `p16/storieviola.it`:
+  - `site: 'https://p16.github.io'`
+  - `base: '/storieviola.it/'`
+
+⏳ Pending manual/remote verification:
+- Commit + push to `main`, confirm GitHub Actions deploy succeeds, and confirm live reachability at `https://p16.github.io/storieviola.it/`.
+
 ### File List
+
+- `.github/workflows/deploy.yml` (new)
+- `storieviola-it/astro.config.mjs` (modified)
+
+### Change Log
+
+- 2026-03-18: Added GitHub Pages deploy workflow and configured Astro `site/base` for project pages.
