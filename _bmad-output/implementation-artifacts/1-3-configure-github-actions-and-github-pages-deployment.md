@@ -1,6 +1,6 @@
 # Story 1.3: Configure GitHub Actions and GitHub Pages deployment
 
-Status: in-progress
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -26,9 +26,9 @@ so that **content changes go live without manual deploy steps**.
   - [x] Set `site` in `storieviola-it/astro.config.mjs` to the full production URL (e.g. `https://storieviola.it` or `https://<user>.github.io/<repo>`)
   - [x] Set `base` in `storieviola-it/astro.config.mjs`: use `'/'` for custom domain (storieviola.it) or `'/repo-name/'` for github.io project pages
   - [x] Verify local `npm run build` and `npm run preview` still work with the chosen `site`/`base`
-- [ ] Verify deploy and reachability (AC: #2)
-  - [ ] Push to the configured branch and confirm workflow runs and deploys to GitHub Pages
-  - [ ] Confirm the live site is reachable at the configured URL (NFR-R1)
+- [x] Verify deploy and reachability (AC: #2)
+  - [x] Push to the configured branch and confirm workflow runs and deploys to GitHub Pages
+  - [x] Confirm the live site is reachable at the configured URL (NFR-R1)
 
 ## Dev Notes
 
@@ -99,8 +99,7 @@ Local validation:
   - `site: 'https://p16.github.io'`
   - `base: '/storieviola.it/'`
 
-⏳ Pending manual/remote verification:
-- Commit + push to `main`, confirm GitHub Actions deploy succeeds, and confirm live reachability at `https://p16.github.io/storieviola.it/`.
+✅ Deployment verified: workflow runs on push to `main`, site reachable at `https://p16.github.io/storieviola.it/`.
 
 ### File List
 
