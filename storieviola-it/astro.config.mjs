@@ -6,6 +6,21 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          // Suppress Astro internal unused-import warning (astro/dist/assets/utils)
+          if (
+            warning.code === 'UNUSED_EXTERNAL_IMPORT' &&
+            typeof warning.message === 'string' &&
+            warning.message.includes('@astrojs/internal-helpers/remote')
+          ) {
+            return;
+          }
+          warn(warning);
+        },
+      },
+    },
+  },
 });
