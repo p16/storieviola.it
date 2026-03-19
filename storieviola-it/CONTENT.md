@@ -16,6 +16,8 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
    | `publishDate`   | date     | Yes      | Publication date (ISO or YAML date); used for sort |
    | `tags`          | string[] | Yes      | Array of tags; `featured` sorts first on homepage |
 
+   **Tag values and filtering (homepage):** Each episode row/card exposes a `data-tags` attribute on the list item with **comma-separated** tag names for client-side filtering (Story 2.4). **Do not use commas inside a single tag string** in MVP (e.g. use `favole-popolari` instead of `favole, popolari`).
+
 3. **Example**
 
    ```yaml
@@ -51,9 +53,9 @@ The **“Ascolta su Spotify”** button on the homepage points to the **podcast 
 
 ## Episode order on the homepage
 
-Preview and (later) full lists use: **tag `featured` first** (case-insensitive), then **`publishDate` descending** (newest first). Ties use the file id.
+The full episode list uses: **tag `featured` first** (case-insensitive), then **`publishDate` descending** (newest first). Ties use the file id. Each episode is shown with cover, title, short description, tags, and one **“Ascolta su Spotify”** link to that episode’s `spotifyUrl`.
 
-## Listing / preview with no episodes
+## Listing with no episodes
 
 If there are no episode files, the homepage shows a short empty state under “Episodi” instead of an empty list.
 
