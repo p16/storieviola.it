@@ -7,13 +7,14 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
 1. **Create a new file** in `src/content/episodes/` (e.g. `episode-01.md`, `la-volpe-e-luva.md`). Use `.md` or `.mdx`.
 2. **Use camelCase for all frontmatter fields.** Required frontmatter:
 
-   | Field        | Type     | Required | Description                                      |
-   | ------------ | -------- | -------- | ------------------------------------------------ |
-   | `title`      | string   | Yes      | Episode title                                    |
-   | `description`| string   | Yes      | Short description                                |
-   | `cover`      | string   | Yes      | Image path (e.g. `/episodes/cover.jpg`) or URL   |
-   | `spotifyUrl` | string   | Yes      | Full Spotify episode or show URL                 |
-   | `tags`       | string[] | Yes      | Array of tags, e.g. `['featured', 'avventura']`   |
+   | Field           | Type     | Required | Description                                      |
+   | --------------- | -------- | -------- | ------------------------------------------------ |
+   | `title`         | string   | Yes      | Episode title                                    |
+   | `description`   | string   | Yes      | Short description                                |
+   | `cover`         | string   | Yes      | Image path (e.g. `/episodes/cover.jpg`) or URL   |
+   | `spotifyUrl`    | string   | Yes      | Full Spotify **episode** URL for this episode   |
+   | `publishDate`   | date     | Yes      | Publication date (ISO or YAML date); used for sort |
+   | `tags`          | string[] | Yes      | Array of tags; `featured` sorts first on homepage |
 
 3. **Example**
 
@@ -23,6 +24,7 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
    description: Una volpe e un grappolo troppo alto.
    cover: /episodes/volpe-uva.jpg
    spotifyUrl: https://open.spotify.com/episode/xxxxx
+   publishDate: 2026-03-01
    tags:
      - featured
      - favole
@@ -34,9 +36,30 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
 
 **Cover images:** Put files in `public/episodes/` and reference as `/episodes/filename.jpg`, or use a full URL in `cover`.
 
+## Homepage hero image
+
+- **File:** `public/images/hero.svg` (or replace with `hero.webp` / `hero.jpg` if you prefer a photo).
+- **Usage:** The homepage `Hero` uses this asset for the compact bar next to the title. Swap the file and keep the path, or change `imageSrc` in `src/pages/index.astro` if you use another name.
+- **Alt text:** Update the `imageAlt` prop in `index.astro` if you change the visual so screen readers stay accurate.
+
+## Spotify show URL (hero CTA)
+
+The **“Ascolta su Spotify”** button on the homepage points to the **podcast show**, not a single episode.
+
+- **Default:** `src/lib/site.ts` uses the [Storie Viola show on Spotify](https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=61907bca4a6b4c3f) when the env var is not set.
+- **Override:** set **`PUBLIC_SPOTIFY_SHOW_URL`** in `.env` (local) or in your host’s environment variables if the show link changes.
+
+## Episode order on the homepage
+
+Preview and (later) full lists use: **tag `featured` first** (case-insensitive), then **`publishDate` descending** (newest first). Ties use the file id.
+
+## Listing / preview with no episodes
+
+If there are no episode files, the homepage shows a short empty state under “Episodi” instead of an empty list.
+
 ## Updating an episode
 
-Edit the same file in `src/content/episodes/`: change `title`, `description`, `cover`, `spotifyUrl`, or `tags` as needed. Keep all required fields and camelCase. Build to validate.
+Edit the same file in `src/content/episodes/`: change `title`, `description`, `cover`, `spotifyUrl`, `publishDate`, or `tags` as needed. Keep all required fields and camelCase. Build to validate.
 
 ## Editing about content
 

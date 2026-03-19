@@ -1,5 +1,5 @@
 # generated: 2026-03-16
-# last_updated: 2026-03-16
+# last_updated: 2026-03-20
 # project: storieviola.it
 # project_key: NOKEY
 # tracking_system: file-system
@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: "2026-03-16"
-last_updated: "2026-03-18"
+last_updated: "2026-03-20"
 project: storieviola.it
 project_key: NOKEY
 tracking_system: file-system
@@ -48,9 +48,9 @@ development_status:
   1-3-configure-github-actions-and-github-pages-deployment: review
   epic-1-retrospective: optional
 
-  epic-2: backlog
-  2-1-base-layout-and-header-component: backlog
-  2-2-compact-hero-component: backlog
+  epic-2: in-progress
+  2-1-base-layout-and-header-component: done
+  2-2-compact-hero-component: done
   2-3-episode-list-and-episode-card-row-component: backlog
   2-4-tag-filter-component-and-client-side-filtering: backlog
   epic-2-retrospective: optional

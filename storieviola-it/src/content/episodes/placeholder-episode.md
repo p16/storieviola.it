@@ -2,7 +2,8 @@
 title: Placeholder Episode
 description: Minimal valid episode for schema validation. Replace with real episodes.
 cover: /favicon.svg
-spotifyUrl: https://open.spotify.com/show/example
+spotifyUrl: https://open.spotify.com/episode/example
+publishDate: 2026-01-01
 tags:
   - featured
 ---

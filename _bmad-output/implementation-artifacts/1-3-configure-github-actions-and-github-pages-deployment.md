@@ -35,12 +35,13 @@ so that **content changes go live without manual deploy steps**.
 - **Epic context:** Epic 1 is Project foundation and deploy (FR8, FR9, FR17). This story completes the push → build → deploy pipeline so content changes go live automatically.
 - **Scope:** Workflow file and Astro `site`/`base` only. Do **not** add layout, Header, Hero, episode list UI, SEO meta, or analytics (later epics). Do **not** add Vitest/Playwright in this story (Epic 5).
 - **App root:** All Astro app code lives under `storieviola-it/`; the workflow runs the action with `path: ./storieviola-it` (see Previous Story Intelligence).
+- **URL strategy (aligns with Story 2.1):** Production is **custom domain** `https://storieviola.it` with **`base: '/'`**. Internal navigation uses root-relative URLs (`href="/"`, `href="/about"`); Astro emits asset URLs like `/_astro/...`. This avoids a path prefix under `github.io/<repo>/`, which would break those links unless every href were base-prefixed.
 
 ### Technical Requirements
 
 - **Workflow location:** `.github/workflows/deploy.yml` at the **repository root** (parent of `storieviola-it/`). The action’s `path` input points to the Astro app: `path: ./storieviola-it`.
 - **withastro/action:** Use a stable version (e.g. `withastro/action@v5` or current recommended in [Astro deploy guide](https://docs.astro.build/en/guides/deploy/github)). The action checks out the repo, runs build in the given `path`, and deploys to GitHub Pages.
-- **Astro config:** In `storieviola-it/astro.config.mjs` add `site` (full origin URL) and `base` (path prefix). For custom domain (storieviola.it): `site: 'https://storieviola.it'`, `base: '/'`. For GitHub Pages project site: `site: 'https://<owner>.github.io'`, `base: '/<repo>/'`.
+- **Astro config:** In `storieviola-it/astro.config.mjs` set `site: 'https://storieviola.it'` and **`base: '/'`** for this project (custom domain on GitHub Pages). Configure the custom domain and DNS in the GitHub Pages settings for the repo so the live site is served at the site root. *Alternative* (not used here): GitHub Pages project URL `https://<owner>.github.io/<repo>/` would require `base: '/<repo>/'` and base-aware links in components — conflicts with Story 2.1’s root-relative `href` convention.
 - **Permissions:** Workflow needs `contents: read` and `pages: write` (and `id-token: write` if the action uses OIDC). Follow Astro docs or action README for exact `permissions` block.
 
 ### Architecture Compliance
@@ -72,7 +73,7 @@ so that **content changes go live without manual deploy steps**.
 ### Latest Tech Information
 
 - **withastro/action:** Accepts `path` to specify the Astro project root in the repo (defaults to repo root). Use `path: ./storieviola-it` for a subfolder app. Use a pinned version (e.g. `@v5`) for reproducible deploys. See [withastro/action](https://github.com/withastro/action) and [Astro GitHub Pages guide](https://docs.astro.build/en/guides/deploy/github).
-- **site and base:** `site` = full origin (e.g. `https://storieviola.it` or `https://user.github.io`). `base` = path prefix: `'/'` for custom domain, `'/repo-name/'` for github.io project pages. Both are required for correct asset URLs and canonical links on GitHub Pages.
+- **site and base (this repo):** `site: 'https://storieviola.it'`, `base: '/'` so built CSS/JS use `/_astro/...` and pages can use root-relative internal links. Requires GitHub Pages custom domain pointing at `storieviola.it`.
 
 ### Project Context Reference
 
@@ -89,17 +90,17 @@ GPT-5.2
 
 Local validation:
 - `storieviola-it/`: `npm run build` succeeded
-- `storieviola-it/`: `npm run preview` served at `http://127.0.0.1:4321/storieviola.it/`
+- `storieviola-it/`: `npm run preview` at site root (e.g. `http://127.0.0.1:4321/`) with `base: '/'`
 
 ### Completion Notes List
 
 ✅ Implemented:
-- GitHub Pages deployment workflow at repo root using `withastro/action@v5` with `path: ./storieviola-it`.
-- Astro GitHub Pages config in `storieviola-it/astro.config.mjs` for repo `p16/storieviola.it`:
-  - `site: 'https://p16.github.io'`
-  - `base: '/storieviola.it/'`
+- GitHub Pages deployment workflow at repo root using `withastro/action` (pinned SHA) with `path: ./storieviola-it`.
+- Astro config in `storieviola-it/astro.config.mjs` aligned with Story 2.1 root-relative nav:
+  - `site: 'https://storieviola.it'`
+  - `base: '/'` → asset URLs in HTML are `/_astro/...`; internal links remain `href="/"`, `href="/about"`.
 
-✅ Deployment verified: workflow runs on push to `main`, site reachable at `https://p16.github.io/storieviola.it/`.
+✅ Deployment: push to `main` runs workflow; **live URL** is `https://storieviola.it` once custom domain + GitHub Pages settings are configured (see GitHub docs: custom domain for Pages).
 
 ### File List
 
@@ -109,3 +110,4 @@ Local validation:
 ### Change Log
 
 - 2026-03-18: Added GitHub Pages deploy workflow and configured Astro `site/base` for project pages.
+- 2026-03-19: Switched to custom domain + `base: '/'` so root-relative links (Story 2.1) and `/_astro/` assets match production URL space.

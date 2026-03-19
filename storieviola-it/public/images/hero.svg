@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6" />
+      <stop offset="1" stop-color="#5b21b6" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="18" fill="url(#heroGrad)" />
+  <path
+    d="M38 78V42h8l12 20 12-20h8v36h-7V54l-11 18h-4L45 54v24h-7z"
+    fill="#fff"
+    opacity="0.95"
+  />
+</svg>

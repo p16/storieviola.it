@@ -16,6 +16,8 @@ const episodes = defineCollection({
     description: z.string(),
     cover: z.string(), // image path or URL
     spotifyUrl: z.string(),
+    /** Publication date; used for ordering (newest first after featured). ISO date or YAML date. */
+    publishDate: z.coerce.date(),
     tags: z.array(z.string()),
   }),
 });

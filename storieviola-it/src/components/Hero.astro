@@ -1,0 +1,60 @@
+---
+/**
+ * Compact hero: Direction C (stacked, centred) by default; Direction B (horizontal bar) from md (768px).
+ * Single <h1> for the podcast title; optional one podcast-level CTA.
+ */
+interface Props {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  intro: string;
+  /** Optional podcast-level CTA (e.g. Spotify show link) */
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const { imageSrc, imageAlt, title, intro, ctaHref, ctaLabel } = Astro.props;
+
+/** High contrast on Spotify green (UX-DR10). */
+const focusCta =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1DB954]';
+---
+
+<section class="border-b border-gray-200 bg-white" aria-labelledby="hero-title">
+  <div
+    class="mx-auto flex max-w-4xl flex-col items-center gap-4 px-4 py-4 text-center md:flex-row md:items-center md:gap-6 md:py-5 md:text-left"
+  >
+    <img
+      src={imageSrc}
+      alt={imageAlt}
+      width="96"
+      height="96"
+      class="h-20 w-20 shrink-0 rounded-2xl object-cover shadow-sm md:h-24 md:w-24"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="min-w-0 flex-1">
+      <h1 id="hero-title" class="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+        {title}
+      </h1>
+      <p class="mt-2 text-pretty text-base text-gray-600 md:text-lg">
+        {intro}
+      </p>
+      {
+        ctaHref && ctaLabel && (
+          <p class="mt-3">
+            <a
+              href={ctaHref}
+              class:list={[
+                'inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg bg-[#1DB954] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1ed760]',
+                focusCta,
+              ]}
+            >
+              {ctaLabel}
+            </a>
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>

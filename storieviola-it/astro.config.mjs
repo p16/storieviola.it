@@ -5,8 +5,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://p16.github.io',
-  base: '/storieviola.it/',
+  // Custom domain on GitHub Pages (storieviola.it) with base '/' so internal links
+  // can use root-relative paths (href="/", href="/about") and assets use /_astro/...
+  site: 'https://storieviola.it',
+  base: '/',
   vite: {
     plugins: [tailwindcss()],
     build: {
