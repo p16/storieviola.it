@@ -1,0 +1,61 @@
+---
+interface Props {
+  /** Topic tags excluding `featured` (already handled by the special Featured button). */
+  tags: string[];
+  featuredAvailable: boolean;
+  /** Initial selection key used only for server-side first paint. */
+  initialTag: 'all' | 'featured';
+}
+
+const { tags, featuredAvailable, initialTag } = Astro.props;
+
+const baseClass =
+  'inline-flex min-h-11 items-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-700 focus-visible:ring-offset-2';
+
+const selectedClass = 'bg-violet-200 border-violet-500 text-violet-950';
+const unselectedClass = 'bg-white border-violet-300 text-violet-800 hover:bg-violet-50';
+
+function getButtonClass(active: boolean) {
+  return `${baseClass} ${active ? selectedClass : unselectedClass}`;
+}
+---
+
+<div data-tag-filter aria-label="Filtra episodi per tag" class="mt-4">
+  <div class="flex flex-wrap gap-2">
+    <button
+      type="button"
+      data-filter-button
+      data-filter-tag="all"
+      aria-pressed={initialTag === 'all' ? 'true' : 'false'}
+      class={getButtonClass(initialTag === 'all')}
+    >
+      Tutti
+    </button>
+
+    {featuredAvailable && (
+      <button
+        type="button"
+        data-filter-button
+        data-filter-tag="featured"
+        aria-pressed={initialTag === 'featured' ? 'true' : 'false'}
+        class={getButtonClass(initialTag === 'featured')}
+      >
+        In evidenza
+      </button>
+    )}
+
+    {tags.map((tag) => (
+      <button
+        type="button"
+        data-filter-button
+        data-filter-tag={tag}
+        aria-pressed={initialTag === tag ? 'true' : 'false'}
+        class={getButtonClass(initialTag === tag)}
+        key={tag}
+      >
+        {tag}
+      </button>
+    ))}
+  </div>
+</div>
+

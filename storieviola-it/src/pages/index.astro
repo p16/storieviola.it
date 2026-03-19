@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
+import TagFilter from '../components/TagFilter.astro';
 import { getCollection } from 'astro:content';
 import { getSpotifyShowUrl } from '../lib/site';
 import { sortEpisodesForPreview } from '../lib/sortEpisodes';
@@ -10,6 +11,19 @@ const allEpisodes = await getCollection('episodes');
 const sortedEpisodes = sortEpisodesForPreview(allEpisodes);
 
 const podcastSpotifyUrl = getSpotifyShowUrl();
+
+const normalizedTags = allEpisodes
+  .flatMap((ep) => ep.data.tags ?? [])
+  .map((t) => t.trim())
+  .filter(Boolean)
+  .map((t) => t.toLowerCase());
+
+const uniqueTags = Array.from(new Set(normalizedTags)).sort((a, b) =>
+  a.localeCompare(b),
+);
+
+const featuredAvailable = uniqueTags.includes('featured');
+const topicTags = uniqueTags.filter((t) => t !== 'featured');
 ---
 
 <BaseLayout title="Storie Viola">
@@ -34,17 +48,127 @@ const podcastSpotifyUrl = getSpotifyShowUrl();
           <code class="rounded bg-gray-100 px-1 py-0.5 text-gray-800">CONTENT.md</code>).
         </p>
       ) : (
-        <ul class="mt-3 space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
-          {sortedEpisodes.map((episode) => (
-            <EpisodeCard
-              title={episode.data.title}
-              description={episode.data.description}
-              cover={episode.data.cover}
-              spotifyUrl={episode.data.spotifyUrl}
-              tags={episode.data.tags}
-            />
-          ))}
-        </ul>
+        <>
+          <TagFilter
+            tags={topicTags}
+            featuredAvailable={featuredAvailable}
+            initialTag="all"
+          />
+
+          <p
+            data-episodes-empty
+            hidden
+            aria-live="polite"
+            class="mt-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-center text-sm text-gray-600"
+          >
+            Nessun episodio con questo tag. Seleziona{' '}
+            <button
+              type="button"
+              data-clear-filter
+              class="inline-flex min-h-11 items-center justify-center rounded-lg border border-violet-300 bg-white px-4 py-2 text-sm font-semibold text-violet-800 transition hover:bg-violet-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-700 focus-visible:ring-offset-2"
+            >
+              Tutti
+            </button>{' '}
+            per vedere tutti gli episodi.
+          </p>
+
+          <ul
+            data-episodes-list
+            class="mt-3 space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0"
+          >
+            {sortedEpisodes.map((episode) => (
+              <EpisodeCard
+                title={episode.data.title}
+                description={episode.data.description}
+                cover={episode.data.cover}
+                spotifyUrl={episode.data.spotifyUrl}
+                tags={episode.data.tags}
+              />
+            ))}
+          </ul>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const filterRoot = document.querySelector('[data-tag-filter]');
+              if (!filterRoot) return;
+
+              const buttons = Array.from(
+                filterRoot.querySelectorAll('[data-filter-button]'),
+              );
+              const list = document.querySelector('[data-episodes-list]');
+              const items = list
+                ? Array.from(list.querySelectorAll('[data-tags]'))
+                : [];
+              const emptyState = document.querySelector('[data-episodes-empty]');
+              const clearButton = emptyState?.querySelector(
+                '[data-clear-filter]',
+              );
+
+              const selectedInitial =
+                buttons.find((b) => b.getAttribute('aria-pressed') === 'true') ??
+                buttons[0];
+              let selectedTag = selectedInitial?.getAttribute('data-filter-tag') ?? 'all';
+
+              function applyFilter(tag) {
+                const tagLower = tag.toLowerCase();
+                let matchCount = 0;
+
+                items.forEach((li) => {
+                  const dataTags = li.getAttribute('data-tags') ?? '';
+                  const liTags = dataTags
+                    .split(',')
+                    .map((t) => t.trim().toLowerCase())
+                    .filter(Boolean);
+
+                  const matches = tagLower === 'all' ? true : liTags.includes(tagLower);
+                  li.hidden = !matches;
+                  if (matches) matchCount += 1;
+                });
+
+                if (emptyState) emptyState.hidden = matchCount > 0;
+              }
+
+              function setSelectedUi(nextTag) {
+                buttons.forEach((btn) => {
+                  const tag = btn.getAttribute('data-filter-tag') ?? 'all';
+                  const active = tag.toLowerCase() === nextTag.toLowerCase();
+                  btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+
+                  // Keep classes in sync with TagFilter.astro.
+                  btn.classList.toggle('bg-violet-200', active);
+                  btn.classList.toggle('border-violet-500', active);
+                  btn.classList.toggle('text-violet-950', active);
+
+                  btn.classList.toggle('bg-white', !active);
+                  btn.classList.toggle('border-violet-300', !active);
+                  btn.classList.toggle('text-violet-800', !active);
+                });
+              }
+
+              // Initial paint based on server-side `aria-pressed`.
+              setSelectedUi(selectedTag);
+              applyFilter(selectedTag);
+
+              if (clearButton) {
+                clearButton.addEventListener('click', () => {
+                  selectedTag = 'all';
+                  setSelectedUi(selectedTag);
+                  applyFilter(selectedTag);
+                });
+              }
+
+              buttons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                  const nextTag =
+                    btn.getAttribute('data-filter-tag') ?? 'all';
+                  selectedTag = nextTag;
+                  setSelectedUi(selectedTag);
+                  applyFilter(selectedTag);
+                });
+              });
+            });
+          </script>
+        </>
       )
     }
   </section>

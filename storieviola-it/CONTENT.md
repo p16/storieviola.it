@@ -16,7 +16,11 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
    | `publishDate`   | date     | Yes      | Publication date (ISO or YAML date); used for sort |
    | `tags`          | string[] | Yes      | Array of tags; `featured` sorts first on homepage |
 
-   **Tag values and filtering (homepage):** Each episode row/card exposes a `data-tags` attribute on the list item with **comma-separated** tag names for client-side filtering (Story 2.4). **Do not use commas inside a single tag string** in MVP (e.g. use `favole-popolari` instead of `favole, popolari`).
+**Tag values and filtering (homepage):** Each episode row/card exposes a `data-tags` attribute on the list item with **comma-separated** tag names for client-side filtering (Story 2.4).
+
+The homepage includes a tag filter UI (`Tutti`, optional `In evidenza`, and one button per unique topic tag). Buttons use `aria-pressed` for selection state and filter the list by hiding/showing episodes whose `data-tags` includes the selected tag. If the selected tag matches zero episodes, the homepage shows a short empty message (while `Tutti` remains available to clear the filter).
+
+**Do not use commas inside a single tag string** in MVP (e.g. use `favole-popolari` instead of `favole, popolari`).
 
 3. **Example**
 
