@@ -48,6 +48,11 @@ The homepage includes a tag filter UI (`Tutti`, optional `In evidenza`, and one 
 - **Usage:** The homepage `Hero` uses this asset for the compact bar next to the title. Swap the file and keep the path, or change `imageSrc` in `src/pages/index.astro` if you use another name.
 - **Alt text:** Update the `imageAlt` prop in `index.astro` if you change the visual so screen readers stay accurate.
 
+## Social preview image (Open Graph / Twitter)
+
+- **File:** `public/images/og.png` — **raster** (e.g. 1200×630) used for `og:image` / `twitter:image`. Social platforms generally expect PNG or JPEG, not SVG.
+- **Usage:** Default in `BaseLayout.astro`; homepage and about pass `ogImage="/images/og.png"`. Replace the file to change link previews without editing code, or override `ogImage` / `ogImageAlt` per page.
+
 ## Spotify show URL (hero CTA)
 
 The **“Ascolta su Spotify”** button on the homepage points to the **podcast show**, not a single episode.
@@ -76,4 +81,5 @@ Edit the same file in `src/content/episodes/`: change `title`, `description`, `c
 ## Validation
 
 - `npm run build` validates all episode frontmatter. Missing or invalid required fields cause the build to fail with an error pointing to the file and field.
+- `npm run validate:about` runs a production build, then checks that the About page output includes the expected headings (see `src/lib/validate-about-content.mjs`).
 - Do not remove required fields or use different field names (e.g. snake_case); the schema expects camelCase only.

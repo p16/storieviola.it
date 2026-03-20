@@ -1,15 +1,35 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
 
 interface Props {
   title?: string;
+  description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
 }
 
-const { title = 'Storie Viola' } = Astro.props;
+const {
+  title = 'Storie Viola',
+  description = 'Storie per bambini da ascoltare in podcast: racconti pensati per la fantasia e la calma della sera.',
+  canonicalPath = '/',
+  ogImage = '/images/og.png',
+  ogImageAlt = 'Storie Viola — illustrazione del podcast di storie per bambini',
+} = Astro.props;
+
+const canonicalUrl = Astro.site
+  ? new URL(canonicalPath, Astro.site).toString()
+  : canonicalPath;
+const ogUrl = canonicalUrl;
+const ogImageUrl =
+  Astro.site && ogImage.startsWith('/')
+    ? new URL(ogImage, Astro.site).toString()
+    : ogImage;
 ---
 
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -17,11 +37,28 @@ const { title = 'Storie Viola' } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body class="min-h-screen bg-gray-50 text-gray-900">
     <Header />
     <main>
       <slot />
     </main>
+    <ConsentBanner />
+    <script>
+      import { initAnalyticsConsent } from '../lib/analytics-client';
+      initAnalyticsConsent();
+    </script>
   </body>
 </html>

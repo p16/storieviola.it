@@ -29,7 +29,7 @@ FR9: Episode and about content can be maintained as structured data or files (no
 FR10: The site can be discovered via search for relevant queries (e.g. "storie per bambini", "storie viola").
 FR11: The site exposes basic metadata (e.g. title, description) for search engines and link previews.
 FR12: Key pages have stable, shareable URLs (e.g. homepage, about).
-FR13: Product owner can see evidence that the site is reachable and that visitors can discover it (e.g. lightweight analytics or equivalent).
+FR13: Product owner can see evidence that the site is reachable and that visitors can discover it (e.g. GA4 tracking with user consent).
 FR14: The site is usable on mobile and desktop (responsive layout).
 FR15: The episode list and links to listen are easy to scan and use (clear hierarchy and structure).
 FR16: Links to external destinations (e.g. Spotify) are clearly indicated and operable (e.g. keyboard and pointer).
@@ -44,7 +44,7 @@ NFR-S2: Build and deploy complete in a reasonable time (e.g. within several minu
 NFR-A1: Text is readable (contrast, size) and structure is clear (headings, list semantics) so visitors can scan and choose episodes.
 NFR-A2: Links (including "Listen on Spotify") are focusable and activatable via keyboard and pointer so visitors can open episodes without mouse-only interaction.
 NFR-R1: The site is served from a hosting environment (e.g. GitHub Pages or equivalent) with high availability so storieviola.it is reachable when users search or follow links.
-NFR-SEC1: No sensitive or personal data is collected or processed by the site beyond what is required for lightweight analytics (if any); any such analytics must be privacy-aware and minimal.
+NFR-SEC1: No sensitive or personal data is collected or processed by the site; analytics must be privacy-aware, minimal, and enabled only after explicit user consent.
 
 ### Additional Requirements
 
@@ -111,7 +111,7 @@ Visitor can read who is behind the podcast and how the stories are made. Creator
 **FRs covered:** FR6, FR7
 
 ### Epic 4: Discoverability and analytics
-Site can be found via search for relevant queries; key pages have stable URLs and basic meta; product owner can see evidence of reach and discoverability (e.g. lightweight analytics).
+Site can be found via search for relevant queries; key pages have stable URLs and basic meta; product owner can see evidence of reach and discoverability via consent-gated analytics.
 **FRs covered:** FR10, FR11, FR12, FR13
 
 ### Epic 5: Quality, accessibility and performance
@@ -268,18 +268,29 @@ So that **the site can be discovered for relevant queries and shared with correc
 **And** homepage and about have stable, shareable URLs (e.g. / and /about) (FR12).
 **And** pages use semantic structure (headings, links) to support discoverability (FR10).
 
-### Story 4.2: Lightweight analytics (optional)
+### Story 4.2: GA4 analytics with consent
 
 As a **product owner**,
-I want **minimal, privacy-aware analytics**,
-So that **I can see evidence that the site is reachable and discoverable**.
+I want **GA4 tracking enabled only after explicit user consent**,
+So that **I can see evidence that the site is reachable and discoverable while keeping analytics privacy-aware**.
 
 **Acceptance Criteria:**
 
-**Given** the product owner wants reach/discoverability evidence,
-**When** analytics is configured (e.g. minimal script or server-side logs),
-**Then** the integration is privacy-aware and minimal; no sensitive or personal data is collected beyond what is required (NFR-SEC1). FR13.
-**And** configuration is optional so the site works without it.
+**Given** GA4 is configured with Measurement ID `G-3D7DV5DLT1`,
+**And** the site shows an Italian cookie/consent banner with `Accetta analytics` and `Rifiuta` actions only,
+**When** a visitor first loads the site,
+**Then** analytics is disabled by default and no GA4 analytics events are sent before consent.
+
+**When** the visitor clicks `Accetta analytics`,
+**Then** GA4 is initialized and the current page view is tracked.
+**And** outbound `Listen on Spotify` clicks are tracked as GA4 events.
+**And** tag filter selections are tracked as GA4 events.
+
+**When** the visitor clicks `Rifiuta`,
+**Then** GA4 analytics remains disabled and no GA4 analytics events are sent.
+
+**And** the consent decision persists across page loads.
+**And** the consent UI is keyboard accessible with visible focus and clear labels.
 
 ---
 

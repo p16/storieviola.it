@@ -194,7 +194,7 @@ Storieviola.it is a static website (multi-page, not SPA): homepage/episode list,
 
 ### Analytics & reach
 
-- **FR13:** Product owner can see evidence that the site is reachable and that visitors can discover it (e.g. lightweight analytics or equivalent).
+- **FR13:** Product owner can see evidence that the site is reachable and that visitors can discover it (e.g. GA4 tracking with user consent, including page views and key outbound interactions).
 
 ### Presentation & usability
 
@@ -225,4 +225,4 @@ Storieviola.it is a static website (multi-page, not SPA): homepage/episode list,
 
 ### Security
 
-- **NFR-SEC1:** No sensitive or personal data is collected or processed by the site beyond what is required for lightweight analytics (if any); any such analytics must be privacy-aware and minimal.
+- **NFR-SEC1:** No sensitive or personal data is collected or processed by the site. Analytics must remain privacy-aware and minimal, and must be enabled only after explicit user consent via a cookie/consent banner; when consent is not granted, analytics remains disabled.

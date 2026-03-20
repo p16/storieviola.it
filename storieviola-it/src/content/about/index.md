@@ -1,9 +1,17 @@
 ---
-# About content — frontmatter optional per architecture
 ---
 
-# Storie Viola
+# Origin
 
-Storie Viola è un podcast di storie originali per bambini. Qui trovi l’elenco degli episodi e il link per ascoltarli su Spotify.
+Storie Viola is a podcast of original stories for children. It was created to help families share calm, curious moments together and to make reading imagination feel joyful—even for listeners who are just starting out.
 
-Modifica questo file per aggiornare la pagina Chi siamo / About (FR6, FR7).
+## How it's made
+
+Each episode is built in a simple, repeatable way.
+
+We start with a story idea and a small cast of characters.
+We write a short, listen-friendly script with clear pacing.
+We review the language for comprehension and age-appropriate themes (friendship, bravery, kindness, and curiosity).
+We finalize the script so every episode can be enjoyed from beginning to end.
+
+You can find the episode list on the site and listen on Spotify.

@@ -24,14 +24,22 @@ const uniqueTags = Array.from(new Set(normalizedTags)).sort((a, b) =>
 
 const featuredAvailable = uniqueTags.includes('featured');
 const topicTags = uniqueTags.filter((t) => t !== 'featured');
+const homepageDescription =
+  'Storie per bambini da ascoltare in podcast: racconti pensati per la fantasia e la calma della sera.';
 ---
 
-<BaseLayout title="Storie Viola">
+<BaseLayout
+  title="Storie Viola"
+  description={homepageDescription}
+  canonicalPath="/"
+  ogImage="/images/og.png"
+  ogImageAlt="Storie Viola — illustrazione del podcast di storie per bambini"
+>
   <Hero
     imageSrc="/images/hero.svg"
     imageAlt="Storie Viola — illustrazione del podcast di storie per bambini"
     title="Storie Viola"
-    intro="Storie per bambini da ascoltare in podcast: racconti pensati per la fantasia e la calma della sera."
+    intro={homepageDescription}
     ctaHref={podcastSpotifyUrl}
     ctaLabel="Ascolta su Spotify"
   />
@@ -65,6 +73,9 @@ const topicTags = uniqueTags.filter((t) => t !== 'featured');
             <button
               type="button"
               data-clear-filter
+              data-filter-button
+              data-filter-tag="all"
+              aria-pressed="false"
               class="inline-flex min-h-11 items-center justify-center rounded-lg border border-violet-300 bg-white px-4 py-2 text-sm font-semibold text-violet-800 transition hover:bg-violet-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-700 focus-visible:ring-offset-2"
             >
               Tutti

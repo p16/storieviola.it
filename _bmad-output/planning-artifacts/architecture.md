@@ -38,7 +38,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 **Scale & Complexity:**
 - **Primary domain:** Static web (content, build, deploy, hosting).
 - **Complexity level:** Low — greenfield, single maintainer, file-based content, no backend or auth.
-- **Architectural components:** Content source (data/files), build pipeline, static output, hosting, optional analytics integration.
+- **Architectural components:** Content source (data/files), build pipeline, static output, hosting, GA4 analytics integration with consent gating.
 
 ### Technical Constraints & Dependencies
 
@@ -55,7 +55,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 - **Responsive design:** Single breakpoint (~768px); mobile-first; same content, layout adapts.
 - **Tag/filter model:** Episodes have tags; filter UI (e.g. "All", "Featured", topic tags) affects data shape and build-time or client-side filtering.
 - **Deploy pipeline:** Repo → build → publish must stay simple and repeatable for the creator.
-- **Analytics:** Lightweight, privacy-aware integration to confirm reach and discoverability.
+- **Analytics:** GA4 integration, privacy-aware and consent-gated (disabled by default until explicit acceptance).
 
 ## Starter Template Evaluation
 
@@ -117,7 +117,7 @@ npx astro add tailwind
 
 **Important Decisions (Shape Architecture):**
 - Tag filtering: Client-side only. Prefer Alpine.js for declarative filter state and accessibility (e.g. aria-pressed); vanilla JS allowed if zero-dependency is preferred. One approach project-wide — no mixing.
-- Analytics: Lightweight, privacy-aware only (e.g. minimal script or server-side logs); no sensitive data (NFR-SEC1).
+- Analytics: GA4 with explicit consent gating; disabled by default, enabled only after accept; no sensitive data (NFR-SEC1).
 
 **Deferred Decisions (Post-MVP):**
 - Staging environment; formal monitoring beyond "site is reachable."
@@ -132,7 +132,7 @@ npx astro add tailwind
 ### Authentication & Security
 
 - **Authentication:** None — public static site; no login or user accounts.
-- **Security:** No sensitive or personal data processed; analytics minimal and privacy-aware (NFR-SEC1). No server-side processing; static hosting only.
+- **Security:** No sensitive or personal data processed; analytics minimal, privacy-aware, and consent-gated (NFR-SEC1). No server-side processing; static hosting only.
 
 ### API & Communication Patterns
 
@@ -156,7 +156,7 @@ npx astro add tailwind
 
 ### Decision Impact Analysis
 
-**Implementation sequence:** (1) Initialise Astro project (minimal + Tailwind). (2) Define Content Collections and episode schema. (3) Implement layout and components (Header, Hero, Episode card/row, Tag filter, About). (4) Homepage and about page; tag filter behaviour (Alpine.js or vanilla). (5) Add Vitest (unit/component) and Playwright (E2E); cover schema, homepage, tag filter, about, Listen on Spotify, basic a11y. (6) GitHub Actions workflow and GitHub Pages config. (7) SEO (meta, canonical) and optional analytics.
+**Implementation sequence:** (1) Initialise Astro project (minimal + Tailwind). (2) Define Content Collections and episode schema. (3) Implement layout and components (Header, Hero, Episode card/row, Tag filter, About). (4) Homepage and about page; tag filter behaviour (Alpine.js or vanilla). (5) Add Vitest (unit/component) and Playwright (E2E); cover schema, homepage, tag filter, about, Listen on Spotify, basic a11y. (6) GitHub Actions workflow and GitHub Pages config. (7) SEO (meta, canonical), cookie consent banner (Accept/Reject), and GA4 analytics enabled only after consent.
 
 **Cross-component dependencies:** Content schema drives component props; Tailwind and breakpoint (~768px) drive responsive layout (Direction B/C); deploy config depends on final site URL and repo structure.
 

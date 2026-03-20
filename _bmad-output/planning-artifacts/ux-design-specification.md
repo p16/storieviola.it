@@ -419,6 +419,14 @@ All custom components are built by composing these utilities and, where useful, 
 - **States:** Default, selected (active tag), hover/focus. Clear visual distinction for selected state.
 - **Accessibility:** Use buttons or links with `aria-pressed` or similar for selection state; keyboard navigable; visible focus.
 
+#### Cookie consent banner
+
+- **Purpose:** Collect explicit user choice for analytics tracking before enabling GA4.
+- **Content:** Short Italian notice with two actions only: `Accetta analytics` and `Rifiuta`.
+- **Behavior:** Analytics is disabled by default; GA4 is enabled only after `Accetta analytics`; `Rifiuta` keeps analytics disabled.
+- **Persistence:** Consent choice persists across page loads.
+- **Accessibility:** Actions are keyboard focusable/activatable, labels are clear, and focus states are visible.
+
 #### About page content
 
 - **Purpose:** Long-form content for origin and "how it's made"; builds trust.
@@ -461,6 +469,7 @@ Consistency rules for the minimal public UI: one primary CTA type, clear links, 
 
 - **Public site:** No forms (no login, no comment, no search box in MVP). Creator edits content via repo/files, not through the site. Form patterns are out of scope for the public UX spec.
 - **If added later:** Use a single, simple pattern: label above field, visible focus, clear primary submit action; keep minimal.
+- **Consent controls (required for analytics):** Not a full settings form in MVP. Use two clear actions only (`Accetta analytics`, `Rifiuta`) in the cookie banner.
 
 ### Navigation Patterns
 
