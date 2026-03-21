@@ -338,3 +338,31 @@ So that **changes don't break the episode list, filter, about page or Listen on 
 **Then** Vitest runs unit/component tests for content schema and helpers (and optional component tests) in `tests/unit/` or `src/**/*.test.ts`.
 **And** Playwright runs E2E tests in `tests/e2e/` covering: homepage loads, tag filter behaviour, about page, "Listen on Spotify" flow, and basic accessibility checks.
 **And** tests are mandatory per Architecture; CI can run both suites. NFR-P1, NFR-P2, NFR-S1 supported by tests and implementation.
+
+### Story 5.4: Favicon and browser icons
+
+As a **visitor**,
+I want **the site to show the correct icon in the browser tab, bookmarks, and when the page is saved to the home screen (where applicable)**,
+So that **I can recognise Storie Viola at a glance and trust the site**.
+
+**Acceptance Criteria:**
+
+**Given** the Astro app under `storieviola-it/` with favicon links in BaseLayout (e.g. `favicon.svg`, `favicon.ico`),
+**When** I open the site in a desktop browser and on a mobile browser,
+**Then** the tab shows the Storie Viola favicon (not the generic Astro or placeholder icon).
+**And** `public/` contains the authoritative icon assets referenced from `<head>` (SVG and/or ICO as needed for broad support).
+**And** optional: `apple-touch-icon` or equivalent is provided if the product owner wants a polished “add to home screen” icon on iOS; if omitted, document the decision in CONTENT.md or README.
+
+### Story 5.5: Main logo in header
+
+As a **visitor**,
+I want **to see the Storie Viola logo next to (or instead of) the plain text site name in the header**,
+So that **the brand is visually consistent with podcast artwork and marketing**.
+
+**Acceptance Criteria:**
+
+**Given** the Header component implements site identity as a link to `/`,
+**When** I view any page with the header,
+**Then** the home link shows the main logo image (with appropriate `alt` text, e.g. site name) and remains keyboard-focusable with visible focus styles (UX-DR2, UX-DR10).
+**And** the logo scales appropriately on mobile and desktop (no overflow or unreadable crop; max height or responsive width as needed).
+**And** logo asset(s) live under `public/` (or `src/assets/` if using Astro-optimised images) with a single clear naming convention documented for future swaps.

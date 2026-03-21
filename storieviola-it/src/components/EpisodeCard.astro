@@ -19,12 +19,12 @@ const dataTags = normalizedTags.join(',');
 
 /** Match Hero.astro Spotify CTA focus (UX-DR10 / UX-DR11). */
 const focusCta =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1DB954]';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta';
 ---
 
 <li
   data-tags={dataTags}
-  class="flex flex-row gap-3 rounded-lg border border-gray-100 bg-white p-3 shadow-sm md:flex-col md:overflow-hidden md:p-0"
+  class="flex flex-row gap-3 rounded-lg border border-border-subtle bg-surface p-3 shadow-sm md:flex-col md:overflow-hidden md:p-0"
 >
   <img
     src={cover}
@@ -35,8 +35,8 @@ const focusCta =
     loading="lazy"
   />
   <div class="flex min-w-0 flex-1 flex-col md:p-4">
-    <h3 class="text-base font-semibold text-gray-900">{title}</h3>
-    <p class="mt-1 line-clamp-2 text-sm text-gray-600 md:line-clamp-3">{description}</p>
+    <h3 class="text-base font-semibold text-foreground">{title}</h3>
+    <p class="mt-1 line-clamp-2 text-sm text-muted md:line-clamp-3">{description}</p>
     {
       normalizedTags.length > 0 && (
         <ul
@@ -47,7 +47,7 @@ const focusCta =
           {normalizedTags.map((tag, idx) => (
             <li
               key={`${tag}-${idx}`}
-              class="rounded-full bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-800"
+              class="rounded-full bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-800"
               role="listitem"
             >
               {tag}
@@ -59,9 +59,11 @@ const focusCta =
     <p class="mt-3 md:mt-auto md:pt-3">
       <a
         href={spotifyUrl}
+        rel="noopener noreferrer"
+        target="_blank"
         aria-label={`Ascolta su Spotify: ${title}`}
         class:list={[
-          'inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg bg-[#1DB954] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1ed760]',
+          'inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg bg-cta px-4 py-2 text-sm font-semibold text-white transition hover:bg-cta-hover',
           focusCta,
         ]}
       >

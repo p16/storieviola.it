@@ -64,8 +64,10 @@ development_status:
   4-2-ga4-analytics-with-consent: review
   epic-4-retrospective: optional
 
-  epic-5: backlog
-  5-1-design-tokens-and-responsive-behaviour: backlog
-  5-2-accessibility-wcag-2-1-aa: backlog
-  5-3-automated-tests-vitest-and-playwright: backlog
+  epic-5: in-progress
+  5-1-design-tokens-and-responsive-behaviour: ready-for-dev
+  5-2-accessibility-wcag-2-1-aa: ready-for-dev
+  5-3-automated-tests-vitest-and-playwright: ready-for-dev
+  5-4-favicon-and-browser-icons: review
+  5-5-main-logo-in-header: ready-for-dev
   epic-5-retrospective: optional

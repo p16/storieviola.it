@@ -53,6 +53,12 @@ The homepage includes a tag filter UI (`Tutti`, optional `In evidenza`, and one 
 - **File:** `public/images/og.png` — **raster** (e.g. 1200×630) used for `og:image` / `twitter:image`. Social platforms generally expect PNG or JPEG, not SVG.
 - **Usage:** Default in `BaseLayout.astro`; homepage and about pass `ogImage="/images/og.png"`. Replace the file to change link previews without editing code, or override `ogImage` / `ogImageAlt` per page.
 
+## Favicon and browser icons
+
+- **Source artwork:** `public/brand-logo.png` (full-resolution logo). Regenerate derived assets from it when updating the brand mark.
+- **Derived files:** `public/favicon.svg` (raster embedded for broad SVG favicon support), `public/favicon.ico` (16/32/48), `public/favicon-16.png`, `public/favicon-32.png`, `public/apple-touch-icon.png` (180×180 for iOS home screen).
+- **Head links:** `BaseLayout.astro` — SVG and PNG sizes first, then `.ico`, then `apple-touch-icon`.
+
 ## Spotify show URL (hero CTA)
 
 The **“Ascolta su Spotify”** button on the homepage points to the **podcast show**, not a single episode.

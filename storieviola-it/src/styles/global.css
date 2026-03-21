@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+/**
+ * Design tokens — single source of truth (Story 5.1).
+ * `md:` breakpoint remains Tailwind default 768px.
+ */
+@theme {
+  /* Surfaces & text */
+  --color-background: #f9fafb;
+  --color-foreground: #111827;
+  --color-muted: #4b5563;
+  --color-muted-strong: #374151;
+  --color-border: #e5e7eb;
+  --color-border-subtle: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-subtle: #f3f4f6;
+  --color-code-text: #1f2937;
+
+  /* Focus rings (keyboard / WCAG focus-visible) */
+  --color-ring: #111827;
+  --color-ring-accent: #6d28d9;
+
+  /* Brand / filter (violet) */
+  --color-brand: #6d28d9;
+  --color-brand-50: #f5f3ff;
+  --color-brand-200: #ddd6fe;
+  --color-brand-300: #c4b5fd;
+  --color-brand-500: #8b5cf6;
+  --color-brand-700: #6d28d9;
+  --color-brand-800: #5b21b6;
+  --color-brand-950: #4c1d95;
+
+  /* Primary CTA — Spotify */
+  --color-cta: #1db954;
+  --color-cta-hover: #1ed760;
+
+  /* Type scale (named steps; Tailwind font sizes still available) */
+  --font-size-display: 1.875rem;
+  --font-size-display-md: 2.25rem;
+  --font-size-lead: 1.125rem;
+}
