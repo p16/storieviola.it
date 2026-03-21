@@ -74,4 +74,5 @@ development_status:
 
   epic-6: in-progress
   6-1-enable-dependabot-for-automated-dependency-updates: done
+  6-2-hide-episodes-from-the-public-list: backlog
   epic-6-retrospective: optional
