@@ -16,9 +16,9 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^6.0.5",
-    "tailwindcss": "^4.2.1"
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.8",
+    "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
