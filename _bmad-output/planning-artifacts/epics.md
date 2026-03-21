@@ -366,3 +366,23 @@ So that **the brand is visually consistent with podcast artwork and marketing**.
 **Then** the home link shows the main logo image (with appropriate `alt` text, e.g. site name) and remains keyboard-focusable with visible focus styles (UX-DR2, UX-DR10).
 **And** the logo scales appropriately on mobile and desktop (no overflow or unreadable crop; max height or responsive width as needed).
 **And** logo asset(s) live under `public/` (or `src/assets/` if using Astro-optimised images) with a single clear naming convention documented for future swaps.
+
+---
+
+## Epic 6: New development
+
+Post-MVP improvements and infrastructure enhancements that extend the project beyond the initial launch scope.
+
+### Story 6.1: Enable Dependabot for automated dependency updates
+
+As a **developer/maintainer**,
+I want **Dependabot to automatically open PRs when npm dependencies have updates or security fixes**,
+So that **the project stays secure and up to date without manual dependency audits**.
+
+**Acceptance Criteria:**
+
+**Given** the repository on GitHub,
+**When** `.github/dependabot.yml` is added configured for the `npm` ecosystem pointing to `storieviola-it/` and for `github-actions`,
+**Then** Dependabot opens PRs automatically on a weekly schedule when new patch, minor, or security updates are available for npm packages or GitHub Actions.
+**And** PRs target the `main` branch with no cap on open PRs.
+**And** the `dependabot.yml` file is committed to the repository root under `.github/`.

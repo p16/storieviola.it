@@ -1,17 +1,17 @@
 ---
 ---
 
-# Origin
+# Origini
 
-Storie Viola is a podcast of original stories for children. It was created to help families share calm, curious moments together and to make reading imagination feel joyful—even for listeners who are just starting out.
+Storie Viola è un podcast di storie originali per bambini. È nato per aiutare le famiglie a condividere momenti di calma e di fantasia, e per rendere l'ascolto un piacere — anche per chi sta muovendo i primi passi.
 
-## How it's made
+## Come viene realizzato
 
-Each episode is built in a simple, repeatable way.
+Ogni episodio nasce in modo semplice e ripetibile.
 
-We start with a story idea and a small cast of characters.
-We write a short, listen-friendly script with clear pacing.
-We review the language for comprehension and age-appropriate themes (friendship, bravery, kindness, and curiosity).
-We finalize the script so every episode can be enjoyed from beginning to end.
+Partiamo da un'idea di storia e da un piccolo gruppo di personaggi.
+Scriviamo un testo breve e adatto all'ascolto, con un ritmo chiaro.
+Verifichiamo che il linguaggio sia comprensibile e i temi adatti all'età (amicizia, coraggio, gentilezza e curiosità).
+Rileggiamo il testo in modo che ogni episodio si possa ascoltare dall'inizio alla fine.
 
-You can find the episode list on the site and listen on Spotify.
+Puoi trovare la lista degli episodi sul sito e ascoltarli su Spotify.

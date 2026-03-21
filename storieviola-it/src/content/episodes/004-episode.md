@@ -6,6 +6,7 @@ spotifyUrl: https://open.spotify.com/episode/33cxabHBOCNWtcUgJZUUIE?si=19ed6b9b1
 publishDate: 2026-03-11
 tags:
   - featured
+  - musica
 ---
 
 This file ensures the episodes collection has at least one entry so the build runs. Add real episode files with the same frontmatter shape (camelCase: title, description, cover, spotifyUrl, tags).

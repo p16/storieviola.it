@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: "2026-03-16"
-last_updated: "2026-03-21"
+last_updated: "2026-03-21"  # updated by create-story for 6.1
 project: storieviola.it
 project_key: NOKEY
 tracking_system: file-system
@@ -71,3 +71,7 @@ development_status:
   5-4-favicon-and-browser-icons: review
   5-5-main-logo-in-header: review
   epic-5-retrospective: optional
+
+  epic-6: in-progress
+  6-1-enable-dependabot-for-automated-dependency-updates: ready-for-dev
+  epic-6-retrospective: optional
