@@ -30,9 +30,9 @@
   --color-brand-800: #5b21b6;
   --color-brand-950: #4c1d95;
 
-  /* Primary CTA — Spotify */
-  --color-cta: #1db954;
-  --color-cta-hover: #1ed760;
+  /* Primary CTA — accessible dark green (WCAG AA ~7.2:1 with white) */
+  --color-cta: #166534;
+  --color-cta-hover: #15803d;
 
   /* Type scale (named steps; Tailwind font sizes still available) */
   --font-size-display: 1.875rem;

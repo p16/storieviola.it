@@ -52,10 +52,17 @@ const ogImageUrl =
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
   </head>
   <body class="min-h-screen bg-background text-foreground">
+    <a
+      href="#main-content"
+      class="absolute -top-full left-4 z-50 focus:top-4 rounded-md bg-foreground px-4 py-2 text-sm font-semibold text-background focus:outline-none focus:ring-2 focus:ring-background focus:ring-offset-2"
+    >
+      Salta al contenuto principale
+    </a>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <ConsentBanner />

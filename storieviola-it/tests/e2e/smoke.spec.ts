@@ -18,6 +18,12 @@ test.describe('Homepage', () => {
     await expect(home.locator('img')).toBeVisible();
   });
 
+  test('hero image is visible', async ({ page }) => {
+    await page.goto('/');
+    const heroImg = page.locator('img[alt="Storie Viola — illustrazione del podcast di storie per bambini"]').first();
+    await expect(heroImg).toBeVisible();
+  });
+
   test('Spotify links use open.spotify.com hrefs', async ({ page }) => {
     await page.goto('/');
     const spotify = page.locator('a[href*="open.spotify.com"]').first();

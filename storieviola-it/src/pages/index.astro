@@ -154,6 +154,11 @@ const homepageDescription =
                   btn.classList.toggle('border-brand-300', !active);
                   btn.classList.toggle('text-brand-800', !active);
                 });
+
+                // clearButton lives outside filterRoot, update it separately.
+                if (clearButton) {
+                  clearButton.setAttribute('aria-pressed', nextTag.toLowerCase() === 'all' ? 'true' : 'false');
+                }
               }
 
               // Initial paint based on server-side `aria-pressed`.

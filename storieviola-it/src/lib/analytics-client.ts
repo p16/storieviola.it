@@ -21,7 +21,9 @@ function getGtag(): ((...args: unknown[]) => void) | undefined {
 
 function readStoredConsent(): ConsentValue | null {
   try {
-    return localStorage.getItem(STORAGE_KEY) as ConsentValue | null;
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === 'accepted' || raw === 'rejected') return raw;
+    return null;
   } catch {
     return null;
   }
@@ -39,6 +41,7 @@ function persistConsent(value: ConsentValue): void {
  * Loads gtag.js and configures GA4 with a page view for the current page.
  */
 export function injectGtag(): void {
+  if (typeof window.gtag === 'function') return; // already injected
   window.dataLayer = window.dataLayer || [];
   function gtag(...args: unknown[]) {
     window.dataLayer.push(args);
@@ -54,7 +57,11 @@ export function injectGtag(): void {
   gtag('config', GA_MEASUREMENT_ID);
 }
 
+let outboundTrackingRegistered = false;
+
 function setupOutboundTracking(): void {
+  if (outboundTrackingRegistered) return;
+  outboundTrackingRegistered = true;
   document.addEventListener('click', (e) => {
     const gtagFn = getGtag();
     if (!gtagFn) return;
