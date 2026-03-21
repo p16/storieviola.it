@@ -1,13 +1,11 @@
 ---
 interface Props {
-  /** Topic tags excluding `featured` (already handled by the special Featured button). */
   tags: string[];
-  featuredAvailable: boolean;
   /** Initial selection key used only for server-side first paint. */
-  initialTag: 'all' | 'featured';
+  initialTag: string;
 }
 
-const { tags, featuredAvailable, initialTag } = Astro.props;
+const { tags, initialTag } = Astro.props;
 
 const baseClass =
   'inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-accent focus-visible:ring-offset-2';
@@ -32,18 +30,6 @@ function getButtonClass(active: boolean) {
     >
       Tutti
     </button>
-
-    {featuredAvailable && (
-      <button
-        type="button"
-        data-filter-button
-        data-filter-tag="featured"
-        aria-pressed={initialTag === 'featured' ? 'true' : 'false'}
-        class={getButtonClass(initialTag === 'featured')}
-      >
-        In evidenza
-      </button>
-    )}
 
     {tags.map((tag) => (
       <button

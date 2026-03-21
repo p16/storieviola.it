@@ -14,6 +14,7 @@ function fakeEpisode(
     spotifyUrl: string;
     publishDate: Date;
     tags: string[];
+    featured?: boolean;
   },
 ): CollectionEntry<'episodes'> {
   return {
@@ -41,7 +42,8 @@ describe('sortEpisodesForPreview', () => {
       cover: '/x',
       spotifyUrl: 'https://open.spotify.com/episode/b',
       publishDate: new Date('2026-01-01'),
-      tags: ['featured'],
+      tags: [],
+      featured: true,
     });
     const sorted = sortEpisodesForPreview([a, b]);
     expect(sorted[0].id).toBe('b');

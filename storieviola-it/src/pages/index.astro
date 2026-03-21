@@ -8,22 +8,21 @@ import { getSpotifyShowUrl } from '../lib/site';
 import { sortEpisodesForPreview } from '../lib/sortEpisodes';
 
 const allEpisodes = await getCollection('episodes');
-const sortedEpisodes = sortEpisodesForPreview(allEpisodes);
+const visibleEpisodes = allEpisodes.filter((ep) => !ep.data.hidden);
+const sortedEpisodes = sortEpisodesForPreview(visibleEpisodes);
 
 const podcastSpotifyUrl = getSpotifyShowUrl();
 
-const normalizedTags = allEpisodes
+const normalizedTags = visibleEpisodes
   .flatMap((ep) => ep.data.tags ?? [])
   .map((t) => t.trim())
   .filter(Boolean)
   .map((t) => t.toLowerCase());
 
-const uniqueTags = Array.from(new Set(normalizedTags)).sort((a, b) =>
-  a.localeCompare(b),
-);
+const uniqueTags = Array.from(new Set(normalizedTags))
+  .filter((t) => t !== 'featured')
+  .sort((a, b) => a.localeCompare(b));
 
-const featuredAvailable = uniqueTags.includes('featured');
-const topicTags = uniqueTags.filter((t) => t !== 'featured');
 const homepageDescription =
   'Storie originali per bambini, da ascoltare la sera, in viaggio o ogni volta che c\'è voglia di fantasia.';
 ---
@@ -58,8 +57,7 @@ const homepageDescription =
       ) : (
         <>
           <TagFilter
-            tags={topicTags}
-            featuredAvailable={featuredAvailable}
+            tags={uniqueTags}
             initialTag="all"
           />
 

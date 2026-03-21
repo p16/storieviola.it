@@ -5,7 +5,6 @@ cover: /episodes/004-la-chitarra.png
 spotifyUrl: https://open.spotify.com/episode/33cxabHBOCNWtcUgJZUUIE?si=19ed6b9b1b944699
 publishDate: 2026-03-11
 tags:
-  - featured
   - musica
 ---
 

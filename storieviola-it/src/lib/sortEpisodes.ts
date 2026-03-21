@@ -1,16 +1,12 @@
 import type { CollectionEntry } from 'astro:content';
 
-function hasFeaturedTag(tags: string[]): boolean {
-  return tags.some((t) => t.toLowerCase() === 'featured');
-}
-
-/** Featured episodes first, then newest `publishDate` first; tie-break by id. */
+/** Featured episodes first, then newest publishDate first; tie-break by id. */
 export function compareEpisodesForListing(
   a: CollectionEntry<'episodes'>,
   b: CollectionEntry<'episodes'>,
 ): number {
-  const aFeat = hasFeaturedTag(a.data.tags);
-  const bFeat = hasFeaturedTag(b.data.tags);
+  const aFeat = a.data.featured === true;
+  const bFeat = b.data.featured === true;
   if (aFeat !== bFeat) return aFeat ? -1 : 1;
 
   const ad = a.data.publishDate.getTime();

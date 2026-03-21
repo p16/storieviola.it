@@ -74,5 +74,6 @@ development_status:
 
   epic-6: in-progress
   6-1-enable-dependabot-for-automated-dependency-updates: done
-  6-2-hide-episodes-from-the-public-list: backlog
+  6-2-hide-episodes-from-the-public-list: done
+  6-3-replace-featured-tag-with-a-boolean-field: done
   epic-6-retrospective: optional

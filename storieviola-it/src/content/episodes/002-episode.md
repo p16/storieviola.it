@@ -5,7 +5,6 @@ cover: /episodes/002-la-gazza.png
 spotifyUrl: https://open.spotify.com/episode/4v5vj6AyWwf409ip0bRRt5?si=ab9d923390f841dc
 publishDate: 2026-03-11
 tags:
-  - featured
   - animali
 ---
 
