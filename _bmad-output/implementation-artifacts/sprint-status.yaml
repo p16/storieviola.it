@@ -77,3 +77,8 @@ development_status:
   6-2-hide-episodes-from-the-public-list: done
   6-3-replace-featured-tag-with-a-boolean-field: done
   epic-6-retrospective: optional
+
+  epic-7: backlog
+  7-1-episode-detail-page-with-transcript: backlog
+  7-2-license-page-and-diritti-nav-link: backlog
+  epic-7-retrospective: optional
