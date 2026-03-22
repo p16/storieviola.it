@@ -366,3 +366,122 @@ So that **the brand is visually consistent with podcast artwork and marketing**.
 **Then** the home link shows the main logo image (with appropriate `alt` text, e.g. site name) and remains keyboard-focusable with visible focus styles (UX-DR2, UX-DR10).
 **And** the logo scales appropriately on mobile and desktop (no overflow or unreadable crop; max height or responsive width as needed).
 **And** logo asset(s) live under `public/` (or `src/assets/` if using Astro-optimised images) with a single clear naming convention documented for future swaps.
+
+---
+
+## Epic 6: New development
+
+Post-MVP improvements and infrastructure enhancements that extend the project beyond the initial launch scope.
+
+### Story 6.1: Enable Dependabot for automated dependency updates
+
+As a **developer/maintainer**,
+I want **Dependabot to automatically open PRs when npm dependencies have updates or security fixes**,
+So that **the project stays secure and up to date without manual dependency audits**.
+
+**Acceptance Criteria:**
+
+**Given** the repository on GitHub,
+**When** `.github/dependabot.yml` is committed to the repository root,
+**Then** Dependabot opens PRs automatically on a weekly schedule for npm packages in `storieviola-it/` and for GitHub Actions in `.github/workflows/`.
+**And** PRs target the `main` branch.
+**And** Dependabot is confirmed active in GitHub → Insights → Dependency graph → Dependabot tab.
+
+### Story 6.2: Hide episodes from the public list
+
+As a **creator**,
+I want **to mark an episode as `hidden: true` in its frontmatter**,
+So that **I can keep an episode invisible on the site without deleting it**.
+
+**Acceptance Criteria:**
+
+**Given** an episode file with `hidden: true` in its frontmatter,
+**When** the homepage renders,
+**Then** that episode does not appear in the list, tag filter, or anywhere on the site.
+
+**Given** an episode file with `hidden: false` or no `hidden` field,
+**When** the homepage renders,
+**Then** the episode appears normally — no change to existing behaviour.
+
+**And** the `hidden` field is optional in the schema (boolean); omitting it is equivalent to `false`.
+**And** the build fails if `hidden` is present but is not a boolean.
+
+### Story 6.3: Replace "featured" tag with a boolean field
+
+As a **creator**,
+I want **a `featured: true/false` field on episodes instead of a "featured" tag**,
+So that **featured episodes float to the top of the list without "featured" cluttering the tag filter UI**.
+
+**Acceptance Criteria:**
+
+**Given** an episode with `featured: true`,
+**When** the homepage renders,
+**Then** that episode appears above all non-featured episodes, with featured episodes sorted by date descending among themselves, followed by non-featured episodes sorted by date descending.
+
+**Given** an episode with `featured: false` or no `featured` field,
+**When** the homepage renders,
+**Then** the episode appears in normal date-sorted order after all featured episodes.
+
+**And** the `featured` field is optional in the schema (boolean); omitting it is equivalent to `false`.
+**And** the build fails if `featured` is present but not a boolean.
+**And** "featured" no longer appears as a button in the tag filter strip.
+**And** the `tags` array on any episode is rendered and filtered as-is — no special handling for a "featured" string in tags.
+
+---
+
+## Epic 7: Episode pages, transcripts, and licensing
+
+Visitors can open a dedicated page for each episode and read the story transcript; the site clearly states its copyright terms through a dedicated license page linked from the header and from every episode page.
+
+### Story 7.1: Episode detail page with transcript
+
+As a **visitor**,
+I want **to open a dedicated page for each episode where I can read the story transcript**,
+So that **I can read a story aloud to my child even when we are not near a speaker**.
+
+**Acceptance Criteria:**
+
+**Given** an episode file with a `slug` field in its frontmatter,
+**When** I open `/episodes/[slug]`,
+**Then** the page renders with the episode's cover image, title, description, and — if present — a "Ascolta su Spotify" CTA button linking to the episode's `spotifyUrl`.
+**And** if the episode file has a markdown body (transcript), it is rendered below the episode metadata.
+**And** if neither `spotifyUrl` nor a non-empty markdown body is present the build fails with a clear validation error (at least one must be provided).
+
+**Given** an episode card on the homepage,
+**When** I click the episode title or a "Leggi la storia" link on the card,
+**Then** I am taken to `/episodes/[slug]` for that episode.
+
+**And** the `slug` field is a required string in the episode schema (replaces the auto-derived filename slug).
+**And** `spotifyUrl` becomes optional in the schema (previously required).
+**And** the episode detail page uses the same `BaseLayout` and `Header` as the rest of the site.
+**And** the page has appropriate `<title>` and `<meta name="description">` tags (episode title + site name).
+**And** a license notice appears at the bottom of every episode page (see Story 7.2).
+**And** unit tests cover the updated schema (slug required, spotifyUrl optional, body-or-url validation).
+**And** at least one E2E test navigates from the homepage to an episode detail page and verifies the transcript renders.
+
+### Story 7.2: License page and "© Diritti" nav link
+
+As a **visitor**,
+I want **to know what I can and cannot do with the stories on this site**,
+So that **I understand that the content is protected and I need the author's permission to reuse it**.
+
+**Acceptance Criteria:**
+
+**Given** the site header,
+**When** I view any page,
+**Then** the header nav shows a "© Diritti" link that takes me to `/licenza`.
+
+**Given** the `/licenza` page,
+**When** I open it,
+**Then** the page displays a clear All Rights Reserved copyright notice that:
+- States that all stories on Storie Viola are the exclusive property of Filippo De Santis.
+- States that reproduction, redistribution, or use in any form requires prior written agreement with the author.
+- Provides a contact method (e.g. email link or reference to contact channel) for licensing requests.
+- Is written in Italian.
+**And** the page uses the same `BaseLayout` and `Header` as the rest of the site.
+**And** the page has appropriate `<title>` and `<meta name="description">` tags.
+
+**Given** any episode detail page (Story 7.1),
+**When** I reach the bottom of the page,
+**Then** a compact license footer block displays: "© [year] Filippo De Santis — Tutti i diritti riservati." with a link to `/licenza` labelled "Dettagli sulla licenza".
+**And** the license footer is a reusable component or include so it stays consistent across all episode pages.
