@@ -71,3 +71,9 @@ development_status:
   5-4-favicon-and-browser-icons: review
   5-5-main-logo-in-header: review
   epic-5-retrospective: optional
+
+  epic-6: in-progress
+  6-1-enable-dependabot-for-automated-dependency-updates: done
+  6-2-hide-episodes-from-the-public-list: done
+  6-3-replace-featured-tag-with-a-boolean-field: done
+  epic-6-retrospective: optional

@@ -10,6 +10,8 @@ export const episodeEntrySchema = z.object({
   spotifyUrl: z.string(),
   publishDate: z.coerce.date(),
   tags: z.array(z.string()),
+  hidden: z.boolean().optional(),
+  featured: z.boolean().optional(),
 });
 
 export const aboutEntrySchema = z.object({}).optional();

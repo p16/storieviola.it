@@ -14,6 +14,8 @@ function fakeEpisode(
     spotifyUrl: string;
     publishDate: Date;
     tags: string[];
+    featured?: boolean;
+    hidden?: boolean;
   },
 ): CollectionEntry<'episodes'> {
   return {
@@ -41,7 +43,8 @@ describe('sortEpisodesForPreview', () => {
       cover: '/x',
       spotifyUrl: 'https://open.spotify.com/episode/b',
       publishDate: new Date('2026-01-01'),
-      tags: ['featured'],
+      tags: [],
+      featured: true,
     });
     const sorted = sortEpisodesForPreview([a, b]);
     expect(sorted[0].id).toBe('b');
@@ -66,6 +69,29 @@ describe('sortEpisodesForPreview', () => {
     });
     const sorted = sortEpisodesForPreview([older, newer]);
     expect(sorted[0].id).toBe('new');
+  });
+
+  it('does not treat featured tag string as featured flag', () => {
+    const withTag = fakeEpisode('tagged', {
+      title: 'Tagged',
+      description: '',
+      cover: '/x',
+      spotifyUrl: 'https://open.spotify.com/episode/t',
+      publishDate: new Date('2026-01-01'),
+      tags: ['featured'],
+    });
+    const withFlag = fakeEpisode('flagged', {
+      title: 'Flagged',
+      description: '',
+      cover: '/x',
+      spotifyUrl: 'https://open.spotify.com/episode/f',
+      publishDate: new Date('2026-01-01'),
+      tags: [],
+      featured: true,
+    });
+    const sorted = sortEpisodesForPreview([withTag, withFlag]);
+    // flagged (boolean featured) comes before tagged (tag only)
+    expect(sorted[0].id).toBe('flagged');
   });
 });
 
