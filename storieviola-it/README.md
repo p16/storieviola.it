@@ -1,43 +1,58 @@
-# Astro Starter Kit: Minimal
+# storieviola.it - Web App
 
-```sh
-npm create astro@latest -- --template minimal
+This folder contains the Astro application for `storieviola.it`.
+
+For BMAD planning and implementation artifacts, see the repository root `README.md` and the `_bmad-output/` folder.
+
+## Tech stack
+
+- Astro 6
+- Tailwind CSS 4
+- Vitest (unit tests)
+- Playwright + axe-core (E2E and accessibility checks)
+
+## Requirements
+
+- Node.js `>= 22.12.0`
+- npm
+
+## Local development
+
+Run commands from this folder (`storieviola-it/`):
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Astro starts a local server, usually at `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Scripts
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command | Purpose |
+| :--- | :--- |
+| `npm run dev` | Start local development server |
+| `npm run build` | Build production output |
+| `npm run preview` | Preview production build locally |
+| `npm run astro -- --help` | Show Astro CLI help |
+| `npm run validate:about` | Build and validate about content |
+| `npm run test:unit` | Run Vitest unit tests |
+| `npm run test:e2e` | Run Playwright E2E tests |
+| `npm run test` | Run full test suite (`unit + e2e`) |
+
+## Application structure
 
 ```text
-/
-├── public/
+storieviola-it/
+├── public/                # Static assets
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/        # UI components
+│   ├── content/           # Content collections (episodes/about)
+│   ├── layouts/           # Page layouts
+│   ├── lib/               # Utilities and helpers
+│   └── pages/             # Routes (home, about, etc.)
+├── tests/
+│   ├── unit/              # Unit tests
+│   └── e2e/               # End-to-end tests
 └── package.json
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
