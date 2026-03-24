@@ -83,6 +83,7 @@ const homepageDescription =
             {sortedEpisodes.map((episode) => (
               <EpisodeCard
                 title={episode.data.title}
+                slug={episode.data.slug}
                 description={episode.data.description}
                 cover={episode.data.cover}
                 spotifyUrl={episode.data.spotifyUrl}

@@ -5,6 +5,7 @@ describe('episodeEntrySchema', () => {
   it('accepts a valid episode frontmatter object', () => {
     const parsed = episodeEntrySchema.parse({
       title: 'Test',
+      slug: 'test-slug',
       description: 'Desc',
       cover: '/episodes/x.jpg',
       spotifyUrl: 'https://open.spotify.com/episode/abc',
@@ -16,7 +17,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts hidden: true', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [], hidden: true,
     });
     expect(parsed.hidden).toBe(true);
@@ -24,7 +25,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts hidden: false', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [], hidden: false,
     });
     expect(parsed.hidden).toBe(false);
@@ -32,7 +33,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts omitted hidden (optional)', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [],
     });
     expect(parsed.hidden).toBeUndefined();
@@ -41,7 +42,7 @@ describe('episodeEntrySchema', () => {
   it('rejects hidden as a non-boolean', () => {
     expect(() =>
       episodeEntrySchema.parse({
-        title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+        title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
         publishDate: new Date('2026-01-01'), tags: [], hidden: 'yes',
       })
     ).toThrow();
@@ -49,7 +50,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts featured: true', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [], featured: true,
     });
     expect(parsed.featured).toBe(true);
@@ -57,7 +58,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts featured: false', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [], featured: false,
     });
     expect(parsed.featured).toBe(false);
@@ -65,7 +66,7 @@ describe('episodeEntrySchema', () => {
 
   it('accepts omitted featured (optional)', () => {
     const parsed = episodeEntrySchema.parse({
-      title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+      title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
       publishDate: new Date('2026-01-01'), tags: [],
     });
     expect(parsed.featured).toBeUndefined();
@@ -74,8 +75,48 @@ describe('episodeEntrySchema', () => {
   it('rejects featured as non-boolean', () => {
     expect(() =>
       episodeEntrySchema.parse({
-        title: 'T', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
+        title: 'T', slug: 't', description: 'D', cover: '/x', spotifyUrl: 'https://open.spotify.com/episode/x',
         publishDate: new Date('2026-01-01'), tags: [], featured: 'yes',
+      })
+    ).toThrow();
+  });
+
+  it('accepts omitted spotifyUrl when transcript body exists', () => {
+    const parsed = episodeEntrySchema.parse({
+      title: 'T',
+      slug: 't',
+      description: 'D',
+      cover: '/x',
+      publishDate: new Date('2026-01-01'),
+      tags: [],
+      body: 'Once upon a time',
+    });
+    expect(parsed.spotifyUrl).toBeUndefined();
+  });
+
+  it('rejects when both spotifyUrl and body are missing/empty', () => {
+    expect(() =>
+      episodeEntrySchema.parse({
+        title: 'T',
+        slug: 't',
+        description: 'D',
+        cover: '/x',
+        publishDate: new Date('2026-01-01'),
+        tags: [],
+      })
+    ).toThrow(/spotifyUrl or a non-empty markdown body/i);
+  });
+
+  it('rejects empty slug', () => {
+    expect(() =>
+      episodeEntrySchema.parse({
+        title: 'T',
+        slug: '',
+        description: 'D',
+        cover: '/x',
+        spotifyUrl: 'https://open.spotify.com/episode/x',
+        publishDate: new Date('2026-01-01'),
+        tags: [],
       })
     ).toThrow();
   });

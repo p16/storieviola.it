@@ -1,5 +1,6 @@
 ---
 title: La gazza
+slug: la-gazza
 description: Una dolce storia di amicizia tra Viola e una curiosa gazza affascinata dalle cose brillanti.
 cover: /episodes/002-la-gazza.png
 spotifyUrl: https://open.spotify.com/episode/4v5vj6AyWwf409ip0bRRt5?si=ab9d923390f841dc

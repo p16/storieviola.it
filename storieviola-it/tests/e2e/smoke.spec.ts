@@ -64,6 +64,17 @@ test.describe('Homepage', () => {
     );
     expect(serious, JSON.stringify(serious, null, 2)).toHaveLength(0);
   });
+
+  test('can navigate to an episode detail and read transcript', async ({ page }) => {
+    await page.goto('/');
+    const readLink = page.getByRole('link', { name: 'Leggi la storia' }).first();
+    await expect(readLink).toBeVisible();
+    await readLink.click();
+
+    await expect(page).toHaveURL(/\/episodes\/.+/);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.getByText(/This file ensures the episodes collection/i)).toBeVisible();
+  });
 });
 
 test.describe('About', () => {
@@ -81,5 +92,27 @@ test.describe('About', () => {
       (v) => v.impact === 'serious' || v.impact === 'critical',
     );
     expect(serious, JSON.stringify(serious, null, 2)).toHaveLength(0);
+  });
+});
+
+test.describe('Licenza and legal links', () => {
+  test('header shows © Diritti and licenza page renders legal copy', async ({ page }) => {
+    await page.goto('/');
+    const rightsLink = page.getByRole('link', { name: '© Diritti' });
+    await expect(rightsLink).toBeVisible();
+    await rightsLink.click();
+
+    await expect(page).toHaveURL('/licenza');
+    await expect(page.getByRole('heading', { name: 'Licenza contenuti' })).toBeVisible();
+    await expect(page.getByText(/Tutti i diritti riservati/i)).toBeVisible();
+  });
+
+  test('episode detail shows compact license notice', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('link', { name: 'Leggi la storia' }).first().click();
+
+    const noticeLink = page.getByRole('link', { name: 'Dettagli sulla licenza' });
+    await expect(noticeLink).toBeVisible();
+    await expect(noticeLink).toHaveAttribute('href', '/licenza');
   });
 });

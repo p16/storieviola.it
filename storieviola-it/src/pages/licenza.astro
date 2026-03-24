@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Licenza contenuti | Storie Viola"
+  description="Informazioni sui diritti d'autore delle storie di Storie Viola e sulle modalita di richiesta licenza."
+  canonicalPath="/licenza"
+>
+  <article class="mx-auto max-w-3xl px-4 py-8">
+    <h1 class="text-3xl font-bold text-foreground">Licenza contenuti</h1>
+    <p class="mt-4 text-base text-muted">
+      Tutti i contenuti pubblicati su Storie Viola sono protetti da diritto d'autore.
+      &copy; {new Date().getFullYear()} Filippo De Santis. Tutti i diritti riservati.
+    </p>
+    <p class="mt-4 text-base text-muted">
+      Non e consentita la copia, distribuzione, ripubblicazione, modifica o utilizzo commerciale
+      delle storie, dei testi, delle immagini o degli audio senza autorizzazione scritta
+      preventiva dell'autore.
+    </p>
+    <p class="mt-4 text-base text-muted">
+      Per richieste di licenza, collaborazioni o autorizzazioni all'uso, contatta l'autore tramite
+      il profilo ufficiale:
+      {' '}
+      <a
+        href="https://www.instagram.com/storieviola/"
+        rel="noopener noreferrer"
+        target="_blank"
+        class="font-semibold text-brand-800 underline decoration-brand-400 underline-offset-2 hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        @storieviola
+      </a>
+      .
+    </p>
+  </article>
+</BaseLayout>

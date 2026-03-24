@@ -1,0 +1,26 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<section
+  aria-label="Licenza contenuti"
+  class:list={[
+    'rounded-lg border border-border bg-surface text-muted',
+    compact ? 'px-4 py-3 text-sm' : 'px-5 py-4 text-base',
+  ]}
+>
+  <p>
+    &copy; {year} Filippo De Santis — Tutti i diritti riservati.{' '}
+    <a
+      href="/licenza"
+      class="font-semibold text-brand-800 underline decoration-brand-400 underline-offset-2 hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    >
+      Dettagli sulla licenza
+    </a>
+  </p>
+</section>

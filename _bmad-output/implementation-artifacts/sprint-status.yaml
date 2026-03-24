@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: "2026-03-16"
-last_updated: "2026-03-21"  # updated by create-story for 6.1
+last_updated: "2026-03-24"  # updated by create-story for 7.1 and 7.2
 project: storieviola.it
 project_key: NOKEY
 tracking_system: file-system
@@ -78,7 +78,7 @@ development_status:
   6-3-replace-featured-tag-with-a-boolean-field: done
   epic-6-retrospective: optional
 
-  epic-7: backlog
-  7-1-episode-detail-page-with-transcript: backlog
-  7-2-license-page-and-diritti-nav-link: backlog
+  epic-7: in-progress
+  7-1-episode-detail-page-with-transcript: ready-for-dev
+  7-2-license-page-and-diritti-nav-link: ready-for-dev
   epic-7-retrospective: optional

@@ -1,10 +1,10 @@
 ---
 title: Il pupazzo di neve di Viola
+slug: il-pupazzo-di-neve-di-viola
 description: Viola e il suo pupazzo di neve dal naso di carota misteriosamente scomparso. Tra indizi sulla neve e piccoli esperimenti, la bambina scopre chi sono i veri “colpevoli”.
 cover: /episodes/003.png
 spotifyUrl: https://open.spotify.com/episode/36agrWCZRvzwgOTOru86VF?si=0342422e4e0840d6
 publishDate: 2026-03-11
-featured: true
 tags:
   - viola
 ---
