@@ -4,7 +4,7 @@ This repository contains the BMAD planning/implementation artifacts and the Astr
 
 ## What has been done with BMAD
 
-BMAD has already been used to drive the project from discovery to implementation planning and story execution:
+BMAD has been used to drive the project from discovery to implementation planning and story execution:
 
 - Product planning artifacts created in `_bmad-output/planning-artifacts/`:
   - `product-brief-storieviola.it-2026-03-14.md`
