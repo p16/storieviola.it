@@ -6,17 +6,7 @@ interface Props {
 }
 
 const { tags, initialTag } = Astro.props;
-
-const baseClass =
-  'inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-accent focus-visible:ring-offset-2';
-
-const selectedClass = 'bg-brand-200 border-brand-500 text-brand-950';
-const unselectedClass =
-  'border-brand-300 bg-surface text-brand-800 hover:bg-brand-50';
-
-function getButtonClass(active: boolean) {
-  return `${baseClass} ${active ? selectedClass : unselectedClass}`;
-}
+import { getTagFilterButtonClass } from '../lib/tagFilterStyles';
 ---
 
 <div data-tag-filter aria-label="Filtra episodi per tag" class="mt-3 md:mt-4">
@@ -26,7 +16,7 @@ function getButtonClass(active: boolean) {
       data-filter-button
       data-filter-tag="all"
       aria-pressed={initialTag === 'all' ? 'true' : 'false'}
-      class={getButtonClass(initialTag === 'all')}
+      class={getTagFilterButtonClass(initialTag === 'all')}
     >
       Tutti
     </button>
@@ -37,7 +27,7 @@ function getButtonClass(active: boolean) {
         data-filter-button
         data-filter-tag={tag}
         aria-pressed={initialTag === tag ? 'true' : 'false'}
-        class={getButtonClass(initialTag === tag)}
+        class={getTagFilterButtonClass(initialTag === tag)}
         key={tag}
       >
         {tag}

@@ -37,7 +37,7 @@ This is a mono-repo style structure where the actual website code is in the `sto
 
 Requirements:
 
-- Node.js `>= 22.12.0`
+- Node.js `>= 24.0.0`
 - npm
 
 Commands:

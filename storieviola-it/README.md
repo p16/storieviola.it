@@ -13,7 +13,7 @@ For BMAD planning and implementation artifacts, see the repository root `README.
 
 ## Requirements
 
-- Node.js `>= 22.12.0`
+- Node.js `>= 24.0.0`
 - npm
 
 ## Local development

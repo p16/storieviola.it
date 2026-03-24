@@ -12,10 +12,11 @@ interface Props {
 }
 
 const { title, description, cover, spotifyUrl, tags } = Astro.props;
+import { normalizeTags } from '../lib/tagFiltering';
 
 // Normalize tag values so `data-tags` remains stable for filtering (e.g. remove accidental whitespace).
-const normalizedTags = tags.map((t) => t.trim()).filter(Boolean);
-const dataTags = normalizedTags.join(',');
+const normalizedTags = normalizeTags(tags);
+const tagsString = normalizedTags.join(',');
 
 /** Match Hero.astro Spotify CTA focus (UX-DR10 / UX-DR11). */
 const focusCta =
@@ -23,7 +24,7 @@ const focusCta =
 ---
 
 <li
-  data-tags={dataTags}
+  data-tags={tagsString}
   class="flex flex-row gap-3 rounded-lg border border-border-subtle bg-surface p-3 shadow-sm md:flex-col md:overflow-hidden md:p-0"
 >
   <img

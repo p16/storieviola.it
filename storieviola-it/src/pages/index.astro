@@ -6,6 +6,7 @@ import TagFilter from '../components/TagFilter.astro';
 import { getCollection } from 'astro:content';
 import { getSpotifyShowUrl } from '../lib/site';
 import { sortEpisodesForPreview } from '../lib/sortEpisodes';
+import { getUniqueFilterTags, normalizeTags } from '../lib/tagFiltering';
 
 const allEpisodes = await getCollection('episodes');
 const visibleEpisodes = allEpisodes.filter((ep) => !ep.data.hidden);
@@ -15,13 +16,7 @@ const podcastSpotifyUrl = getSpotifyShowUrl();
 
 const normalizedTags = visibleEpisodes
   .flatMap((ep) => ep.data.tags ?? [])
-  .map((t) => t.trim())
-  .filter(Boolean)
-  .map((t) => t.toLowerCase());
-
-const uniqueTags = Array.from(new Set(normalizedTags))
-  .filter((t) => t !== 'featured')
-  .sort((a, b) => a.localeCompare(b));
+const uniqueTags = getUniqueFilterTags(normalizeTags(normalizedTags));
 
 const homepageDescription =
   'Storie originali per bambini, da ascoltare la sera, in viaggio o ogni volta che c\'è voglia di fantasia.';
@@ -97,90 +92,8 @@ const homepageDescription =
           </ul>
 
           <script>
-            document.addEventListener('DOMContentLoaded', () => {
-              const filterRoot = document.querySelector('[data-tag-filter]');
-              if (!filterRoot) return;
-
-              const buttons = Array.from(
-                filterRoot.querySelectorAll('[data-filter-button]'),
-              );
-              const list = document.querySelector('[data-episodes-list]');
-              const items = list
-                ? Array.from(list.querySelectorAll('[data-tags]'))
-                : [];
-              const emptyState = document.querySelector('[data-episodes-empty]');
-              const clearButton = emptyState?.querySelector(
-                '[data-clear-filter]',
-              );
-
-              const selectedInitial =
-                buttons.find((b) => b.getAttribute('aria-pressed') === 'true') ??
-                buttons[0];
-              let selectedTag = selectedInitial?.getAttribute('data-filter-tag') ?? 'all';
-
-              function applyFilter(tag) {
-                const tagLower = tag.toLowerCase();
-                let matchCount = 0;
-
-                items.forEach((li) => {
-                  const dataTags = li.getAttribute('data-tags') ?? '';
-                  const liTags = dataTags
-                    .split(',')
-                    .map((t) => t.trim().toLowerCase())
-                    .filter(Boolean);
-
-                  const matches = tagLower === 'all' ? true : liTags.includes(tagLower);
-                  li.hidden = !matches;
-                  if (matches) matchCount += 1;
-                });
-
-                if (emptyState) emptyState.hidden = matchCount > 0;
-              }
-
-              function setSelectedUi(nextTag) {
-                buttons.forEach((btn) => {
-                  const tag = btn.getAttribute('data-filter-tag') ?? 'all';
-                  const active = tag.toLowerCase() === nextTag.toLowerCase();
-                  btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-
-                  // Keep classes in sync with TagFilter.astro.
-                  btn.classList.toggle('bg-brand-200', active);
-                  btn.classList.toggle('border-brand-500', active);
-                  btn.classList.toggle('text-brand-950', active);
-
-                  btn.classList.toggle('bg-surface', !active);
-                  btn.classList.toggle('border-brand-300', !active);
-                  btn.classList.toggle('text-brand-800', !active);
-                });
-
-                // clearButton lives outside filterRoot, update it separately.
-                if (clearButton) {
-                  clearButton.setAttribute('aria-pressed', nextTag.toLowerCase() === 'all' ? 'true' : 'false');
-                }
-              }
-
-              // Initial paint based on server-side `aria-pressed`.
-              setSelectedUi(selectedTag);
-              applyFilter(selectedTag);
-
-              if (clearButton) {
-                clearButton.addEventListener('click', () => {
-                  selectedTag = 'all';
-                  setSelectedUi(selectedTag);
-                  applyFilter(selectedTag);
-                });
-              }
-
-              buttons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                  const nextTag =
-                    btn.getAttribute('data-filter-tag') ?? 'all';
-                  selectedTag = nextTag;
-                  setSelectedUi(selectedTag);
-                  applyFilter(selectedTag);
-                });
-              });
-            });
+            import { initTagFilter } from '../lib/tagFilterClient';
+            initTagFilter();
           </script>
         </>
       )
