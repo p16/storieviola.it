@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+/** Vertical stacking tolerance (px) for subpixel / DPR in grid layout checks */
+const EPISODE_STACK_Y_TOLERANCE = 8;
+
 test.describe('Homepage', () => {
   test('loads with title and main heading', async ({ page }) => {
     await page.goto('/');
@@ -34,25 +37,31 @@ test.describe('Homepage', () => {
     await page.setViewportSize({ width: 375, height: 900 });
     await page.goto('/');
     const list = page.locator('[data-episodes-list]');
-    if ((await list.count()) === 0) return;
+    await expect(list).toHaveCount(1);
+    const itemCount = await list.locator(':scope > li').count();
+    test.skip(itemCount < 2, 'Need at least 2 published episodes to assert vertical stacking');
+
     await expect(list).toHaveClass(/grid-cols-1/);
     const first = list.locator(':scope > li').first();
     const second = list.locator(':scope > li').nth(1);
-    if ((await second.count()) === 0) return;
     const box0 = await first.boundingBox();
     const box1 = await second.boundingBox();
     expect(box0 && box1).toBeTruthy();
-    expect(box1!.y).toBeGreaterThanOrEqual(box0!.y + box0!.height - 2);
+    expect(box1!.y).toBeGreaterThanOrEqual(
+      box0!.y + box0!.height - EPISODE_STACK_Y_TOLERANCE,
+    );
   });
 
   test('episode list uses four columns at xl (1280px)', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
     const list = page.locator('[data-episodes-list]');
-    if ((await list.count()) === 0) return;
+    await expect(list).toHaveCount(1);
     await expect(list).toHaveClass(/xl:grid-cols-4/);
     const items = list.locator(':scope > li');
-    if ((await items.count()) < 4) return;
+    const itemCount = await items.count();
+    test.skip(itemCount < 4, 'Need at least 4 published episodes to assert first-row column alignment');
+
     const tops = await items.evaluateAll((els) =>
       els.slice(0, 4).map((el) => el.getBoundingClientRect().top),
     );
@@ -70,10 +79,7 @@ test.describe('Homepage', () => {
   test('tag filter toggles selection', async ({ page }) => {
     await page.goto('/');
     const filter = page.locator('[data-tag-filter]');
-    if (!(await filter.isVisible())) {
-      test.skip();
-      return;
-    }
+    test.skip(!(await filter.isVisible()), 'Tag filter not visible on this viewport');
     await expect(page.getByRole('button', { name: 'Tutti' })).toHaveAttribute(
       'aria-pressed',
       'true',
@@ -81,7 +87,7 @@ test.describe('Homepage', () => {
     const topic = page.locator(
       'button[data-filter-button][data-filter-tag]:not([data-filter-tag="all"]):not([data-filter-tag="featured"])',
     ).first();
-    if ((await topic.count()) === 0) return;
+    test.skip((await topic.count()) === 0, 'No non-all topic filter buttons in fixture');
     await topic.click();
     await expect(topic).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: 'Tutti' }).click();
@@ -173,7 +179,10 @@ test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
 
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
     const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
-    if ((await desktopSpotify.count()) === 0) return;
+    test.skip(
+      (await desktopSpotify.count()) === 0,
+      'Opened episode has no spotifyUrl — cannot assert desktop vs mobile Spotify presentation',
+    );
     await expect(desktopSpotify).toBeVisible();
     await expect(mobileSpotify).toBeHidden();
     await expect(desktopSpotify).not.toHaveClass(/bg-cta/);
@@ -192,7 +201,10 @@ test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
     await expect(back).toBeFocused();
 
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
-    if ((await desktopSpotify.count()) === 0) return;
+    test.skip(
+      (await desktopSpotify.count()) === 0,
+      'Opened episode has no spotifyUrl — cannot assert desktop Spotify focus ring',
+    );
     await desktopSpotify.evaluate((el) => (el as HTMLElement).focus());
     await expect(desktopSpotify).toBeFocused();
   });
@@ -223,16 +235,18 @@ test.describe('Episode detail mobile short hero (Story 8.3)', () => {
     await expect(page.getByRole('button', { name: /continua a leggere/i })).toHaveCount(0);
     await expect(page.getByRole('link', { name: /continua a leggere/i })).toHaveCount(0);
 
+    await expect(page.locator('#storia[data-episode-transcript]')).toBeVisible();
+
     const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
-    if ((await mobileSpotify.count()) > 0) {
-      await expect(mobileSpotify).toBeVisible();
-      await expect(desktopSpotify).toBeHidden();
-      await expect(mobileSpotify).toHaveClass(/w-full/);
-      await expect(mobileSpotify).toHaveClass(/bg-cta/);
-    }
-
-    await expect(page.locator('#storia[data-episode-transcript]')).toBeVisible();
+    test.skip(
+      (await mobileSpotify.count()) === 0,
+      'Opened episode has no spotifyUrl — cannot assert mobile full-width listen CTA',
+    );
+    await expect(mobileSpotify).toBeVisible();
+    await expect(desktopSpotify).toBeHidden();
+    await expect(mobileSpotify).toHaveClass(/w-full/);
+    await expect(mobileSpotify).toHaveClass(/bg-cta/);
   });
 });
 

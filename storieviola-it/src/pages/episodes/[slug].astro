@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LicenseNotice from '../../components/LicenseNotice.astro';
+import { focusCta, focusTextLink } from '../../lib/focusStyles';
 
 export async function getStaticPaths() {
   const episodes = await getCollection('episodes');
@@ -19,13 +20,6 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
-
-/** EpisodeCard Spotify CTA — full button (mobile detail, list cards). */
-const focusCta =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta';
-/** Text / title link focus — desktop Spotify + back link (Story 8.2). */
-const focusLink =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 ---
 
 <BaseLayout
@@ -42,7 +36,7 @@ const focusLink =
         data-back-to-episodes
         class:list={[
           'inline-flex min-h-11 min-w-[44px] items-center gap-1 rounded-sm text-sm font-semibold text-brand-800 transition hover:text-brand-700',
-          focusLink,
+          focusTextLink,
         ]}
       >
         <span aria-hidden="true">←</span>
@@ -76,7 +70,7 @@ const focusLink =
                     data-detail-spotify-desktop
                     class:list={[
                       'inline-flex min-h-11 min-w-[44px] items-center rounded-sm text-sm font-semibold text-brand-800 underline decoration-brand-400 underline-offset-4 transition hover:text-brand-700 hover:decoration-brand-600',
-                      focusLink,
+                      focusTextLink,
                     ]}
                   >
                     Ascolta su Spotify

@@ -1,8 +1,11 @@
 ---
+import { focusCta, focusPrimaryCta, focusTextLink } from '../lib/focusStyles';
+
 /**
  * Episode list item: row layout below md, card-style column from md (768px).
  * Slightly tighter cover/padding from xl so four-column grid stays readable (Story 8.1).
- * Links: cover image + title + full-width stacked "Leggi la storia" / optional "Ascolta su Spotify" in the card body.
+ * Episode navigation: linked title + full-width "Leggi la storia"; cover is decorative (alt="").
+ * Optional "Ascolta su Spotify" when `spotifyUrl` is set.
  * Root is <li> with data-tags for Story 2.4.
  */
 interface Props {
@@ -20,26 +23,15 @@ import { normalizeTags } from '../lib/tagFiltering';
 // Normalize tag values so `data-tags` remains stable for filtering (e.g. remove accidental whitespace).
 const normalizedTags = normalizeTags(tags);
 const tagsString = normalizedTags.join(',');
-
-/** Match Hero.astro Spotify CTA focus (UX-DR10 / UX-DR11). */
-const focusCta =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta';
-/** Title / cover link focus — same as title `<a>` in card body. */
-const focusEpisodeLink =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 ---
 
 <li
   data-tags={tagsString}
   class="flex flex-row gap-3 rounded-lg border border-border-subtle bg-surface p-3 shadow-sm md:flex-col md:overflow-hidden md:p-0"
 >
-  <a
-    href={`/episodes/${slug}`}
-    aria-label={`Leggi la storia: ${title}`}
-    class:list={[
-      'block shrink-0 overflow-hidden rounded-md outline-none transition hover:opacity-90 md:w-full md:rounded-none md:rounded-t-lg',
-      focusEpisodeLink,
-    ]}
+  <div
+    class="shrink-0 overflow-hidden rounded-md md:w-full md:rounded-none md:rounded-t-lg"
+    aria-hidden="true"
   >
     <img
       src={cover}
@@ -49,12 +41,12 @@ const focusEpisodeLink =
       class="h-12 w-12 object-cover md:h-40 md:w-full xl:h-36"
       loading="lazy"
     />
-  </a>
+  </div>
   <div class="flex min-w-0 flex-1 flex-col md:p-4 xl:p-3">
     <h3 class="text-base font-semibold text-foreground">
       <a
         href={`/episodes/${slug}`}
-        class:list={['rounded-sm transition hover:text-brand-700', focusEpisodeLink]}
+        class:list={['rounded-sm transition hover:text-brand-700', focusTextLink]}
       >
         {title}
       </a>
@@ -82,7 +74,10 @@ const focusEpisodeLink =
     <div class="mt-3 md:mt-auto md:pt-3 flex w-full min-w-0 flex-col gap-3">
       <a
         href={`/episodes/${slug}`}
-        class="inline-flex min-h-11 w-full min-w-0 items-center justify-center rounded-xl border border-brand-300 bg-surface px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-accent focus-visible:ring-offset-2"
+        class:list={[
+          'inline-flex min-h-11 w-full min-w-0 items-center justify-center rounded-xl border border-brand-300 bg-surface px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:bg-brand-50',
+          focusPrimaryCta,
+        ]}
       >
         Leggi la storia
       </a>

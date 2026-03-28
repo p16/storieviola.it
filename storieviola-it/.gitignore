@@ -1,3 +1,7 @@
 dist
 node_modules
 .astro
+
+# Playwright (local runs — do not commit)
+test-results/
+playwright-report/

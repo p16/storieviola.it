@@ -1,4 +1,6 @@
 ---
+import { focusCta } from '../lib/focusStyles';
+
 /**
  * Compact hero: Direction C (stacked, centred) by default; Direction B (horizontal bar) from md (768px).
  * Single <h1> for the podcast title; optional one podcast-level CTA.
@@ -14,10 +16,6 @@ interface Props {
 }
 
 const { imageSrc, imageAlt, title, intro, ctaHref, ctaLabel } = Astro.props;
-
-/** High contrast on Spotify green (UX-DR10). */
-const focusCta =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta';
 ---
 
 <section class="border-b border-border bg-surface" aria-labelledby="hero-title">
