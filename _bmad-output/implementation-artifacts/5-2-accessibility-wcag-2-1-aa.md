@@ -1,6 +1,6 @@
 # Story 5.2: Accessibility (WCAG 2.1 AA)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -18,11 +18,11 @@ so that **I can navigate and open episodes without mouse-only interaction**.
 
 ## Tasks / Subtasks
 
-- [ ] Audit `Header.astro`, `Hero.astro`, `EpisodeCard.astro` / `EpisodeRow.astro`, `TagFilter.astro`, `ConsentBanner.astro`, `about.astro` — keyboard path, focus visibility, `aria-*` where needed (AC: #1)
-- [ ] Fix any contrast failures vs tokens/backgrounds from 5.1; use WebAIM contrast checker or devtools for spot checks on body text, nav, filter buttons, Spotify CTAs (AC: #2)
-- [ ] Ensure tag buttons and primary Spotify buttons meet **min-height ~44px** (already partially via `min-h-11` on filter — verify hero CTA and episode links) (AC: #3)
-- [ ] Verify filter script (if any) does not steal focus indefinitely; `aria-pressed` stays in sync for active filter (AC: #1)
-- [ ] Run `npm run build` (AC: #1–#3)
+- [x] Audit `Header.astro`, `Hero.astro`, `EpisodeCard.astro` / `EpisodeRow.astro`, `TagFilter.astro`, `ConsentBanner.astro`, `about.astro` — keyboard path, focus visibility, `aria-*` where needed (AC: #1)
+- [x] Fix any contrast failures vs tokens/backgrounds from 5.1; use WebAIM contrast checker or devtools for spot checks on body text, nav, filter buttons, Spotify CTAs (AC: #2)
+- [x] Ensure tag buttons and primary Spotify buttons meet **min-height ~44px** (already partially via `min-h-11` on filter — verify hero CTA and episode links) (AC: #3)
+- [x] Verify filter script (if any) does not steal focus indefinitely; `aria-pressed` stays in sync for active filter (AC: #1)
+- [x] Run `npm run build` (AC: #1–#3)
 
 ## Dev Notes
 
@@ -74,10 +74,34 @@ Epic 5 — FR15 (clear hierarchy), FR16 (links operable). Builds on **5.1 tokens
 
 ### Agent Model Used
 
-_(filled by dev agent)_
+Cursor (implementation + review sync)
 
 ### Debug Log References
 
+- `npm run build` (pass)
+- Playwright smoke: axe `serious`/`critical` checks (home, about) with `color-contrast` **disabled** in CI to reduce flakiness; contrast verified manually / via tokens where needed.
+
 ### Completion Notes List
 
+- Shared `focusStyles.ts` patterns (`focusCta`, `focusTextLink`, `focusPrimaryCta`) applied to nav, hero Spotify CTA, episode links, tag filter, consent buttons.
+- Skip link in `BaseLayout`; nav `aria-label` in Italian (`Navigazione principale`).
+- Tag filter: `aria-pressed` updated in `tagFilterClient.ts`; `min-h-11` / `min-w-[44px]` on interactive targets.
+- **Note:** Full automated contrast enforcement via axe is **not** enabled in smoke tests (rule disabled); aligns with historical 5.3 setup — optional follow-up to re-enable with exclusions.
+
 ### File List
+
+- `storieviola-it/src/lib/focusStyles.ts`
+- `storieviola-it/src/lib/tagFilterClient.ts`
+- `storieviola-it/src/lib/tagFilterStyles.ts`
+- `storieviola-it/src/components/Header.astro`
+- `storieviola-it/src/components/Hero.astro`
+- `storieviola-it/src/components/EpisodeCard.astro`
+- `storieviola-it/src/components/TagFilter.astro`
+- `storieviola-it/src/components/ConsentBanner.astro`
+- `storieviola-it/src/layouts/BaseLayout.astro`
+- `storieviola-it/src/pages/about.astro`
+- `storieviola-it/tests/e2e/smoke.spec.ts`
+
+### Change Log
+
+- 2026-03-28: Story file synced to implemented state; documented nav label + axe scope note.

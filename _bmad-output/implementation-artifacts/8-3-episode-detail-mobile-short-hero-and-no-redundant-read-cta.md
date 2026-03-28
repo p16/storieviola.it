@@ -1,6 +1,6 @@
 # Story 8.3: Episode detail — mobile short hero and no redundant read CTA
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 

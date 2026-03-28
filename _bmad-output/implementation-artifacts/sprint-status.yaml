@@ -55,18 +55,18 @@ development_status:
   2-4-tag-filter-component-and-client-side-filtering: done
   epic-2-retrospective: optional
 
-  epic-3: in-progress
-  3-1-about-page-and-about-content-block: review
+  epic-3: done
+  3-1-about-page-and-about-content-block: done
   epic-3-retrospective: optional
 
-  epic-4: in-progress
-  4-1-seo-meta-tags-and-stable-urls: review
-  4-2-ga4-analytics-with-consent: review
+  epic-4: done
+  4-1-seo-meta-tags-and-stable-urls: done
+  4-2-ga4-analytics-with-consent: done
   epic-4-retrospective: optional
 
-  epic-5: in-progress
-  5-1-design-tokens-and-responsive-behaviour: review
-  5-2-accessibility-wcag-2-1-aa: review
+  epic-5: done
+  5-1-design-tokens-and-responsive-behaviour: done
+  5-2-accessibility-wcag-2-1-aa: done
   5-3-automated-tests-vitest-and-playwright: done
   5-4-favicon-and-browser-icons: done
   5-5-main-logo-in-header: done

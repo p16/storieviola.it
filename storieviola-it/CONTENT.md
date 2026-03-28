@@ -86,6 +86,25 @@ If there are no episode files, the homepage shows a short empty state under “E
 
 Edit the same file in `src/content/episodes/`: change `title`, `slug`, `description`, `cover`, `spotifyUrl`, `publishDate`, `tags`, `hidden`, or `featured` as needed. Keep required fields and camelCase. Build to validate.
 
+## Design tokens (Tailwind v4 `@theme`)
+
+Single source of truth: `src/styles/global.css` inside `@theme { ... }`. Tailwind maps `--color-*` names to utilities (e.g. `--color-background` → `bg-background`, `text-foreground`).
+
+| Token prefix (CSS variable) | Typical utilities | Role |
+| -------------------------- | ------------------- | ---- |
+| `--color-background` | `bg-background` | Page backdrop |
+| `--color-foreground` | `text-foreground` | Primary text |
+| `--color-muted`, `--color-muted-strong` | `text-muted`, `text-muted-strong` | Secondary / tertiary text |
+| `--color-border`, `--color-border-subtle` | `border-border`, … | Dividers, card edges |
+| `--color-surface`, `--color-subtle` | `bg-surface`, `bg-subtle` | Cards, chips |
+| `--color-code-text` | `text-code-text` | Inline `code` |
+| `--color-ring`, `--color-ring-accent` | `ring-ring`, `ring-ring-accent` | Focus-visible rings |
+| `--color-brand` … `--color-brand-950` | `bg-brand-700`, `text-brand-800`, … | Violet accent / filters |
+| `--color-cta`, `--color-cta-hover` | `bg-cta`, `hover:bg-cta-hover` | Primary green CTA (Spotify, etc.) |
+| `--font-size-display`, `--font-size-display-md`, `--font-size-lead` | `text-[length:var(--font-size-display)]`, … | Hero / intro scale |
+
+**Breakpoint:** `md:` is the standard **768px** breakpoint (Tailwind default). Extend tokens only in `global.css` unless you intentionally split themes.
+
 ## Editing about content
 
 - **File:** `src/content/about/index.md`
@@ -95,5 +114,5 @@ Edit the same file in `src/content/episodes/`: change `title`, `slug`, `descript
 ## Validation
 
 - `npm run build` validates episode frontmatter and the rule above (Spotify and/or non-empty Markdown body). Missing or invalid required fields cause the build to fail with an error pointing to the file and field.
-- `npm run validate:about` runs a production build, then checks that the About page output includes the expected headings (see `src/lib/validate-about-content.mjs`).
+- `npm run validate:about` runs a production build, then checks that the About markdown and built HTML include the expected Italian section headings (*Origini*, *Come viene realizzato*) and that the empty-state fallback is not present (see `src/lib/validate-about-content.mjs`).
 - Do not remove required fields or use different field names (e.g. snake_case); the schema expects camelCase only.

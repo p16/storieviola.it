@@ -1,6 +1,6 @@
 # Story 7.1: Episode detail page with transcript
 
-Status: review
+Status: done
 
 ## Story
 

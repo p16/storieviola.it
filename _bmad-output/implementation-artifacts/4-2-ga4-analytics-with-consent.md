@@ -1,6 +1,6 @@
 # Story 4.2: GA4 analytics with consent
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 ## Story

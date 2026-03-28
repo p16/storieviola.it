@@ -24,12 +24,12 @@ function assert(condition, message) {
 // - ensures rendered output includes the required headings (build output)
 // - ensures fallback is not shown when content exists
 const md = readUtf8(mdPath);
-assert(/\bOrigin\b/i.test(md), 'about markdown must include an "Origin" heading');
-assert(/\bHow it[’']s made\b/i.test(md) || /\bHow it\s*is\s*made\b/i.test(md), 'about markdown must include a "How it\'s made" heading');
+assert(/\bOrigini\b/.test(md), 'about markdown must include an "Origini" heading');
+assert(/\bCome viene realizzato\b/i.test(md), 'about markdown must include a "Come viene realizzato" heading');
 
 const html = readUtf8(htmlPath);
-assert(/\bOrigin\b/i.test(html), 'about HTML must include "Origin" heading');
-assert(/How it[’']s made/i.test(html) || /How it\s*is\s*made/i.test(html), 'about HTML must include "How it\'s made" heading');
-assert(!/About content not found\./i.test(html), 'about HTML must not include fallback text when content exists');
+assert(/\bOrigini\b/.test(html), 'about HTML must include "Origini" heading');
+assert(/\bCome viene realizzato\b/i.test(html), 'about HTML must include "Come viene realizzato" heading');
+assert(!/Contenuto non trovato\./i.test(html), 'about HTML must not include fallback text when content exists');
 
 console.log('validate-about-content: OK');

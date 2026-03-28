@@ -1,6 +1,6 @@
 # Story 5.1: Design tokens and responsive behaviour
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -17,10 +17,10 @@ so that **the site feels clear and works on mobile and desktop**.
 
 ## Tasks / Subtasks
 
-- [ ] Introduce named tokens for core surfaces and brand (background, text, primary/accent, type steps, spacing) using Tailwind v4 `@theme` in `src/styles/global.css` or equivalent single source of truth (AC: #1)
-- [ ] Map existing gray/violet/green usage in components to tokens where practical without large visual drift; document token names in README or `CONTENT.md` (AC: #1)
-- [ ] Verify `md:` breakpoint remains 768px (Tailwind default); adjust Hero + episode section so first paint shows hero + ≥1–2 episode rows/cards on common mobile (375px) and desktop (1280px) — tune padding/typography if needed (AC: #2)
-- [ ] Run `npm run build` after changes (AC: #1–#2)
+- [x] Introduce named tokens for core surfaces and brand (background, text, primary/accent, type steps, spacing) using Tailwind v4 `@theme` in `src/styles/global.css` or equivalent single source of truth (AC: #1)
+- [x] Map existing gray/violet/green usage in components to tokens where practical without large visual drift; document token names in README or `CONTENT.md` (AC: #1)
+- [x] Verify `md:` breakpoint remains 768px (Tailwind default); adjust Hero + episode section so first paint shows hero + ≥1–2 episode rows/cards on common mobile (375px) and desktop (1280px) — tune padding/typography if needed (AC: #2)
+- [x] Run `npm run build` after changes (AC: #1–#2)
 
 ## Dev Notes
 
@@ -73,10 +73,30 @@ Recent work: Stories 3.1, 4.1, 4.2 (SEO, about, analytics). Patterns: Tailwind u
 
 ### Agent Model Used
 
-_(filled by dev agent)_
+Cursor (implementation + doc sync)
 
 ### Debug Log References
 
+- `npm run build` (pass)
+- Token names documented in `storieviola-it/CONTENT.md` (Design tokens section).
+
 ### Completion Notes List
 
+- `@theme` block in `global.css` defines surfaces, text, brand, CTA, focus rings, and display/lead type steps; components use semantic utilities (`bg-background`, `text-foreground`, `bg-cta`, etc.).
+- Responsive checks: `md:` at 768px; homepage grid `md:` / `xl:` covered by Playwright smoke tests; hero + episode list layout tuned for mobile-first.
+- `CONTENT.md` includes a design-token reference table (Story 5.1 AC).
+
 ### File List
+
+- `storieviola-it/src/styles/global.css`
+- `storieviola-it/src/layouts/BaseLayout.astro`
+- `storieviola-it/src/pages/index.astro`
+- `storieviola-it/src/components/Hero.astro`
+- `storieviola-it/src/components/EpisodeCard.astro`
+- `storieviola-it/src/components/TagFilter.astro`
+- `storieviola-it/src/components/Header.astro`
+- `storieviola-it/CONTENT.md`
+
+### Change Log
+
+- 2026-03-28: Story file synced to implemented state; `CONTENT.md` documents design tokens per review.

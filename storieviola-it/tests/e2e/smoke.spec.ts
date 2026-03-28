@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
+/** Matches `<nav aria-label>` in `Header.astro` (Italian UI). */
+const NAV_LABEL = 'Navigazione principale';
+
 /** Vertical stacking tolerance (px) for subpixel / DPR in grid layout checks */
 const EPISODE_STACK_Y_TOLERANCE = 8;
 
@@ -25,7 +28,7 @@ test.describe('Homepage', () => {
 
   test('header home link includes logo image', async ({ page }) => {
     await page.goto('/');
-    const home = page.getByRole('navigation', { name: 'Main' }).getByRole('link', {
+    const home = page.getByRole('navigation', { name: NAV_LABEL }).getByRole('link', {
       name: /Storie Viola/i,
     });
     await expect(home.locator('img')).toBeVisible();
@@ -238,9 +241,9 @@ test.describe('Episode detail mobile short hero (Story 8.3)', () => {
 });
 
 test.describe('About', () => {
-  test('loads with Origin heading', async ({ page }) => {
+  test('loads with Origini heading', async ({ page }) => {
     await page.goto('/about');
-    await expect(page.getByRole('heading', { name: 'Origin' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Origini' })).toBeVisible();
   });
 
   test('about passes axe (no serious/critical violations)', async ({ page }) => {

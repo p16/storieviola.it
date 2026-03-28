@@ -1,6 +1,6 @@
 # Story 7.2: License page and "© Diritti" nav link
 
-Status: review
+Status: done
 
 ## Story
 
