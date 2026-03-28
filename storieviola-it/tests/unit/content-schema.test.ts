@@ -94,6 +94,20 @@ describe('episodeEntrySchema', () => {
     expect(parsed.spotifyUrl).toBeUndefined();
   });
 
+  it('accepts omitted spotifyUrl when markdown file body is non-empty (loader flag)', () => {
+    const parsed = episodeEntrySchema.parse({
+      title: 'T',
+      slug: 't',
+      description: 'D',
+      cover: '/x',
+      publishDate: new Date('2026-01-01'),
+      tags: [],
+      __markdownBodyPresent: true,
+    });
+    expect(parsed.spotifyUrl).toBeUndefined();
+    expect(parsed).not.toHaveProperty('__markdownBodyPresent');
+  });
+
   it('rejects when both spotifyUrl and body are missing/empty', () => {
     expect(() =>
       episodeEntrySchema.parse({

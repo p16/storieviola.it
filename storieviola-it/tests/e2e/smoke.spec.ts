@@ -73,7 +73,26 @@ test.describe('Homepage', () => {
 
     await expect(page).toHaveURL(/\/episodes\/.+/);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.getByText(/This file ensures the episodes collection/i)).toBeVisible();
+    const transcript = page.locator('article .prose');
+    await expect(transcript).toBeVisible();
+    await expect((await transcript.innerText()).trim().length).toBeGreaterThan(20);
+  });
+
+  test('episode detail shows Spotify CTA only when episode lists spotifyUrl', async ({ page }) => {
+    await page.goto('/');
+    const card = page
+      .locator('[data-episodes-list] > li')
+      .filter({ has: page.getByRole('link', { name: 'Leggi la storia' }) })
+      .first();
+    const spotifyOnCard = card.getByRole('link', { name: /Ascolta su Spotify/ });
+    await expect(spotifyOnCard).toBeVisible();
+    const spotifyHref = await spotifyOnCard.getAttribute('href');
+    expect(spotifyHref).toMatch(/open\.spotify\.com/);
+
+    await card.getByRole('link', { name: 'Leggi la storia' }).click();
+    const spotifyOnDetail = page.getByRole('link', { name: 'Ascolta su Spotify' });
+    await expect(spotifyOnDetail).toBeVisible();
+    await expect(spotifyOnDetail).toHaveAttribute('href', spotifyHref!);
   });
 });
 

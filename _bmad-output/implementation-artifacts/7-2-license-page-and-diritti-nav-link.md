@@ -1,6 +1,6 @@
 # Story 7.2: License page and "© Diritti" nav link
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,21 +19,21 @@ so that **I understand that the content is protected and I need the author's per
 
 ## Tasks / Subtasks
 
-- [ ] Add global nav link (AC: 1)
-  - [ ] Update shared header component to include `/licenza` entry labelled "© Diritti"
-  - [ ] Ensure focus/keyboard states remain compliant
-- [ ] Create license page (AC: 2, 3)
-  - [ ] Add `src/pages/licenza.astro`
-  - [ ] Write Italian copyright content with ownership, restrictions, and contact channel
-  - [ ] Add SEO metadata (`title`, `description`)
-- [ ] Create reusable license notice block (AC: 4, 5)
-  - [ ] Add shared component/include (e.g. `src/components/LicenseNotice.astro`)
-  - [ ] Include current year and required copy/link
-- [ ] Integrate notice on episode detail page (AC: 4)
-  - [ ] Add component at bottom of `/episodes/[slug]` page from Story 7.1
-- [ ] Add tests/regression checks (AC: 1-5)
-  - [ ] E2E check for nav link visibility + `/licenza` route
-  - [ ] E2E check license notice appears on detail page
+- [x] Add global nav link (AC: 1)
+  - [x] Update shared header component to include `/licenza` entry labelled "© Diritti"
+  - [x] Ensure focus/keyboard states remain compliant
+- [x] Create license page (AC: 2, 3)
+  - [x] Add `src/pages/licenza.astro`
+  - [x] Write Italian copyright content with ownership, restrictions, and contact channel
+  - [x] Add SEO metadata (`title`, `description`)
+- [x] Create reusable license notice block (AC: 4, 5)
+  - [x] Add shared component/include (e.g. `src/components/LicenseNotice.astro`)
+  - [x] Include current year and required copy/link
+- [x] Integrate notice on episode detail page (AC: 4)
+  - [x] Add component at bottom of `/episodes/[slug]` page from Story 7.1
+- [x] Add tests/regression checks (AC: 1-5)
+  - [x] E2E check for nav link visibility + `/licenza` route
+  - [x] E2E check license notice appears on detail page
 
 ## Dev Notes
 
@@ -87,18 +87,22 @@ so that **I understand that the content is protected and I need the author's per
 
 ### Agent Model Used
 
-gpt-5.3-codex-low
+gpt-5.3-codex-low (story prep); housekeeping sync 2026-03-28 (Cursor agent)
 
 ### Debug Log References
 
-- N/A (story preparation stage)
+- N/A
 
 ### Completion Notes List
 
-- Story context generated to support direct implementation with minimal ambiguity.
-- Dependencies with Story 7.1 and reusable component strategy are explicit.
-- Story set to `ready-for-dev`.
+- Implementation present in repo: `Header.astro` nav link, `licenza.astro`, `LicenseNotice.astro`, compact notice on episode detail page, Playwright smoke tests for nav, `/licenza`, and footer notice.
+- Story status set to `review` pending optional `bmad-bmm-code-review` pass.
 
 ### File List
 
+- `storieviola-it/src/components/Header.astro`
+- `storieviola-it/src/pages/licenza.astro`
+- `storieviola-it/src/components/LicenseNotice.astro`
+- `storieviola-it/src/pages/episodes/[slug].astro`
+- `storieviola-it/tests/e2e/smoke.spec.ts`
 - `_bmad-output/implementation-artifacts/7-2-license-page-and-diritti-nav-link.md`

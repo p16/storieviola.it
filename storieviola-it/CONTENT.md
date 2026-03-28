@@ -10,11 +10,16 @@ How to add episodes and edit about content (FR1, FR2, FR6). All content is file-
    | Field           | Type     | Required | Description                                      |
    | --------------- | -------- | -------- | ------------------------------------------------ |
    | `title`         | string   | Yes      | Episode title                                    |
+   | `slug`          | string   | Yes      | URL segment for `/episodes/[slug]` (non-empty)     |
    | `description`   | string   | Yes      | Short description                                |
    | `cover`         | string   | Yes      | Image path (e.g. `/episodes/cover.jpg`) or URL   |
-   | `spotifyUrl`    | string   | Yes      | Full Spotify **episode** URL for this episode   |
+   | `spotifyUrl`    | string   | No*      | Full Spotify **episode** (or show) URL           |
    | `publishDate`   | date     | Yes      | Publication date (ISO or YAML date); used for sort |
    | `tags`          | string[] | Yes      | Array of tags; `featured` sorts first on homepage |
+   | `hidden`        | boolean  | No       | If `true`, episode is omitted from the homepage list (detail URL may still exist) |
+   | `featured`      | boolean  | No       | Featured episodes sort first on the homepage      |
+
+   \*Each episode must have **at least one** of: a non-empty `spotifyUrl`, **or** non-empty Markdown **below** the frontmatter (transcript / story text), **or** optional frontmatter `body` (string). The build fails if both Spotify and transcript are missing.
 
 **Tag values and filtering (homepage):** Each episode row/card exposes a `data-tags` attribute on the list item with **comma-separated** tag names for client-side filtering (Story 2.4).
 
@@ -22,11 +27,12 @@ The homepage includes a tag filter UI (`Tutti`, optional `In evidenza`, and one 
 
 **Do not use commas inside a single tag string** in MVP (e.g. use `favole-popolari` instead of `favole, popolari`).
 
-3. **Example**
+3. **Example (with Spotify and transcript)**
 
    ```yaml
    ---
    title: La volpe e l'uva
+   slug: la-volpe-e-luva
    description: Una volpe e un grappolo troppo alto.
    cover: /episodes/volpe-uva.jpg
    spotifyUrl: https://open.spotify.com/episode/xxxxx
@@ -35,8 +41,10 @@ The homepage includes a tag filter UI (`Tutti`, optional `In evidenza`, and one 
      - featured
      - favole
    ---
-   Optional markdown body (e.g. transcript or notes).
+   Testo della storia o trascrizione sotto il frontmatter (consigliato se pubblichi la pagina “Leggi la storia”).
    ```
+
+   **Example (transcript only, no Spotify):** omit `spotifyUrl` and put the full story in Markdown under the closing `---`.
 
 4. **Run `npm run build`** from the app root (`storieviola-it/`). If a required field is missing or invalid, the build fails with a clear schema error.
 
@@ -68,7 +76,7 @@ The **“Ascolta su Spotify”** button on the homepage points to the **podcast 
 
 ## Episode order on the homepage
 
-The full episode list uses: **tag `featured` first** (case-insensitive), then **`publishDate` descending** (newest first). Ties use the file id. Each episode is shown with cover, title, short description, tags, and one **“Ascolta su Spotify”** link to that episode’s `spotifyUrl`.
+The full episode list uses: **tag `featured` first** (case-insensitive), then **`publishDate` descending** (newest first). Ties use the file id. Each episode is shown with cover, title, short description, tags, **“Leggi la storia”** (episode page), and **“Ascolta su Spotify”** only when `spotifyUrl` is set.
 
 ## Listing with no episodes
 
@@ -76,7 +84,7 @@ If there are no episode files, the homepage shows a short empty state under “E
 
 ## Updating an episode
 
-Edit the same file in `src/content/episodes/`: change `title`, `description`, `cover`, `spotifyUrl`, `publishDate`, or `tags` as needed. Keep all required fields and camelCase. Build to validate.
+Edit the same file in `src/content/episodes/`: change `title`, `slug`, `description`, `cover`, `spotifyUrl`, `publishDate`, `tags`, `hidden`, or `featured` as needed. Keep required fields and camelCase. Build to validate.
 
 ## Editing about content
 
@@ -86,6 +94,6 @@ Edit the same file in `src/content/episodes/`: change `title`, `description`, `c
 
 ## Validation
 
-- `npm run build` validates all episode frontmatter. Missing or invalid required fields cause the build to fail with an error pointing to the file and field.
+- `npm run build` validates episode frontmatter and the rule above (Spotify and/or non-empty Markdown body). Missing or invalid required fields cause the build to fail with an error pointing to the file and field.
 - `npm run validate:about` runs a production build, then checks that the About page output includes the expected headings (see `src/lib/validate-about-content.mjs`).
 - Do not remove required fields or use different field names (e.g. snake_case); the schema expects camelCase only.

@@ -1,16 +1,14 @@
 // Content Collections schema for storieviola.it
-// Episodes: title, description, cover, spotifyUrl, tags (camelCase)
+// Episodes: slug, title, description, cover, optional spotifyUrl, tags, etc. (camelCase); see CONTENT.md
 // About: single document, body Markdown, frontmatter optional
 
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { aboutEntrySchema, episodeEntrySchema } from './content/schema';
+import { episodesLoader } from './content/episodes-loader';
 
 const episodes = defineCollection({
-  loader: glob({
-    base: './src/content/episodes',
-    pattern: '**/*.{md,mdx}',
-  }),
+  loader: episodesLoader,
   schema: episodeEntrySchema,
 });
 

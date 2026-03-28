@@ -1,6 +1,6 @@
 # Story 7.1: Episode detail page with transcript
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,24 +20,24 @@ so that **I can read a story aloud to my child even when we are not near a speak
 
 ## Tasks / Subtasks
 
-- [ ] Update episode schema for slug/body-or-url rule (AC: 1, 3, 5)
-  - [ ] Add required `slug: z.string().min(1)`
-  - [ ] Make `spotifyUrl` optional
-  - [ ] Add schema-level refinement for "spotifyUrl OR non-empty body"
-- [ ] Build episode detail route (AC: 1, 2, 5)
-  - [ ] Create `src/pages/episodes/[slug].astro`
-  - [ ] Resolve episode by `slug` from collection entries
-  - [ ] Render metadata + optional CTA + transcript body
-- [ ] Link homepage cards to detail route (AC: 4)
-  - [ ] Add title link and/or "Leggi la storia" link in episode card/list rendering
-- [ ] Add SEO metadata on detail page (AC: 5)
-  - [ ] Dynamic `<title>` as episode title + site name
-  - [ ] Dynamic `<meta name="description">` from episode description
-- [ ] Integrate license footer placeholder/component (AC: 6)
-  - [ ] Render reusable footer block at end of detail page
-- [ ] Add tests (AC: 7)
-  - [ ] Unit tests for schema rules
-  - [ ] E2E test for detail navigation and transcript rendering
+- [x] Update episode schema for slug/body-or-url rule (AC: 1, 3, 5)
+  - [x] Add required `slug: z.string().min(1)`
+  - [x] Make `spotifyUrl` optional
+  - [x] Add schema-level refinement for "spotifyUrl OR non-empty body"
+- [x] Build episode detail route (AC: 1, 2, 5)
+  - [x] Create `src/pages/episodes/[slug].astro`
+  - [x] Resolve episode by `slug` from collection entries
+  - [x] Render metadata + optional CTA + transcript body
+- [x] Link homepage cards to detail route (AC: 4)
+  - [x] Add title link and/or "Leggi la storia" link in episode card/list rendering
+- [x] Add SEO metadata on detail page (AC: 5)
+  - [x] Dynamic `<title>` as episode title + site name
+  - [x] Dynamic `<meta name="description">` from episode description
+- [x] Integrate license footer placeholder/component (AC: 6)
+  - [x] Render reusable footer block at end of detail page
+- [x] Add tests (AC: 7)
+  - [x] Unit tests for schema rules
+  - [x] E2E test for detail navigation and transcript rendering
 
 ## Dev Notes
 
@@ -98,17 +98,25 @@ so that **I can read a story aloud to my child even when we are not near a speak
 
 ### Agent Model Used
 
-gpt-5.3-codex-low
+gpt-5.3-codex-low (story prep); housekeeping sync 2026-03-28 (Cursor agent)
 
 ### Debug Log References
 
-- N/A (story preparation stage)
+- N/A
 
 ### Completion Notes List
 
-- Comprehensive story context prepared from epics, PRD, architecture, and UX docs.
-- Story set to `ready-for-dev`.
+- Implementation present in repo: episode detail route, schema (`slug`, optional `spotifyUrl`, transcript-or-URL `superRefine`), `EpisodeCard` links, `LicenseNotice` on detail page, Vitest + Playwright coverage.
+- Story status set to `review` pending optional `bmad-bmm-code-review` pass.
+- Collection wiring lives in `src/content.config.ts` (not `src/content/config.ts`).
 
 ### File List
 
+- `storieviola-it/src/content/schema.ts`
+- `storieviola-it/src/content.config.ts`
+- `storieviola-it/src/pages/episodes/[slug].astro`
+- `storieviola-it/src/components/EpisodeCard.astro`
+- `storieviola-it/src/components/LicenseNotice.astro` (footer; shared with 7.2)
+- `storieviola-it/tests/unit/content-schema.test.ts`
+- `storieviola-it/tests/e2e/smoke.spec.ts`
 - `_bmad-output/implementation-artifacts/7-1-episode-detail-page-with-transcript.md`
