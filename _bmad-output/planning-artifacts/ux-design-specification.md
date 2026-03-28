@@ -237,7 +237,7 @@ The defining experience is **"Land, understand, choose, one tap to listen."** Vi
 
 - **Layout feel:** Airy enough that hero (image, title, description) and the start of the episode list sit in the same view without crowding; consistent gaps between episode cards and between sections.
 - **Spacing unit:** Use a consistent base (e.g. 4px or 8px) and scale (e.g. 8, 16, 24, 32) for padding and margins so the compact hero + list layout stays predictable.
-- **Grid:** Simple responsive grid for episode list (e.g. 1 column on mobile, 2 or more on larger screens as needed); hero and list share the same max-width and padding for alignment.
+- **Grid:** Simple responsive grid for episode list (e.g. 1 column on mobile, stepping up to **4 columns at `xl`+** on desktop per 2026-03-28 decisions); hero and list share the same max-width and padding for alignment (widen the Episodi container if needed so four columns stay readable).
 
 ### Accessibility Considerations
 
@@ -489,7 +489,7 @@ Consistency rules for the minimal public UI: one primary CTA type, clear links, 
 
 ### Responsive Strategy
 
-- **Desktop:** Use extra width for the card grid (Direction B): compact hero bar at top, then episodes in a responsive grid (e.g. 2–3 columns). Hero and first episodes visible without scrolling. No side nav; header + main content only.
+- **Desktop:** Use extra width for the card grid (Direction B): compact hero bar at top, then episodes in a responsive grid. **Amendment (2026-03-28):** use **4 columns from the `xl` breakpoint upward** on the homepage episode list; use fewer columns on smaller breakpoints so the grid scales up progressively (see **UX decisions log – handoff to stories** below). Hero and first episodes visible without scrolling. No side nav; header + main content only.
 - **Tablet:** Treat as desktop if width ≥ breakpoint (e.g. 768px); same card grid and hero. Touch-friendly: tap targets and spacing unchanged.
 - **Mobile:** Single-column layout (Direction C): centered hero (image, title, description), then vertical episode list. One column; no horizontal scroll. Header stays compact (site title + About). Primary use is touch; tap targets at least ~44px for CTA and filter.
 
@@ -521,3 +521,22 @@ Consistency rules for the minimal public UI: one primary CTA type, clear links, 
 
 - **Responsive:** Prefer `rem` or `%` for typography and spacing; use the chosen breakpoint in `min-width` media queries. Same Episode component; switch layout (grid vs single column) via responsive utility classes. Optimise images (e.g. responsive `srcset` or appropriate size) so covers load quickly on mobile.
 - **Accessibility:** Use semantic HTML (`<header>`, `<nav>`, `<main>`, `<h1>`–`<h2>`, `<ul>`/`<li>` for episodes). Add `aria-label` or visible text for navigation and filter where needed. Ensure "Listen on Spotify" and tag filter have visible focus (e.g. `:focus-visible` ring). Avoid `div`/`span` for buttons or links; use `<a>` and `<button>`. Test with keyboard and one screen reader before release.
+
+## UX decisions log – handoff to stories (2026-03-28)
+
+**Purpose:** Normative UX choices for implementation and for the PM agent to turn into user stories / acceptance criteria. **Visual reference (non-normative):** `planning-artifacts/ux-design-directions.html` — use the tabs *Mock: episode grid* and *Mock: episode page* (full layouts include desktop “Reading-first” and mobile “Short hero + stack”).
+
+### Homepage – episode list (desktop)
+
+- From the **`xl` breakpoint and up**, the episode list uses a **4-column** grid.
+- Widen the Episodi section (`max-width`) if needed so four columns remain readable; card content (title, description, CTAs) must not feel crushed.
+- Smaller breakpoints: scale column count down progressively (e.g. 1 col default, 2 from `md`, optional 3 at `lg`) so layout does not jump straight from 2 to 4 without intermediate steps — exact `md`/`lg` counts are an implementation detail as long as **`xl`+ = 4** and mobile remains a single column.
+
+### Episode detail page – desktop
+
+- Adopt the **Reading-first · small cover** pattern from the mock: **site header** (e.g. site title + back link to episode list), **small cover thumbnail** beside or adjacent to the **title**, **short meta line** with **“Ascolta su Spotify” as a text link** (still clearly tappable and focus-visible), then the **story body** (transcript) as the main content without a large full-width hero dominating the first screen.
+
+### Episode detail page – mobile
+
+- Adopt **short hero** (capped cover height, not a tall full-bleed image) plus **stacked** actions.
+- **Do not add a separate “Continua a leggere ↓” button** on the episode page: the user is already on the article; scrolling to the text is the expected pattern. A second full-width button duplicates the obvious and adds noise. If testing shows users miss the story, prefer a single **in-page text link** (e.g. “Vai alla storia”) pointing to an anchor on the content — not an extra primary-style button. **Stack = e.g. one full-width “Ascolta su Spotify”** (and no redundant read CTA unless you keep “Leggi” only on list cards, not here).

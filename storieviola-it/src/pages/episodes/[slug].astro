@@ -19,6 +19,13 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
+
+/** EpisodeCard Spotify CTA — full button (mobile detail, list cards). */
+const focusCta =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta';
+/** Text / title link focus — desktop Spotify + back link (Story 8.2). */
+const focusLink =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 ---
 
 <BaseLayout
@@ -29,33 +36,74 @@ const { Content } = await render(entry);
   ogImageAlt={entry.data.title}
 >
   <article class="mx-auto max-w-3xl px-4 py-8">
-    <header class="space-y-4">
-      <img
-        src={entry.data.cover}
-        alt={entry.data.title}
-        width="1200"
-        height="675"
-        class="w-full rounded-lg border border-border object-cover"
-      />
-      <h1 class="text-3xl font-bold text-foreground">{entry.data.title}</h1>
-      <p class="text-base text-muted">{entry.data.description}</p>
-      {
-        entry.data.spotifyUrl && (
-          <p>
-            <a
-              href={entry.data.spotifyUrl}
-              rel="noopener noreferrer"
-              target="_blank"
-              class="inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-lg bg-cta px-4 py-2 text-sm font-semibold text-white transition hover:bg-cta-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-cta"
-            >
-              Ascolta su Spotify
-            </a>
-          </p>
-        )
-      }
+    <p class="mb-4 md:mb-5">
+      <a
+        href="/#episodes-heading"
+        data-back-to-episodes
+        class:list={[
+          'inline-flex min-h-11 min-w-[44px] items-center gap-1 rounded-sm text-sm font-semibold text-brand-800 transition hover:text-brand-700',
+          focusLink,
+        ]}
+      >
+        <span aria-hidden="true">←</span>
+        <span>Tutti gli episodi</span>
+      </a>
+    </p>
+
+    <header data-episode-detail-header class="space-y-4">
+      <div
+        class="flex flex-col gap-4 md:flex-row md:items-start md:gap-6"
+      >
+        <img
+          src={entry.data.cover}
+          alt={entry.data.title}
+          width="1200"
+          height="675"
+          data-detail-cover
+          class="max-h-[min(12rem,42vh)] w-full shrink-0 rounded-lg border border-border object-cover md:max-h-none md:h-auto md:w-52 md:max-w-[13rem] md:aspect-[4/3]"
+        />
+        <div class="min-w-0 flex-1 space-y-3">
+          <h1 class="text-3xl font-bold text-foreground">{entry.data.title}</h1>
+          <p class="text-base text-muted">{entry.data.description}</p>
+          {
+            entry.data.spotifyUrl && (
+              <>
+                <p class="hidden md:block">
+                  <a
+                    href={entry.data.spotifyUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    data-detail-spotify-desktop
+                    class:list={[
+                      'inline-flex min-h-11 min-w-[44px] items-center rounded-sm text-sm font-semibold text-brand-800 underline decoration-brand-400 underline-offset-4 transition hover:text-brand-700 hover:decoration-brand-600',
+                      focusLink,
+                    ]}
+                  >
+                    Ascolta su Spotify
+                  </a>
+                </p>
+                <p class="md:hidden">
+                  <a
+                    href={entry.data.spotifyUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    data-detail-spotify-mobile
+                    class:list={[
+                      'inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-cta px-4 py-2 text-sm font-semibold text-white transition hover:bg-cta-hover',
+                      focusCta,
+                    ]}
+                  >
+                    Ascolta su Spotify
+                  </a>
+                </p>
+              </>
+            )
+          }
+        </div>
+      </div>
     </header>
 
-    <section class="prose prose-slate mt-8 max-w-none">
+    <section id="storia" data-episode-transcript class="prose prose-slate mt-8 max-w-none">
       <Content />
     </section>
 

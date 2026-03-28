@@ -1,4 +1,4 @@
-# generated: 2026-03-16
+# generated: 2026-03-28
 # last_updated: 2026-03-28
 # project: storieviola.it
 # project_key: NOKEY
@@ -34,8 +34,8 @@
 # - SM typically creates next story after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
-generated: "2026-03-16"
-last_updated: "2026-03-28"  # 7.1/7.2: implementation verified; status → review (housekeeping)
+generated: "2026-03-28"
+last_updated: "2026-03-28"
 project: storieviola.it
 project_key: NOKEY
 tracking_system: file-system
@@ -67,18 +67,24 @@ development_status:
   epic-5: in-progress
   5-1-design-tokens-and-responsive-behaviour: review
   5-2-accessibility-wcag-2-1-aa: review
-  5-3-automated-tests-vitest-and-playwright: review
-  5-4-favicon-and-browser-icons: review
-  5-5-main-logo-in-header: review
+  5-3-automated-tests-vitest-and-playwright: done
+  5-4-favicon-and-browser-icons: done
+  5-5-main-logo-in-header: done
   epic-5-retrospective: optional
 
-  epic-6: in-progress
+  epic-6: done
   6-1-enable-dependabot-for-automated-dependency-updates: done
   6-2-hide-episodes-from-the-public-list: done
   6-3-replace-featured-tag-with-a-boolean-field: done
   epic-6-retrospective: optional
 
-  epic-7: in-progress
-  7-1-episode-detail-page-with-transcript: review
-  7-2-license-page-and-diritti-nav-link: review
+  epic-7: done
+  7-1-episode-detail-page-with-transcript: done
+  7-2-license-page-and-diritti-nav-link: done
   epic-7-retrospective: optional
+
+  epic-8: in-progress
+  8-1-homepage-episode-grid-xl-four-columns-and-progressive-breakpoints: review
+  8-2-episode-detail-desktop-reading-first-layout: review
+  8-3-episode-detail-mobile-short-hero-and-no-redundant-read-cta: review
+  epic-8-retrospective: optional

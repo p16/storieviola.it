@@ -30,6 +30,43 @@ test.describe('Homepage', () => {
     await expect(spotify).toHaveAttribute('href', /open\.spotify\.com/);
   });
 
+  test('episode list is single column below md', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 900 });
+    await page.goto('/');
+    const list = page.locator('[data-episodes-list]');
+    if ((await list.count()) === 0) return;
+    await expect(list).toHaveClass(/grid-cols-1/);
+    const first = list.locator(':scope > li').first();
+    const second = list.locator(':scope > li').nth(1);
+    if ((await second.count()) === 0) return;
+    const box0 = await first.boundingBox();
+    const box1 = await second.boundingBox();
+    expect(box0 && box1).toBeTruthy();
+    expect(box1!.y).toBeGreaterThanOrEqual(box0!.y + box0!.height - 2);
+  });
+
+  test('episode list uses four columns at xl (1280px)', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    const list = page.locator('[data-episodes-list]');
+    if ((await list.count()) === 0) return;
+    await expect(list).toHaveClass(/xl:grid-cols-4/);
+    const items = list.locator(':scope > li');
+    if ((await items.count()) < 4) return;
+    const tops = await items.evaluateAll((els) =>
+      els.slice(0, 4).map((el) => el.getBoundingClientRect().top),
+    );
+    const maxTop = Math.max(...tops);
+    const minTop = Math.min(...tops);
+    expect(maxTop - minTop).toBeLessThanOrEqual(4);
+    const fourth = items.nth(3);
+    const first = items.first();
+    const b0 = await first.boundingBox();
+    const b3 = await fourth.boundingBox();
+    expect(b0 && b3).toBeTruthy();
+    expect(b3!.x).toBeGreaterThan(b0!.x + b0!.width * 0.5);
+  });
+
   test('tag filter toggles selection', async ({ page }) => {
     await page.goto('/');
     const filter = page.locator('[data-tag-filter]');
@@ -67,7 +104,9 @@ test.describe('Homepage', () => {
 
   test('can navigate to an episode detail and read transcript', async ({ page }) => {
     await page.goto('/');
-    const readLink = page.getByRole('link', { name: 'Leggi la storia' }).first();
+    const readLink = page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first();
     await expect(readLink).toBeVisible();
     await readLink.click();
 
@@ -82,17 +121,118 @@ test.describe('Homepage', () => {
     await page.goto('/');
     const card = page
       .locator('[data-episodes-list] > li')
-      .filter({ has: page.getByRole('link', { name: 'Leggi la storia' }) })
+      .filter({
+        has: page.getByRole('link', { name: 'Leggi la storia', exact: true }),
+      })
       .first();
     const spotifyOnCard = card.getByRole('link', { name: /Ascolta su Spotify/ });
     await expect(spotifyOnCard).toBeVisible();
     const spotifyHref = await spotifyOnCard.getAttribute('href');
     expect(spotifyHref).toMatch(/open\.spotify\.com/);
 
-    await card.getByRole('link', { name: 'Leggi la storia' }).click();
+    await card
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .click();
     const spotifyOnDetail = page.getByRole('link', { name: 'Ascolta su Spotify' });
     await expect(spotifyOnDetail).toBeVisible();
     await expect(spotifyOnDetail).toHaveAttribute('href', spotifyHref!);
+  });
+});
+
+test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
+  test('uses compact header: cover narrower than article at desktop', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    await page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first()
+      .click();
+
+    const article = page.locator('article');
+    const cover = page.locator('[data-episode-detail-header] img').first();
+    await expect(cover).toBeVisible();
+    const articleBox = await article.boundingBox();
+    const coverBox = await cover.boundingBox();
+    expect(articleBox && coverBox).toBeTruthy();
+    expect(coverBox!.width).toBeLessThan(articleBox!.width * 0.55);
+  });
+
+  test('shows back link to episode list and text-style Spotify on desktop', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1024, height: 900 });
+    await page.goto('/');
+    await page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first()
+      .click();
+
+    const back = page.locator('[data-back-to-episodes]');
+    await expect(back).toBeVisible();
+    await expect(back).toHaveAttribute('href', '/#episodes-heading');
+
+    const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
+    const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
+    if ((await desktopSpotify.count()) === 0) return;
+    await expect(desktopSpotify).toBeVisible();
+    await expect(mobileSpotify).toBeHidden();
+    await expect(desktopSpotify).not.toHaveClass(/bg-cta/);
+  });
+
+  test('back link and desktop Spotify link are keyboard-focusable', async ({ page }) => {
+    await page.setViewportSize({ width: 1024, height: 900 });
+    await page.goto('/');
+    await page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first()
+      .click();
+
+    const back = page.locator('[data-back-to-episodes]');
+    await back.evaluate((el) => (el as HTMLElement).focus());
+    await expect(back).toBeFocused();
+
+    const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
+    if ((await desktopSpotify.count()) === 0) return;
+    await desktopSpotify.evaluate((el) => (el as HTMLElement).focus());
+    await expect(desktopSpotify).toBeFocused();
+  });
+});
+
+test.describe('Episode detail mobile short hero (Story 8.3)', () => {
+  test('caps cover height, stacks listen CTA, no redundant list-style read buttons', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first()
+      .click();
+    await expect(page).toHaveURL(/\/episodes\/.+/);
+
+    const cover = page.locator('[data-detail-cover]');
+    await expect(cover).toBeVisible();
+    const viewportH = 844;
+    const coverBox = await cover.boundingBox();
+    expect(coverBox).toBeTruthy();
+    expect(coverBox!.height).toBeLessThan(viewportH * 0.5);
+
+    await expect(
+      page.getByRole('link', { name: 'Leggi la storia', exact: true }),
+    ).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /continua a leggere/i })).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /continua a leggere/i })).toHaveCount(0);
+
+    const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
+    const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
+    if ((await mobileSpotify.count()) > 0) {
+      await expect(mobileSpotify).toBeVisible();
+      await expect(desktopSpotify).toBeHidden();
+      await expect(mobileSpotify).toHaveClass(/w-full/);
+      await expect(mobileSpotify).toHaveClass(/bg-cta/);
+    }
+
+    await expect(page.locator('#storia[data-episode-transcript]')).toBeVisible();
   });
 });
 
@@ -128,7 +268,10 @@ test.describe('Licenza and legal links', () => {
 
   test('episode detail shows compact license notice', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: 'Leggi la storia' }).first().click();
+    await page
+      .getByRole('link', { name: 'Leggi la storia', exact: true })
+      .first()
+      .click();
 
     const noticeLink = page.getByRole('link', { name: 'Dettagli sulla licenza' });
     await expect(noticeLink).toBeVisible();

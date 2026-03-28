@@ -5,9 +5,7 @@ description: La storia di un pupazzo di neve che, per non sciogliersi, impara a 
 cover: /episodes/005-Il-Pupazzo-di-neve.png
 spotifyUrl: https://open.spotify.com/episode/6WFW2kuHjvwiDzipqWTGVf?si=qK8_AnPERc-yFwGatBEdlA
 publishDate: 2026-03-22
-featured: true
 tags:
-  - neve
   - fantasia
 ---
 

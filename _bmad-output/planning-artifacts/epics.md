@@ -74,6 +74,9 @@ UX-DR11: Touch targets: minimum ~44px height or padding for primary CTA and tag 
 UX-DR12: Empty state for tag filter: when filter has no results, show short message (e.g. "No episodes with this tag") and way to clear filter (e.g. "All" or "Show all").
 UX-DR13: Links to Spotify: clear label "Listen on Spotify" (or locale); open in same tab (for mobile app open) or new tab consistently; use rel="noopener" if target="_blank".
 UX-DR14: Semantic structure: `<header>`, `<nav>`, `<main>`, headings, list markup for episodes; one primary link per episode; image alt (e.g. episode title); tag filter selection state exposed to screen readers.
+UX-DR16: **Homepage episode grid (2026-03-28):** From **`xl` breakpoint upward**, episode list uses a **4-column** grid; widen Episodi section (`max-width`) if needed. Smaller breakpoints: scale column count down progressively (e.g. 1 col default, 2 from `md`, optional 3 at `lg`); **`xl`+ = 4**; mobile remains single column.
+UX-DR17: **Episode detail — desktop (2026-03-28):** Reading-first · small cover: header with back link to list, small cover by title, meta line with **"Ascolta su Spotify" as text link** (tappable, focus-visible), transcript as main content without a large full-width hero dominating first screen.
+UX-DR18: **Episode detail — mobile (2026-03-28):** Short hero (capped cover); stacked actions; **no** separate primary "Continua a leggere ↓" button; optional in-page text anchor only; one full-width "Ascolta su Spotify" without redundant read CTA on this page.
 
 ### FR Coverage Map
 
@@ -96,6 +99,14 @@ FR16: Epic 5 - Links indicated and operable
 FR17: Epic 1 - Content via repo, no admin UI
 FR18: Epic 2 - Visitor filter by tag
 
+### FR coverage — Epic 8 (additive, 2026-03-28)
+
+The lines above are unchanged. **Epic 8** implements the normative UX handoff in `ux-design-specification.md` (*UX decisions log – handoff to stories*, 2026-03-28): homepage grid density, episode detail desktop layout, episode detail mobile layout. It **does not** reassign ownership of FRs from Epics 2, 4, 5, or 7; it refines presentation and layout on top of existing behaviour.
+
+**UX-DR16–UX-DR18** (see spec): 4-column episode grid from `xl`, progressive columns below; reading-first episode detail on desktop; short-hero + stacked actions on mobile without a redundant primary “continua a leggere” control.
+
+**Related FRs (reference):** FR3, FR4, FR5, FR12, FR14, FR15, FR16 — layout and episode/detail presentation.
+
 ## Epic List
 
 ### Epic 1: Project foundation and deploy
@@ -117,6 +128,11 @@ Site can be found via search for relevant queries; key pages have stable URLs an
 ### Epic 5: Quality, accessibility and performance
 Site is responsive, readable, and usable on mobile and desktop; links and controls are keyboard- and pointer-friendly and meet WCAG 2.1 AA; homepage loads quickly and the episode list stays usable with many episodes; tests guard behaviour and a11y.
 **FRs covered:** FR14, FR15, FR16
+
+### Epic 8: UX direction handoff — grid and episode detail (2026-03-28)
+The homepage episode list matches the updated responsive grid (including **4 columns from `xl`**), and episode detail pages match the **reading-first / short-hero** patterns on desktop and mobile per the UX spec handoff. No change to epic goals for Epics 1–7; this epic is an explicit delivery track for those layout decisions.
+**Normative UX:** UX-DR16, UX-DR17, UX-DR18 (`ux-design-specification.md`).
+**FRs (reference, shared with earlier epics):** FR3, FR4, FR5, FR12, FR14, FR15, FR16.
 
 ---
 
@@ -485,3 +501,54 @@ So that **I understand that the content is protected and I need the author's per
 **When** I reach the bottom of the page,
 **Then** a compact license footer block displays: "© [year] Filippo De Santis — Tutti i diritti riservati." with a link to `/licenza` labelled "Dettagli sulla licenza".
 **And** the license footer is a reusable component or include so it stays consistent across all episode pages.
+
+---
+
+## Epic 8: UX direction handoff — grid and episode detail (2026-03-28)
+
+The homepage episode list matches the updated responsive grid (including **4 columns from `xl`**), and episode detail pages match the **reading-first / short-hero** patterns on desktop and mobile per `ux-design-specification.md` (*UX decisions log – handoff to stories*). Builds on Epic 2, Epic 5, and Epic 7 without replacing their goals.
+
+**Normative UX:** UX-DR16, UX-DR17, UX-DR18.
+
+### Story 8.1: Homepage episode grid — `xl` four columns and progressive breakpoints
+
+As a **visitor**,
+I want **the episode list to use space well on large screens**,
+So that **I can scan more episodes at once without cards feeling crushed**.
+
+**Acceptance Criteria:**
+
+**Given** the homepage episode list (Epic 2),
+**When** the viewport is at or above the `xl` breakpoint,
+**Then** the episode grid uses **4 columns** (UX-DR16).
+**And** below `xl`, column count scales down progressively (e.g. 1 column by default on small screens, 2 from `md`, optional 3 at `lg`) so the layout does not jump awkwardly.
+**And** the Episodi section container is widened (`max-width`) if needed so four columns stay readable; card content (title, description, CTA) is not crushed.
+**And** mobile remains a **single column** (Direction C) per existing responsive strategy.
+
+### Story 8.2: Episode detail — desktop reading-first layout
+
+As a **visitor**,
+I want **a calm reading layout on desktop with Spotify easy to reach**,
+So that **I can read the transcript without a huge hero pushing content below the fold**.
+
+**Acceptance Criteria:**
+
+**Given** an episode detail page (Epic 7),
+**When** I view it on a desktop-class viewport (≥ layout breakpoint for Direction B),
+**Then** the page follows **reading-first · small cover** (UX-DR17): site header includes **back link to the episode list**; **small cover** sits beside or adjacent to the **title**; a short meta line includes **"Ascolta su Spotify" as a text link** (not only a full-width button) that is clearly tappable and has visible focus.
+**And** the **story body (transcript)** is the dominant main content; there is **no** large full-width hero image dominating the first screen.
+**And** WCAG 2.1 AA expectations for contrast and focus still apply (Epic 5).
+
+### Story 8.3: Episode detail — mobile short hero and no redundant read CTA
+
+As a **visitor**,
+I want **a short header and obvious listen action on my phone**,
+So that **I reach the story without extra noise or duplicate buttons**.
+
+**Acceptance Criteria:**
+
+**Given** an episode detail page on a mobile viewport,
+**Then** the layout uses a **short hero**: cover height is **capped** (not a tall full-bleed image) and actions are **stacked** (UX-DR18).
+**And** there is **no** separate primary-style **"Continua a leggere ↓"** (or equivalent) button — scrolling to the transcript is the expected pattern.
+**And** if an anchor shortcut is needed, it is a single **in-page text link** (e.g. "Vai alla storia") to the content anchor, not an extra primary button.
+**And** **one** full-width **"Ascolta su Spotify"** (or locale equivalent) is available without a redundant second "read the story" primary CTA on this page (list cards may still use "Leggi la storia" per Epic 7).

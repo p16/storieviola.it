@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>storieviola.it – Design directions</title>
+  <title>storieviola.it – Design directions & UX options</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; color: #1a1a1a; }
@@ -12,6 +12,7 @@
     .nav a:hover, .nav a.active { background: #eee; }
     section { display: none; padding: 24px; max-width: 900px; margin: 0 auto; }
     section.active { display: block; }
+    section.viz-wide { max-width: 1100px; }
     .direction { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 32px; }
     .direction h2 { margin: 0 0 8px; font-size: 1.1rem; color: #666; font-weight: 600; }
     .direction p { margin: 0 0 16px; font-size: 0.9rem; color: #444; line-height: 1.5; }
@@ -52,6 +53,112 @@
     .dir-c .ep-desc { font-size: 0.85rem; color: #666; margin: 0 0 8px; line-height: 1.4; }
     .header { padding: 12px 24px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; }
     .header a { color: #1a1a1a; text-decoration: none; font-weight: 600; }
+    /* —— Visual mocks (proposed UX) —— */
+    .viz-caption { font-size: 0.8rem; color: #666; margin: 0 0 12px; line-height: 1.45; }
+    .viz-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-bottom: 28px; }
+    @media (max-width: 800px) { .viz-compare { grid-template-columns: 1fr; } }
+    .viz-panel { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); overflow: hidden; border: 1px solid #eaeaea; }
+    .viz-panel h3 { margin: 0; padding: 10px 14px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #666; background: #fafafa; border-bottom: 1px solid #eee; }
+    .viz-panel .viz-body { padding: 16px; }
+    /* Shared fake episode card (grid mock) */
+    .fe-card { border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; background: #fff; }
+    .fe-card .fe-img { height: 72px; }
+    .fe-card .fe-img:not(.illus) { background: #ddd; }
+    .fe-card .fe-pad { padding: 10px; }
+    .fe-card .fe-t { font-weight: 600; font-size: 0.78rem; margin: 0 0 4px; }
+    .fe-card .fe-d { font-size: 0.68rem; color: #666; margin: 0; line-height: 1.35; }
+    .fe-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fe-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 700px) { .fe-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    /* Illustration simulation (same “art” in all cover demos) */
+    .illus {
+      background-color: #e8e4f0;
+      background-image:
+        radial-gradient(ellipse 90% 70% at 50% 100%, #6d28d9 0%, transparent 50%),
+        radial-gradient(circle at 28% 72%, #db2777 0%, transparent 28%),
+        radial-gradient(circle at 72% 68%, #f59e0b 0%, transparent 22%),
+        linear-gradient(165deg, #fef9c3 0%, #e9d5ff 45%, #bfdbfe 100%);
+    }
+    .cover-slot { border-radius: 8px 8px 0 0; overflow: hidden; }
+    .cover-crop-center { height: 72px; background-size: cover; background-position: center center; }
+    .cover-crop-top { height: 72px; background-size: cover; background-position: center top; }
+    .cover-contain { height: 72px; background-size: contain; background-position: center; background-repeat: no-repeat; }
+    .cover-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 640px) { .cover-trio { grid-template-columns: 1fr; } }
+    .cover-card-demo { border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; background: #fff; }
+    .cover-card-demo .fe-pad { padding: 10px; }
+    /* Episode page mock */
+    .ep-page { max-width: 420px; margin: 0 auto; }
+    .ep-page .ep-hero-tall { width: 100%; height: 200px; border-radius: 10px; margin-bottom: 12px; }
+    .ep-page .ep-hero-capped { width: 100%; height: 120px; max-height: 38vw; border-radius: 10px; margin-bottom: 12px; object-fit: cover; }
+    .ep-page h1 { font-size: 1.25rem; margin: 0 0 8px; font-weight: 700; }
+    .ep-page .ep-desc { font-size: 0.82rem; color: #555; line-height: 1.45; margin: 0 0 14px; }
+    .ep-page .ep-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+    .ep-page .ep-actions.compact { margin-top: -4px; margin-bottom: 12px; }
+    .btn-outline { display: inline-flex; padding: 8px 14px; border: 1px solid #c4b5fd; border-radius: 8px; font-size: 0.78rem; font-weight: 600; color: #5b21b6; background: #fff; text-decoration: none; }
+    .btn-spotify { display: inline-flex; padding: 8px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; color: #fff; background: #1DB954; text-decoration: none; }
+    .ep-page .ep-link { font-size: 0.78rem; color: #1a1a1a; text-decoration: underline; font-weight: 600; padding: 8px 4px; }
+    .ep-page .ep-prose { font-size: 0.8rem; line-height: 1.55; color: #444; border-top: 1px solid #eee; padding-top: 12px; }
+    .ep-page .ep-prose p { margin: 0 0 8px; }
+    /* Full single-page mocks (browser + layouts) */
+    .ep-browser { border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; background: #fafafa; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+    .ep-browser .ep-chrome { padding: 10px 14px; background: #fff; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .ep-browser .ep-chrome .site { font-weight: 700; font-size: 0.8rem; }
+    .ep-browser .ep-chrome .back { font-size: 0.72rem; color: #5b21b6; text-decoration: none; font-weight: 600; }
+    .ep-browser .ep-article { padding: 18px 20px 22px; background: #fff; max-width: 100%; }
+    .ep-split { display: grid; grid-template-columns: minmax(100px, 38%) 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 480px) { .ep-split { grid-template-columns: 1fr; } }
+    .ep-split .ep-split-cover { width: 100%; aspect-ratio: 3/4; max-height: 220px; border-radius: 10px; }
+    .ep-split h1 { font-size: 1.1rem; margin: 0 0 8px; }
+    .ep-split .ep-desc { font-size: 0.78rem; color: #555; line-height: 1.45; margin: 0 0 10px; }
+    .ep-banner { width: 100%; height: 112px; border-radius: 10px; margin-bottom: 14px; }
+    .ep-banner.illus { background-size: contain; background-position: center; background-repeat: no-repeat; }
+    .ep-inline { display: flex; gap: 14px; align-items: flex-start; }
+    .ep-inline .ep-inline-thumb { width: 76px; height: 76px; flex-shrink: 0; border-radius: 10px; }
+    .ep-inline h1 { font-size: 1.1rem; margin: 0 0 6px; }
+    .ep-inline .ep-desc { font-size: 0.76rem; color: #555; margin: 0 0 8px; line-height: 1.4; }
+    .ep-sub { margin-top: 14px; padding-top: 12px; border-top: 1px solid #eee; font-size: 0.78rem; line-height: 1.55; color: #444; }
+    .ep-sub p { margin: 0 0 6px; }
+    /* Single episode inside phone (full page, not list tile) */
+    .phone-frame.phone-tall { max-width: 300px; }
+    .ep-mob-header { font-size: 0.68rem; font-weight: 700; padding-bottom: 8px; border-bottom: 1px solid #eee; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .ep-mob-header a { color: #5b21b6; font-weight: 600; text-decoration: none; font-size: 0.65rem; }
+    .ep-mob-hero { width: calc(100% + 24px); margin: -4px -12px 12px; border-radius: 0; }
+    .ep-mob-hero.illus { height: 160px; background-size: cover; background-position: center top; }
+    .ep-mob-hero.short.illus { height: 96px; }
+    .ep-split .ep-split-cover.illus { background-size: cover; background-position: center top; }
+    .ep-inline-thumb.illus { background-size: cover; background-position: center top; }
+    .ep-mob-title { font-size: 0.95rem; font-weight: 700; margin: 0 0 8px; line-height: 1.25; }
+    .ep-mob-desc { font-size: 0.7rem; color: #555; line-height: 1.4; margin: 0 0 10px; }
+    .ep-mob-prose { font-size: 0.68rem; line-height: 1.5; color: #444; border-top: 1px solid #eee; padding-top: 10px; margin-top: 8px; }
+    .ep-mob-prose p { margin: 0 0 6px; }
+    .ep-mob-actions { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .ep-mob-actions.row { flex-direction: row; flex-wrap: wrap; }
+    .btn-spotify-sm { display: inline-flex; padding: 8px 12px; border-radius: 8px; font-size: 0.68rem; font-weight: 600; color: #fff; background: #1DB954; text-decoration: none; justify-content: center; min-height: 40px; align-items: center; }
+    .btn-outline-sm { display: inline-flex; padding: 8px 12px; border: 1px solid #c4b5fd; border-radius: 8px; font-size: 0.68rem; font-weight: 600; color: #5b21b6; background: #fff; text-decoration: none; justify-content: center; min-height: 40px; align-items: center; flex: 1; }
+    .viz-episode-sub { margin-top: 28px; padding-top: 20px; border-top: 1px dashed #ccc; }
+    .viz-episode-sub > h3 { margin: 0 0 10px; font-size: 0.85rem; font-weight: 700; color: #444; text-transform: none; letter-spacing: 0; }
+    @media (max-width: 900px) {
+      #viz-episode .viz-triple { grid-template-columns: 1fr !important; }
+    }
+    /* Mobile narrow frame */
+    .phone-frame { width: 100%; max-width: 320px; margin: 0 auto; border: 8px solid #333; border-radius: 28px; overflow: hidden; background: #f5f5f5; box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+    .phone-inner { padding: 12px; }
+    .mob-card { display: flex; gap: 10px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; background: #fff; }
+    .mob-card .mob-thumb { width: 44px; height: 44px; border-radius: 6px; flex-shrink: 0; }
+    .mob-card .mob-body { flex: 1; min-width: 0; }
+    .mob-card .mob-t { font-weight: 600; font-size: 0.8rem; margin: 0 0 4px; }
+    .mob-card .mob-d { font-size: 0.68rem; color: #666; margin: 0 0 10px; line-height: 1.35; }
+    .mob-actions-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mob-actions-wrap .btn-outline, .mob-actions-wrap .btn-spotify { flex: 1 1 auto; min-width: 120px; justify-content: center; min-height: 44px; align-items: center; }
+    .mob-actions-stack { display: flex; flex-direction: column; gap: 8px; }
+    .mob-actions-stack .btn-outline, .mob-actions-stack .btn-spotify { width: 100%; justify-content: center; min-height: 44px; align-items: center; }
+    .mob-actions-primary { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+    .mob-actions-primary .btn-outline { width: 100%; justify-content: center; min-height: 44px; }
+    .mob-actions-primary .ep-link { text-align: center; padding: 10px; }
+    @media (max-width: 960px) {
+      #viz-mobile .viz-compare { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -59,6 +166,10 @@
     <a href="#dir-a" class="nav-link active" data-section="dir-a">Direction A: Minimal list</a>
     <a href="#dir-b" class="nav-link" data-section="dir-b">Direction B: Card grid</a>
     <a href="#dir-c" class="nav-link" data-section="dir-c">Direction C: Single column</a>
+    <a href="#viz-grid" class="nav-link" data-section="viz-grid">Mock: episode grid</a>
+    <a href="#viz-cover" class="nav-link" data-section="viz-cover">Mock: card covers</a>
+    <a href="#viz-episode" class="nav-link" data-section="viz-episode">Mock: episode page</a>
+    <a href="#viz-mobile" class="nav-link" data-section="viz-mobile">Mock: mobile CTAs</a>
   </div>
 
   <section id="dir-a" class="active direction dir-a">
@@ -156,6 +267,310 @@
           <div class="ep-desc">Un bambino e il suo razzo per la luna.</div>
           <span class="tag">fantasia</span>
           <div style="margin-top:10px"><a href="#" class="spotify-cta">Ascolta su Spotify</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-grid" class="direction viz-wide">
+    <h2>Mock – episode grid (desktop)</h2>
+    <p class="viz-caption">Same cards, wider container: two columns feels sparse on a large monitor; three or four columns use horizontal space and show more stories at once.</p>
+    <div class="viz-compare">
+      <div class="viz-panel">
+        <h3>2 columns (like current md+)</h3>
+        <div class="viz-body">
+          <p style="margin:0 0 10px;font-size:0.75rem;color:#888;">Episodi · max-width ~56rem</p>
+          <div class="fe-grid-2">
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La lumaca</div><p class="fe-d">Una lumaca che voleva correre.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La luna</div><p class="fe-d">Un razzo per la luna.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">Il bosco</div><p class="fe-d">Amici nel bosco incantato.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La pioggia</div><p class="fe-d">Gocce che ballano.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel">
+        <h3>4 columns (proposed xl+)</h3>
+        <div class="viz-body">
+          <p style="margin:0 0 10px;font-size:0.75rem;color:#888;">Episodi · wider section + lg/xl breakpoints</p>
+          <div class="fe-grid-4">
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La lumaca</div><p class="fe-d">Una lumaca che voleva correre.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La luna</div><p class="fe-d">Un razzo per la luna.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">Il bosco</div><p class="fe-d">Amici nel bosco.</p></div></div>
+            <div class="fe-card"><div class="fe-img illus cover-crop-center"></div><div class="fe-pad"><div class="fe-t">La pioggia</div><p class="fe-d">Gocce che ballano.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-cover" class="direction viz-wide">
+    <h2>Mock – card cover art</h2>
+    <p class="viz-caption">Same fake illustration in a short strip (as on list cards). <strong>Center crop</strong> hides sky and ground; <strong>top-weighted crop</strong> keeps characters; <strong>contain</strong> shows the whole image with letterboxing.</p>
+    <div class="viz-panel" style="margin-bottom:0">
+      <h3>Three treatments side by side</h3>
+      <div class="viz-body">
+        <div class="cover-trio">
+          <div class="cover-card-demo">
+            <div class="cover-slot illus cover-crop-center"></div>
+            <div class="fe-pad"><div class="fe-t">object-cover center</div><p class="fe-d">Subject often cut at middle.</p></div>
+          </div>
+          <div class="cover-card-demo">
+            <div class="cover-slot illus cover-crop-top"></div>
+            <div class="fe-pad"><div class="fe-t">object-cover top</div><p class="fe-d">Faces / tops of scenes stay visible.</p></div>
+          </div>
+          <div class="cover-card-demo">
+            <div class="cover-slot illus cover-contain"></div>
+            <div class="fe-pad"><div class="fe-t">object-contain</div><p class="fe-d">Full art; bars top/bottom or sides.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-episode" class="direction viz-wide">
+    <h2>Mock – single episode page (full layouts)</h2>
+    <p class="viz-caption">Desktop: narrow article strips vs wider “real page” with chrome, plus alternate headers (split cover, banner, inline thumb). Mobile: full episode screen in a phone — not the list tile.</p>
+
+    <p class="viz-caption" style="margin-top:-6px;"><strong>Article column only</strong> (same as before)</p>
+    <div class="viz-compare">
+      <div class="viz-panel">
+        <h3>Tall hero</h3>
+        <div class="viz-body">
+          <div class="ep-page">
+            <div class="illus ep-hero-tall cover-crop-center" style="border-radius:10px;"></div>
+            <h1>La storia della lumaca</h1>
+            <p class="ep-desc">Una lumaca che voleva correre più veloce del vento, e che impara che piano piano si arriva lontano. Una favola dolce sulla pazienza e sull’amicizia, perfetta per la nanna.</p>
+            <p class="ep-desc" style="margin-top:-8px;"><a href="#" class="btn-spotify">Ascolta su Spotify</a></p>
+            <div class="ep-prose"><p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia…</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel">
+        <h3>Capped hero + actions row</h3>
+        <div class="viz-body">
+          <div class="ep-page">
+            <div class="illus ep-hero-capped cover-crop-top" style="border-radius:10px;width:100%;"></div>
+            <h1>La storia della lumaca</h1>
+            <div class="ep-actions compact">
+              <a href="#" class="btn-outline">Torna agli episodi</a>
+              <a href="#" class="btn-spotify">Ascolta su Spotify</a>
+            </div>
+            <p class="ep-desc" style="margin-bottom:10px;">Una lumaca, il vento, e la pazienza — storia breve per la nanna.</p>
+            <div class="ep-prose"><p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia…</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="viz-caption" style="margin-top:8px;"><strong>Desktop – full page in context</strong> (site chrome + wider column)</p>
+    <div class="viz-compare">
+      <div class="viz-panel">
+        <h3>Split header · cover + text</h3>
+        <div class="viz-body" style="padding:0;">
+          <div class="ep-browser">
+            <div class="ep-chrome"><span class="site">Storie Viola</span><a href="#" class="back">← Episodi</a></div>
+            <div class="ep-article">
+              <div class="ep-split">
+                <div class="ep-split-cover illus"></div>
+                <div>
+                  <h1>La storia della lumaca</h1>
+                  <p class="ep-desc">Una favola sulla pazienza. Ascolta anche su Spotify quando siete in macchina.</p>
+                  <div class="ep-actions compact" style="margin-bottom:0;">
+                    <a href="#" class="btn-spotify">Ascolta su Spotify</a>
+                  </div>
+                  <div class="ep-sub">
+                    <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia, una lumaca che sognava di correre…</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel">
+        <h3>Banner · illustration contained</h3>
+        <div class="viz-body" style="padding:0;">
+          <div class="ep-browser">
+            <div class="ep-chrome"><span class="site">Storie Viola</span><a href="#" class="back">← Episodi</a></div>
+            <div class="ep-article" style="max-width:560px;margin:0 auto;">
+              <div class="ep-banner illus"></div>
+              <h1 style="font-size:1.15rem;margin:0 0 8px;">La storia della lumaca</h1>
+              <div class="ep-actions compact" style="margin-bottom:10px;">
+                <a href="#" class="btn-spotify">Ascolta su Spotify</a>
+              </div>
+              <div class="ep-sub" style="border-top:none;padding-top:0;margin-top:0;">
+                <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia, una lumaca che sognava di correre…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="viz-compare" style="margin-top:20px;">
+      <div class="viz-panel">
+        <h3>Reading-first · small cover</h3>
+        <div class="viz-body" style="padding:0;">
+          <div class="ep-browser">
+            <div class="ep-chrome"><span class="site">Storie Viola</span><a href="#" class="back">← Episodi</a></div>
+            <div class="ep-article" style="max-width:520px;margin:0 auto;">
+              <div class="ep-inline">
+                <div class="ep-inline-thumb illus"></div>
+                <div>
+                  <h1>La storia della lumaca</h1>
+                  <p class="ep-desc">Storia breve · <a href="#" style="color:#5b21b6;font-weight:600;">Ascolta su Spotify</a></p>
+                </div>
+              </div>
+              <div class="ep-sub">
+                <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia, una lumaca che sognava di correre più veloce del vento. Ogni mattina si svegliava e guardava le formiche che sfrecciavano sul sentiero…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel">
+        <h3>Wide hero (dense)</h3>
+        <div class="viz-body" style="padding:0;">
+          <div class="ep-browser">
+            <div class="ep-chrome"><span class="site">Storie Viola</span><a href="#" class="back">← Episodi</a></div>
+            <div class="ep-article" style="max-width:100%;padding-top:0;">
+              <div class="illus" style="height:140px;width:calc(100% + 40px);margin:0 -20px 14px;border-radius:0;background-size:cover;background-position:center top;"></div>
+              <h1 style="font-size:1.15rem;margin:0 0 8px;">La storia della lumaca</h1>
+              <p class="ep-desc" style="max-width:48ch;">Una lumaca che voleva correre più veloce del vento. Perfetta per la nanna o per leggere insieme sul divano.</p>
+              <p style="margin:0 0 12px;"><a href="#" class="btn-spotify">Ascolta su Spotify</a></p>
+              <div class="ep-sub" style="border-top:1px solid #eee;">
+                <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="viz-episode-sub">
+      <h3>Mobile – full episode screen (scroll)</h3>
+      <p class="viz-caption" style="margin-bottom:16px;">Same URL as desktop: hero dominates vs compact hero; stacked actions vs wrap.</p>
+      <div class="viz-compare viz-triple" style="grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start;">
+        <div class="viz-panel" style="min-width:0">
+          <h3>Tall hero</h3>
+          <div class="viz-body" style="padding:8px;">
+            <div class="phone-frame phone-tall">
+              <div class="phone-inner">
+                <div class="ep-mob-header"><span>Storie Viola</span><a href="#">← Episodi</a></div>
+                <div class="ep-mob-hero illus"></div>
+                <h2 class="ep-mob-title">La storia della lumaca</h2>
+                <p class="ep-mob-desc">Una lumaca che voleva correre più veloce del vento. Favola sulla pazienza, perfetta per la nanna.</p>
+                <a href="#" class="btn-spotify-sm" style="width:100%;margin-bottom:10px;">Ascolta su Spotify</a>
+                <div class="ep-mob-prose">
+                  <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia…</p>
+                  <p>La lumaca si chiamava Lilla e aveva una conchiglia color lavanda…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-panel" style="min-width:0">
+          <h3>Short hero + stack</h3>
+          <div class="viz-body" style="padding:8px;">
+            <div class="phone-frame phone-tall">
+              <div class="phone-inner">
+                <div class="ep-mob-header"><span>Storie Viola</span><a href="#">← Episodi</a></div>
+                <div class="ep-mob-hero short illus"></div>
+                <h2 class="ep-mob-title">La storia della lumaca</h2>
+                <div class="ep-mob-actions">
+                  <a href="#" class="btn-outline-sm" style="width:100%;">Continua a leggere ↓</a>
+                  <a href="#" class="btn-spotify-sm" style="width:100%;">Ascolta su Spotify</a>
+                </div>
+                <p class="ep-mob-desc" style="margin-bottom:0;">Pazienza, vento e un giardino dopo la pioggia.</p>
+                <div class="ep-mob-prose">
+                  <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-panel" style="min-width:0">
+          <h3>Short hero + Spotify link</h3>
+          <div class="viz-body" style="padding:8px;">
+            <div class="phone-frame phone-tall">
+              <div class="phone-inner">
+                <div class="ep-mob-header"><span>Storie Viola</span><a href="#">← Episodi</a></div>
+                <div class="ep-mob-hero short illus"></div>
+                <h2 class="ep-mob-title">La storia della lumaca</h2>
+                <p class="ep-mob-desc">Pazienza e amicizia · <a href="#" style="color:#1a1a1a;font-weight:700;">Ascolta su Spotify →</a></p>
+                <div class="ep-mob-prose" style="border-top:none;padding-top:4px;">
+                  <p>C’era una volta, in un giardino pieno di foglie lucide dopo la pioggia, una lumaca che sognava di correre…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-mobile" class="direction">
+    <h2>Mock – mobile list card actions</h2>
+    <p class="viz-caption">Narrow viewport: two equal-ish buttons in a row often wrap unevenly. Stacked full-width reads calmer; primary button + Spotify as link reduces noise.</p>
+    <div class="viz-compare" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="viz-panel" style="min-width:0">
+        <h3>Wrap row</h3>
+        <div class="viz-body" style="padding:8px;">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="mob-card">
+                <div class="mob-thumb illus cover-crop-center"></div>
+                <div class="mob-body">
+                  <div class="mob-t">La lumaca</div>
+                  <p class="mob-d">Vuole correre più veloce del vento.</p>
+                  <div class="mob-actions-wrap">
+                    <a href="#" class="btn-outline">Leggi la storia</a>
+                    <a href="#" class="btn-spotify">Ascolta su Spotify</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel" style="min-width:0">
+        <h3>Stack</h3>
+        <div class="viz-body" style="padding:8px;">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="mob-card">
+                <div class="mob-thumb illus cover-crop-center"></div>
+                <div class="mob-body">
+                  <div class="mob-t">La lumaca</div>
+                  <p class="mob-d">Vuole correre più veloce del vento.</p>
+                  <div class="mob-actions-stack">
+                    <a href="#" class="btn-outline">Leggi la storia</a>
+                    <a href="#" class="btn-spotify">Ascolta su Spotify</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-panel" style="min-width:0">
+        <h3>Primary + link</h3>
+        <div class="viz-body" style="padding:8px;">
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="mob-card">
+                <div class="mob-thumb illus cover-crop-center"></div>
+                <div class="mob-body">
+                  <div class="mob-t">La lumaca</div>
+                  <p class="mob-d">Vuole correre più veloce del vento.</p>
+                  <div class="mob-actions-primary">
+                    <a href="#" class="btn-outline">Leggi la storia</a>
+                    <a href="#" class="ep-link">Ascolta su Spotify →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
