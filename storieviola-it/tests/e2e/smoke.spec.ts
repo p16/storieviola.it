@@ -1,8 +1,18 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 /** Vertical stacking tolerance (px) for subpixel / DPR in grid layout checks */
 const EPISODE_STACK_Y_TOLERANCE = 8;
+
+/** Home → first list card that has a Spotify CTA (episode defines `spotifyUrl`). */
+async function openEpisodeWithSpotifyFromHome(page: Page) {
+  await page.goto('/');
+  const card = page.locator('[data-episodes-list] > li').filter({
+    has: page.getByRole('link', { name: /Ascolta su Spotify/ }),
+  }).first();
+  await expect(card).toBeVisible();
+  await card.getByRole('link', { name: 'Leggi la storia', exact: true }).click();
+}
 
 test.describe('Homepage', () => {
   test('loads with title and main heading', async ({ page }) => {
@@ -39,7 +49,7 @@ test.describe('Homepage', () => {
     const list = page.locator('[data-episodes-list]');
     await expect(list).toHaveCount(1);
     const itemCount = await list.locator(':scope > li').count();
-    test.skip(itemCount < 2, 'Need at least 2 published episodes to assert vertical stacking');
+    expect(itemCount, 'fixture needs ≥2 episodes for stacking check').toBeGreaterThanOrEqual(2);
 
     await expect(list).toHaveClass(/grid-cols-1/);
     const first = list.locator(':scope > li').first();
@@ -60,7 +70,7 @@ test.describe('Homepage', () => {
     await expect(list).toHaveClass(/xl:grid-cols-4/);
     const items = list.locator(':scope > li');
     const itemCount = await items.count();
-    test.skip(itemCount < 4, 'Need at least 4 published episodes to assert first-row column alignment');
+    expect(itemCount, 'fixture needs ≥4 episodes for xl grid check').toBeGreaterThanOrEqual(4);
 
     const tops = await items.evaluateAll((els) =>
       els.slice(0, 4).map((el) => el.getBoundingClientRect().top),
@@ -79,7 +89,7 @@ test.describe('Homepage', () => {
   test('tag filter toggles selection', async ({ page }) => {
     await page.goto('/');
     const filter = page.locator('[data-tag-filter]');
-    test.skip(!(await filter.isVisible()), 'Tag filter not visible on this viewport');
+    await expect(filter).toBeVisible();
     await expect(page.getByRole('button', { name: 'Tutti' })).toHaveAttribute(
       'aria-pressed',
       'true',
@@ -87,7 +97,7 @@ test.describe('Homepage', () => {
     const topic = page.locator(
       'button[data-filter-button][data-filter-tag]:not([data-filter-tag="all"]):not([data-filter-tag="featured"])',
     ).first();
-    test.skip((await topic.count()) === 0, 'No non-all topic filter buttons in fixture');
+    await expect(topic).toBeVisible();
     await topic.click();
     await expect(topic).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: 'Tutti' }).click();
@@ -125,12 +135,13 @@ test.describe('Homepage', () => {
 
   test('episode detail shows Spotify CTA only when episode lists spotifyUrl', async ({ page }) => {
     await page.goto('/');
-    const card = page
-      .locator('[data-episodes-list] > li')
-      .filter({
-        has: page.getByRole('link', { name: 'Leggi la storia', exact: true }),
-      })
-      .first();
+    const cardsWithSpotify = page.locator('[data-episodes-list] > li').filter({
+      has: page.getByRole('link', { name: /Ascolta su Spotify/ }),
+    });
+    expect(await cardsWithSpotify.count(), 'fixture needs ≥1 episode with spotifyUrl').toBeGreaterThan(
+      0,
+    );
+    const card = cardsWithSpotify.first();
     const spotifyOnCard = card.getByRole('link', { name: /Ascolta su Spotify/ });
     await expect(spotifyOnCard).toBeVisible();
     const spotifyHref = await spotifyOnCard.getAttribute('href');
@@ -167,11 +178,7 @@ test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1024, height: 900 });
-    await page.goto('/');
-    await page
-      .getByRole('link', { name: 'Leggi la storia', exact: true })
-      .first()
-      .click();
+    await openEpisodeWithSpotifyFromHome(page);
 
     const back = page.locator('[data-back-to-episodes]');
     await expect(back).toBeVisible();
@@ -179,10 +186,6 @@ test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
 
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
     const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
-    test.skip(
-      (await desktopSpotify.count()) === 0,
-      'Opened episode has no spotifyUrl — cannot assert desktop vs mobile Spotify presentation',
-    );
     await expect(desktopSpotify).toBeVisible();
     await expect(mobileSpotify).toBeHidden();
     await expect(desktopSpotify).not.toHaveClass(/bg-cta/);
@@ -190,21 +193,13 @@ test.describe('Episode detail desktop reading-first (Story 8.2)', () => {
 
   test('back link and desktop Spotify link are keyboard-focusable', async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 900 });
-    await page.goto('/');
-    await page
-      .getByRole('link', { name: 'Leggi la storia', exact: true })
-      .first()
-      .click();
+    await openEpisodeWithSpotifyFromHome(page);
 
     const back = page.locator('[data-back-to-episodes]');
     await back.evaluate((el) => (el as HTMLElement).focus());
     await expect(back).toBeFocused();
 
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
-    test.skip(
-      (await desktopSpotify.count()) === 0,
-      'Opened episode has no spotifyUrl — cannot assert desktop Spotify focus ring',
-    );
     await desktopSpotify.evaluate((el) => (el as HTMLElement).focus());
     await expect(desktopSpotify).toBeFocused();
   });
@@ -215,11 +210,7 @@ test.describe('Episode detail mobile short hero (Story 8.3)', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-    await page
-      .getByRole('link', { name: 'Leggi la storia', exact: true })
-      .first()
-      .click();
+    await openEpisodeWithSpotifyFromHome(page);
     await expect(page).toHaveURL(/\/episodes\/.+/);
 
     const cover = page.locator('[data-detail-cover]');
@@ -239,10 +230,6 @@ test.describe('Episode detail mobile short hero (Story 8.3)', () => {
 
     const mobileSpotify = page.locator('[data-detail-spotify-mobile]');
     const desktopSpotify = page.locator('[data-detail-spotify-desktop]');
-    test.skip(
-      (await mobileSpotify.count()) === 0,
-      'Opened episode has no spotifyUrl — cannot assert mobile full-width listen CTA',
-    );
     await expect(mobileSpotify).toBeVisible();
     await expect(desktopSpotify).toBeHidden();
     await expect(mobileSpotify).toHaveClass(/w-full/);

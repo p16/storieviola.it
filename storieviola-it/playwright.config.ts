@@ -19,7 +19,8 @@ export default defineConfig({
   webServer: {
     command: `npm run build && npm run preview -- --host ${previewHost} --port ${previewPort}`,
     url: previewOrigin,
-    reuseExistingServer: !process.env.CI,
+    // Reuse a running preview/dev on 4321 (e.g. `npm run dev`) so local runs do not fail when CI=1 is set in the shell.
+    reuseExistingServer: true,
     timeout: 180_000,
   },
 });
