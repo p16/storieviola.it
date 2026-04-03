@@ -20,22 +20,32 @@ Sitemap: https://storieviola.it/sitemap.xml
 
 ---
 
-## 2. ✅ Created `sitemap.xml`
-**Location:** `public/sitemap.xml`
+## 2. ✅ Implemented Dynamic `sitemap.xml` Generation
+**Location:** `src/pages/sitemap.xml.ts`
 
-This file lists all your pages with their:
-- **URLs** - Complete links to every page and episode
-- **Last Modified Dates** - When content was last updated
-- **Change Frequency** - How often pages are expected to change
-- **Priority** - Which pages are most important
+The sitemap is now **automatically generated** during each build. When you add a new episode, it automatically appears in the sitemap without manual updates.
 
-**Current Coverage:**
+**How it works:**
+- Queries all episodes from your content collection
+- Filters out hidden episodes
+- Sorts episodes by publish date
+- Generates XML with complete metadata
+
+**Includes:**
 - Homepage (priority 1.0)
 - About page (priority 0.8)
 - License page (priority 0.8)
-- 40+ episode pages (priority 0.8)
+- All visible episodes with correct publish dates (priority 0.8)
 
-**Impact:** Google can now discover and crawl all your content efficiently instead of having to guess.
+**Smart Features:**
+- ✅ Automatic: New episodes added automatically
+- ✅ Dynamic: Updates every build
+- ✅ Efficient: Uses episode publish dates as `lastmod`
+- ✅ Cached: 1-hour cache with fallback to 1 day
+
+**Impact:** Google can discover and crawl all your content efficiently. No manual maintenance needed for future episodes!
+
+For details, see `DYNAMIC_SITEMAP.md`
 
 ---
 
@@ -120,7 +130,8 @@ Your layout already had these, but they're now properly working with:
 
 ### Created:
 - `public/robots.txt` - Crawler permissions
-- `public/sitemap.xml` - URL inventory with metadata
+- `src/pages/sitemap.xml.ts` - Dynamic sitemap generation
+- `DYNAMIC_SITEMAP.md` - Documentation for dynamic generation
 
 ### Updated:
 - `src/layouts/BaseLayout.astro` 
@@ -139,11 +150,13 @@ Your layout already had these, but they're now properly working with:
 - Allows all bots to crawl all pages
 - Points to sitemap location
 
-### sitemap.xml
+### sitemap.xml (Dynamic)
 - 45 URLs total (1 homepage + 1 about + 1 license + 40+ episodes)
+- Automatically generated during build
 - Homepage priority: 1.0 (most important)
 - Regular pages priority: 0.8
 - Episodes priority: 0.8
+- Uses episode `publishDate` as `lastmod`
 
 ### Schema.org Markup
 ```json

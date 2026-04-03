@@ -48,14 +48,20 @@
 ## Ongoing Tasks (Do Monthly)
 
 ### ☐ Update Sitemap When Adding Episodes
-When you add a new episode:
-1. Edit `public/sitemap.xml`
-2. Add a new `<url>` block with the episode link
-3. Set `<lastmod>` to today's date
-4. Run `npm run build`
-5. Deploy changes
+**Good news! This is now automatic! 🎉**
 
-*Note: Eventually consider making this automatic with dynamic generation*
+The sitemap is now **dynamically generated** — you don't need to manually update it:
+1. Add a new episode with frontmatter including `slug` and `publishDate`
+2. Run `npm run build`
+3. The new episode automatically appears in the sitemap
+
+**How it works:**
+- Episodes are queried from the content collection
+- Only visible episodes (not marked `hidden`) are included
+- Episodes are automatically sorted by publish date
+- Build time: ~5-10ms (negligible)
+
+**For details:** See `DYNAMIC_SITEMAP.md`
 
 ---
 
@@ -109,13 +115,14 @@ These are additional backlinks.
 ## What's Already Done ✅
 
 - ✅ `robots.txt` created
-- ✅ `sitemap.xml` created
+- ✅ `sitemap.xml` created (with dynamic generation)
 - ✅ Schema.org markup added
 - ✅ Meta tags configured
 - ✅ Open Graph tags set up
 - ✅ Mobile responsive design
 - ✅ Proper HTML structure
 - ✅ Italian language meta tag added
+- ✅ Future-proof: New episodes automatically included in sitemap
 
 ---
 
