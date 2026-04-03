@@ -4,8 +4,8 @@ slug: giovannino-gattino-e-la-mucca-dellalpeggio
 description: Giovannino Gattino incontra una mucca nel giardino, sale all’alpeggio, salva il fattore caduto e gioca con la mandria in montagna.
 cover: /episodes/013-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-03
+# hidden: true
 tags:
   - amici
 ---
@@ -36,6 +36,7 @@ La mucca, spaventata dalle urla, cominciò ad agitarsi e a correre da tutte le p
 Più la signora urlava, più la mucca si agitava, distruggendo il giardino.
 
 Alla fine arrivò il fattore, che era il padrone della mucca, e riuscì a calmarla.
+
 Quando la mucca fu calma lui chiese: «Ma che succede? Perché urlate così?»
 
 «La sua mucca ha rovinato tutto il giardino!» disse la signora arrabbiatissima. 

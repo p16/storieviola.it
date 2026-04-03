@@ -5,6 +5,7 @@ description: Una chitarra gialla che ama essere suonata rompe una corda, viene r
 cover: /episodes/004-la-chitarra.png
 spotifyUrl: https://open.spotify.com/episode/33cxabHBOCNWtcUgJZUUIE?si=19ed6b9b1b944699
 publishDate: 2026-03-11
+featured: true
 tags:
   - musica
 ---

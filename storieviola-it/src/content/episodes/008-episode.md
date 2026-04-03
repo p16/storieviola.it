@@ -4,8 +4,7 @@ slug: viola-e-le-formichine-curiose
 description: "Viola fa amicizia con un formicaio curioso: insieme scoprono il bagno, il parco giochi e avventure fino al ranch, tra merende e tante risate."
 cover: /episodes/008-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-03
 tags:
   - amici
 ---

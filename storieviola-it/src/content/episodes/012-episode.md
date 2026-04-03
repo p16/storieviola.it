@@ -4,8 +4,8 @@ slug: il-bambino-che-faceva-sempre-pipi-senza-pannolino
 description: "Un bimbo col pannolino, il papà che cambia e pulisce, merende e compleanno: giornate piene di pasticci, giochi e affetto."
 cover: /episodes/012-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-03
+# hidden: true
 tags:
   - fantasia
 ---

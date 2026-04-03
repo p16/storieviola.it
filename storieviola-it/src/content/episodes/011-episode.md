@@ -4,8 +4,8 @@ slug: gigino-e-i-topi-che-non-volevano-lavarsi
 description: "Gigino aiuta i topi di casa a usare bagni e doccia: tra denti che ricrescono, schiuma e risate imparano a lavarsi senza paura."
 cover: /episodes/011-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-03
+# hidden: true
 tags:
   - amici
 ---
