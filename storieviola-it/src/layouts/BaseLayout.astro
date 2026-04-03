@@ -9,6 +9,7 @@ interface Props {
   canonicalPath?: string;
   ogImage?: string;
   ogImageAlt?: string;
+  schemaType?: 'WebSite' | 'Podcast' | 'PodcastEpisode';
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   canonicalPath = '/',
   ogImage = '/images/logo.png',
   ogImageAlt = 'Storie Viola — illustrazione del podcast di storie per bambini',
+  schemaType = 'WebSite',
 } = Astro.props;
 
 const canonicalUrl = Astro.site
@@ -39,6 +41,7 @@ const ogImageUrl =
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="language" content="Italian" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -53,6 +56,26 @@ const ogImageUrl =
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': schemaType,
+      'name': 'Storie Viola',
+      'description': description,
+      'url': canonicalUrl,
+      'image': ogImageUrl,
+      ...(schemaType === 'Podcast' && {
+        'genre': ['Children\'s', 'Stories'],
+        'author': {
+          '@type': 'Person',
+          'name': 'Storie Viola'
+        },
+        'isPartOf': {
+          '@type': 'PodcastSeries',
+          'name': 'Storie Viola',
+          'url': canonicalUrl,
+        }
+      }),
+    })} />
   </head>
   <body class="min-h-screen bg-background text-foreground">
     <a
