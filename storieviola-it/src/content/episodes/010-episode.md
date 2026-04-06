@@ -4,10 +4,10 @@ slug: gigino-e-gigetto-e-la-grande-gara-dei-gatti
 description: Gigino e Gigetto sfuggono a una casa abbandonata, vanno alla toeletta e alla festa dei gatti, poi vincono la grande gara a ostacoli.
 cover: /episodes/010-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-06
 tags:
   - amici
+  - animali
 ---
 
 
@@ -17,7 +17,9 @@ C’erano una volta Gigino e Gigetto.
 
 Gigino e Gigetto erano due gatti che stavano acquattati vicino a una porta che non riuscivano ad aprire.
 
-Quel giorno erano andati a visitare una casa abbandonata. Era tanto tempo che non ci viveva più nessuno: i vetri erano rotti, le finestre tutte aperte.
+Quel giorno erano andati a visitare una casa abbandonata.
+
+Era tanto tempo che non ci viveva più nessuno: i vetri erano rotti, le finestre tutte aperte.
 
 Loro erano entrati e, a un certo punto, una corrente d’aria — boom — aveva chiuso una porta.
 
@@ -27,7 +29,7 @@ Gigetto disse: «Ma come la apriamo? Qui non c’è neanche la maniglia…»
 
 Gigino guardò la porta, poi la stanza, poi di nuovo la porta, e disse: «Se proviamo a correre veloce e a dare una spallata… magari si riapre.»
 
-Presero la rincorsa. Attraversarono la stanza…e spingono forte con le zampette.
+Presero la rincorsa. Attraversarono la stanza…e spinsero forte con le zampette.
 
 La porta si aprì.
 
@@ -63,6 +65,8 @@ Il vento era leggero. L’aria era calda. Stavano talmente bene… che si addorm
 
 Dormirono tutta la notte sul tetto.
 
+---
+
 Capitolo 2 — La festa dei gatti
 
 La mattina dopo Gigetto si svegliò di colpo e grido’ : «Gigino! Gigino! Presto!»
@@ -90,6 +94,7 @@ Alla toeletta li presero in braccio. Li accarezzarono. I gatti facevano le fusa.
 Poi cominciarono a spazzolarli, lavarli, insaponarli e sciacquarli.
 
 Gigetto sospirò: «Mamma mia che bello…»
+
 Gigino confermo’: «È stupendo.»
 
 Erano così rilassati che quasi si addormentarono.
@@ -99,9 +104,12 @@ Alla fine, puliti e profumati, li misero vicino ad altri gatti.
 Quei gatti cominciarono a chiacchierare.
 
 Un gatto di nome Jimmy disse: «Stasera facciamo una festa.»
+
 Gigetto si raddrizzò e chiese: «Una festa?»
+
 Jimmy confermo: «Sì sì! In via Giolitti 34. In soffitta. Venite?»
-Gigino sorrise e disse: «Il tetto lo conosciamo. Va bene!»
+
+Gigino sorrise e disse: «Va bene!»
 
 Quella sera, quando la padrona si addormentò, i due gatti uscirono dalla finestra aperta.
 
@@ -127,6 +135,8 @@ La mattina dopo la padrona disse: «Ma come dormono questi gatti…»
 
 Non si era accorta di nulla.
 
+---
+
 Capitolo 3 — La grande gara
 
 Gigino e Gigetto si svegliarono più tardi del solito.
@@ -143,7 +153,7 @@ Bisognava: saltare ostacoli, passare sotto rami, arrampicarsi sugli alberi e cor
 
 Il giorno dopo ci sarebbe stata una gara con un premio.
 
-Per quella gara si erano allenati quasi tutti i giorni negli ultimi mesi. E quel giorno decisero di allenarsi tutto il giorno, 
+Per quella gara si erano allenati quasi tutti i giorni negli ultimi mesi. E quel giorno decisero di allenarsi tutto il giorno.
 
 Quando tornarono a casa erano stanchi e pieni di polvere.
 
@@ -207,14 +217,15 @@ Non sapeva il tempo.
 
 I giudici guardarono il cronometro. Poi dissero: «Cinquantotto secondi.»
 
-Primo posto!!
+Era arrivato primo!!
 
 Tutti i gatti gli corsero incontro.
+
 Anche il gatto velocissimo di prima gli fece i complimenti.
 
 Quella sera fecero una grande festa.
 
-Latte, Crocchette E perfino fuochi d’artificio.
+Latte, Crocchette e perfino fuochi d’artificio.
 
 Alla fine della giornata Gigino era stanchissimo ma felicissimo.
 

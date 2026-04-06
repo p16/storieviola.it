@@ -1,13 +1,13 @@
 ---
 title: "Fulmine, il gabbiano viaggiatore"
 slug: fulmine-il-gabbiano-viaggiatore
-description: Fulmine guida altri gabbiani attraverso il Pacifico con correnti e consigli, fino a un rifugio sicuro tra rocce e pesci.
+description: Fulmine guida altri gabbiani attraverso il Pacifico tra correnti ascensionali e consigli, fino ad un rifugio sicuro tra rocce e pesci.
 cover: /episodes/014-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2024-04-06
 tags:
   - fantasia
+  - animali
 ---
 
 
@@ -17,8 +17,7 @@ Il gabbiano Fulmine era un gabbiano famosissimo.
 
 Aveva scritto un libro in cui parlava delle sue avventure da gabbiano: dove era andato, cosa aveva fatto, tutte queste cose.
 
-Quando andava in giro lo fermavano tutti e gli chiedevano:
-«Gabbiano Fulmine, come va? Come stai?»
+Quando andava in giro lo fermavano tutti e gli chiedevano: «Gabbiano Fulmine, come va? Come stai?»
 
 E lui era tutto contento. 
 
@@ -49,6 +48,7 @@ Partirono tutti insieme, e gli altri gabbiani erano felicissimi di avere Fulmine
 Non vedevano l’ora di iniziare il viaggio.
 
 Fin da subito molti gabbiani non riuscirono a prendere le correnti ascensionali. 
+
 Allora Fulmine mostrava loro come fare: «Venite, seguitemi.» diceva.
 
 Si lasciava portare sempre più in alto, poi planava, prendeva un’altra corrente, risaliva e riprendeva a planare.
