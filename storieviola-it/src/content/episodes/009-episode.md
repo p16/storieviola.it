@@ -4,8 +4,7 @@ slug: il-navigatore
 description: Un navigatore attraversa mari e continenti, scopre l’America e insegna al mondo a esplorare; poi arrivano sottomarini e infinite scoperte.
 cover: /episodes/009-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
-publishDate: 2099-01-01
-hidden: true
+publishDate: 2026-04-05
 tags:
   - fantasia
 ---
@@ -41,9 +40,9 @@ Ma poi, esplorando, esplorando, esplorando, capì che dopo l’America c’era u
 
 L’America fu comunque una bella scoperta, perché aveva tante cose da insegnare agli europei.
 
-Però alcuni europei non furono molto bravi: non sapevano di avere malattie che gli altri non avevano e, in generale, fecero un po’ colonizzatori e non si comportarono molto bene. 
+Però alcuni europei non furono molto bravi: non sapevano di avere malattie che gli altri non avevano e, in generale, fecero un po’ i colonizzatori e non si comportarono molto bene. 
 
-Il navigatore era buono e cerco’ sempre di aiutare chi incontrava.
+Il navigatore era buon però e cerco’ sempre di aiutare chi incontrava.
 
 Dopo aver attraversato l’America, ricominciò a navigare. 
 
@@ -59,10 +58,9 @@ Quando si stufò di navigare, tornò con tutte le sue conoscenze e scrisse tanti
 
 Tutti i navigatori che vennero dopo impararono da lui.
 
-Esplorarono i mari e scoprirono nuove isole e nazioni, nuove montagne e nuovi mari profondissimi.
+Esplorarono i mari e scoprirono nuove isole e nazioni, nuove montagne altisimme e nuovi mari profondissimi.
 
-—
-
+—--
 
 Molto tempo dopo che il navigatore aveva smesso di navigare, furono inventati anche i sottomarini.
 
@@ -82,7 +80,7 @@ Scoprirono anche le patate, che crescono sotto terra.
 
 Scoprirono poi come colorare i fiori: a volte, se gli dai un colorante da bere, si colorano di quel colore. 
 
-Scoprirono come costruire case altissime senza farle crollare e come volare con gli aerei.
+Scoprirono come costruire case altissime senza farle crollare e come far volare con gli aerei.
 
 Scoprirono anche come lavarsi i denti: prima non lo facevano e avevano l’alito puzzolente e i denti tutti rovinati, poi impararono a lavarli e tutto migliorò. 
 
