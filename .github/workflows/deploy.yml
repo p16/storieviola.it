@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Install, build, and upload site
-        uses: withastro/action@74d664f13f9f9063e37b49d74a74613dbf94db3c
+        uses: withastro/action@44706356b4eb735f8b9035699eb4796241a040c4
         with:
           path: ./storieviola-it
 
