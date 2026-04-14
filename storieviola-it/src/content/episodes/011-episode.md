@@ -3,7 +3,7 @@ title: "Andrea e i topi che non volevano lavarsi"
 slug: andrea-e-i-topi-che-non-volevano-lavarsi
 description: "Andrea aiuta i topi di casa a usare bagni e doccia: tra denti che ricrescono, schiuma e risate imparano a lavarsi senza paura."
 cover: /episodes/011-episode.png
-# spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
+spotifyUrl: https://open.spotify.com/episode/0GXQGDXqf532ctu9YCHcIZ?si=AlO4FFSwT0OCbLPxRq40YQ
 publishDate: 2026-04-06
 tags:
   - amici
