@@ -3,7 +3,7 @@ title: "Gigino e Gigetto e la grande gara dei gatti"
 slug: gigino-e-gigetto-e-la-grande-gara-dei-gatti
 description: Gigino e Gigetto sfuggono a una casa abbandonata, vanno alla toeletta e alla festa dei gatti, poi vincono la grande gara a ostacoli.
 cover: /episodes/010-episode.png
-# spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
+spotifyUrl: https://open.spotify.com/episode/4sAIubUjSoKCke41p1uEjM?si=YXWw59PFROCtVITV1inn1g
 publishDate: 2026-04-06
 tags:
   - amici
