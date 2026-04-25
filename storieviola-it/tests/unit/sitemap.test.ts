@@ -7,7 +7,7 @@ import { JSDOM } from 'jsdom';
  * This allows us to test the logic without Astro's full build context
  */
 async function sitemapGET(episodes: CollectionEntry<'episodes'>[], site: string) {
-  const staticPages = ['/', '/about', '/licenza'];
+  const staticPages = ['/', '/about/', '/licenza/'];
 
   // Filter out hidden episodes (only include visible ones)
   const visibleEpisodes = episodes.filter((ep) => !ep.data.hidden);
@@ -25,7 +25,7 @@ async function sitemapGET(episodes: CollectionEntry<'episodes'>[], site: string)
   const episodeUrls = visibleEpisodes
     .sort((a, b) => (b.data.publishDate?.getTime() || 0) - (a.data.publishDate?.getTime() || 0))
     .map((ep) => ({
-      url: `/episodes/${ep.data.slug}`,
+      url: `/episodes/${ep.data.slug}/`,
       // Use episode's publish date as lastmod, fallback to today if not set
       lastmod:
         ep.data.publishDate && !isNaN(ep.data.publishDate.getTime())
@@ -136,8 +136,8 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
       const xml = await sitemapGET([], testSite);
 
       expect(xml).toContain('https://storieviola.it/');
-      expect(xml).toContain('https://storieviola.it/about');
-      expect(xml).toContain('https://storieviola.it/licenza');
+      expect(xml).toContain('https://storieviola.it/about/');
+      expect(xml).toContain('https://storieviola.it/licenza/');
     });
 
     it('sets homepage priority to 1.0', async () => {
@@ -155,13 +155,13 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
 
       // Check about page
       const aboutMatch = xml.match(
-        /<url>\s*<loc>https:\/\/storieviola\.it\/about<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
+        /<url>\s*<loc>https:\/\/storieviola\.it\/about\/<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
       );
       expect(aboutMatch?.[1]).toBe('0.8');
 
       // Check license page
       const licenseMatch = xml.match(
-        /<url>\s*<loc>https:\/\/storieviola\.it\/licenza<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
+        /<url>\s*<loc>https:\/\/storieviola\.it\/licenza\/<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
       );
       expect(licenseMatch?.[1]).toBe('0.8');
     });
@@ -202,8 +202,8 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
 
       const xml = await sitemapGET(episodes, testSite);
 
-      expect(xml).toContain('https://storieviola.it/episodes/episode-1');
-      expect(xml).toContain('https://storieviola.it/episodes/episode-2');
+      expect(xml).toContain('https://storieviola.it/episodes/episode-1/');
+      expect(xml).toContain('https://storieviola.it/episodes/episode-2/');
     });
 
     it('excludes hidden episodes', async () => {
@@ -249,7 +249,7 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
       const xml = await sitemapGET([episode], testSite);
 
       const match = xml.match(
-        /<loc>https:\/\/storieviola\.it\/episodes\/test-episode<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
+        /<loc>https:\/\/storieviola\.it\/episodes\/test-episode\/<\/loc>[\s\S]*?<priority>([\d.]+)<\/priority>/,
       );
       expect(match?.[1]).toBe('0.8');
     });
@@ -268,7 +268,7 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
       const xml = await sitemapGET([episode], testSite);
 
       const match = xml.match(
-        /<loc>https:\/\/storieviola\.it\/episodes\/test-episode<\/loc>[\s\S]*?<changefreq>(\w+)<\/changefreq>/,
+        /<loc>https:\/\/storieviola\.it\/episodes\/test-episode\/<\/loc>[\s\S]*?<changefreq>(\w+)<\/changefreq>/,
       );
       expect(match?.[1]).toBe('never');
     });
@@ -348,7 +348,7 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
 
       const xml = await sitemapGET([episode], testSite);
 
-      expect(xml).toContain('https://storieviola.it/episodes/test-episode');
+      expect(xml).toContain('https://storieviola.it/episodes/test-episode/');
     });
 
     it('handles episode slugs with special characters', async () => {
@@ -373,9 +373,9 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
     it('includes all static pages in correct order', async () => {
       const xml = await sitemapGET([], testSite);
 
-      const homePos = xml.indexOf('https://storieviola.it/');
-      const aboutPos = xml.indexOf('https://storieviola.it/about');
-      const licensePos = xml.indexOf('https://storieviola.it/licenza');
+      const homePos = xml.indexOf('https://storieviola.it/</loc>');
+      const aboutPos = xml.indexOf('https://storieviola.it/about/');
+      const licensePos = xml.indexOf('https://storieviola.it/licenza/');
 
       expect(homePos).toBeLessThan(aboutPos);
       expect(aboutPos).toBeLessThan(licensePos);
@@ -388,8 +388,8 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
 
       // Should still have the 3 static pages
       expect(xml).toContain('https://storieviola.it/');
-      expect(xml).toContain('https://storieviola.it/about');
-      expect(xml).toContain('https://storieviola.it/licenza');
+      expect(xml).toContain('https://storieviola.it/about/');
+      expect(xml).toContain('https://storieviola.it/licenza/');
 
       // Count total URLs
       const urlCount = (xml.match(/<url>/g) || []).length;
@@ -557,10 +557,10 @@ describe('Sitemap Generation (sitemap.xml.ts)', () => {
 
       // Verify all expected URLs
       expect(xml).toContain('https://storieviola.it/');
-      expect(xml).toContain('https://storieviola.it/about');
-      expect(xml).toContain('https://storieviola.it/licenza');
-      expect(xml).toContain('https://storieviola.it/episodes/il-pupazzo-di-neve');
-      expect(xml).toContain('https://storieviola.it/episodes/gigino-e-i-topi');
+      expect(xml).toContain('https://storieviola.it/about/');
+      expect(xml).toContain('https://storieviola.it/licenza/');
+      expect(xml).toContain('https://storieviola.it/episodes/il-pupazzo-di-neve/');
+      expect(xml).toContain('https://storieviola.it/episodes/gigino-e-i-topi/');
 
       // Verify episode ordering (newest first)
       const indexOfFirst = xml.indexOf('gigino-e-i-topi');

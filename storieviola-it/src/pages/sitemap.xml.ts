@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
  */
 export async function GET() {
   const site = import.meta.env.SITE;
-  const staticPages = ['/', '/about', '/licenza'];
+  const staticPages = ['/', '/about/', '/licenza/'];
 
   // Fetch all episodes from content collection
   const episodes = await getCollection('episodes');
@@ -28,7 +28,7 @@ export async function GET() {
   const episodeUrls = visibleEpisodes
     .sort((a, b) => (b.data.publishDate?.getTime() || 0) - (a.data.publishDate?.getTime() || 0))
     .map((ep) => ({
-      url: `/episodes/${ep.data.slug}`,
+      url: `/episodes/${ep.data.slug}/`,
       // Use episode's publish date as lastmod, fallback to today if not set
       lastmod: ep.data.publishDate 
         ? ep.data.publishDate.toISOString().split('T')[0] 
