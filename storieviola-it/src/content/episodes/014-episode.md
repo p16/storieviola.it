@@ -3,7 +3,8 @@ title: "Fulmine, il gabbiano viaggiatore"
 slug: fulmine-il-gabbiano-viaggiatore
 description: Fulmine guida altri gabbiani attraverso il Pacifico tra correnti ascensionali e consigli, fino ad un rifugio sicuro tra rocce e pesci.
 cover: /episodes/014-episode.png
-# spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
+spotifyUrl: https://open.spotify.com/episode/3P9ykrPbpPyZSdvAhxC9V9?si=fWYrYlJPQt2X6v6caOzybw
+featured: true
 publishDate: 2024-04-06
 tags:
   - fantasia
@@ -19,7 +20,7 @@ Aveva scritto un libro in cui parlava delle sue avventure da gabbiano: dove era 
 
 Quando andava in giro lo fermavano tutti e gli chiedevano: «Gabbiano Fulmine, come va? Come stai?»
 
-E lui era tutto contento. 
+E lui era tutto contento.
 
 Rispondeva a tutti, salutava tutti. Era felicissimo.
 
@@ -47,7 +48,7 @@ Partirono tutti insieme, e gli altri gabbiani erano felicissimi di avere Fulmine
 
 Non vedevano l’ora di iniziare il viaggio.
 
-Fin da subito molti gabbiani non riuscirono a prendere le correnti ascensionali. 
+Fin da subito molti gabbiani non riuscirono a prendere le correnti ascensionali.
 
 Allora Fulmine mostrava loro come fare: «Venite, seguitemi.» diceva.
 
@@ -63,7 +64,7 @@ Ancora su, e poi giù.
 
 Volavano e si divertivano tantissimo.
 
-A un certo punto iniziarono anche a fare a gara: chi scendeva prima, chi risaliva più in alto. 
+A un certo punto iniziarono anche a fare a gara: chi scendeva prima, chi risaliva più in alto.
 
 Ogni tanto qualcuno finiva addosso a un altro o si sbagliava.
 
@@ -73,7 +74,7 @@ Ogni tanto qualcuno finiva addosso a un altro o si sbagliava.
 
 Piano piano però riuscirono a organizzarsi meglio e continuarono a volare tutti insieme, contenti e felici, attraversando l’oceano.
 
-Quando arrivarono dall’altra parte, Fulmine mostrò loro il posto dove aveva mangiato tante volte. 
+Quando arrivarono dall’altra parte, Fulmine mostrò loro il posto dove aveva mangiato tante volte.
 
 Era una zona piena di pesci, dove potevano pescare tranquillamente senza paura degli umani.
 

@@ -5,7 +5,6 @@ description: "Un bimbo col pannolino, il papà che cambia e pulisce, merende e c
 cover: /episodes/012-episode.png
 # spotifyUrl: https://open.spotify.com/show/6Ny4Eh3xfB2sKR82J99cZQ?si=37ff0573c5204fc7
 publishDate: 2026-04-03
-# hidden: true
 tags:
   - fantasia
 ---
@@ -82,7 +81,7 @@ Si divertirono molto.
 
 Il giorno dopo sarebbe stato il compleanno dei due anni del bambino, ma il bimbo non se lo ricordava!
 
-Il papà e la mamma stavano preparando tutto in segreto: avevano invitato nonni, cugini e amici. 
+Il papà e la mamma stavano preparando tutto in segreto: avevano invitato nonni, cugini e amici.
 
 Prepararono la stanza dei giochi, quella del cibo e, nascosta bene, la torta.
 
@@ -108,9 +107,9 @@ Tutti i bambini erano molto piccoli e molti portavano ancora il pannolino, quind
 
 Ma continuavano comunque a divertirsi insieme.
 
-Verso sera i genitori prepararono la cena con tante cose buone per i bambini. 
+Verso sera i genitori prepararono la cena con tante cose buone per i bambini.
 
-Dopo cena arrivò la torta: enorme, alta e piena di crema e cioccolato. 
+Dopo cena arrivò la torta: enorme, alta e piena di crema e cioccolato.
 
 Tutti cantarono "Tanti auguri" e festeggiarono il compleanno.
 
@@ -120,7 +119,7 @@ La mattina seguente si svegliarono felici e ricominciarono a giocare.
 
 Ogni tanto litigavano per un gioco, ma poi trovavano sempre un accordo: giocare insieme oppure fare a turno.
 
-Alla fine della giornata erano stanchissimi: avevano corso, saltato e giocato tantissimo. 
+Alla fine della giornata erano stanchissimi: avevano corso, saltato e giocato tantissimo.
 
 Si abbracciarono tutti in un grande cerchio e si dissero: "Rivediamoci presto e giochiamo ancora insieme!".
 

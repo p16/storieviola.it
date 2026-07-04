@@ -5,14 +5,13 @@ description: Una chitarra gialla che ama essere suonata rompe una corda, viene r
 cover: /episodes/004-la-chitarra.png
 spotifyUrl: https://open.spotify.com/episode/33cxabHBOCNWtcUgJZUUIE?si=19ed6b9b1b944699
 publishDate: 2026-03-11
-featured: true
 tags:
   - musica
 ---
 
-C’era una volta una chitarra gialla, con un sacco di corde. 
+C’era una volta una chitarra gialla, con un sacco di corde.
 
-Questa chitarra aveva tutte queste corde perché le piaceva tantissimo essere suonata. 
+Questa chitarra aveva tutte queste corde perché le piaceva tantissimo essere suonata.
 
 Ogni volta che vedeva qualcuno passare lì vicino, gli diceva: “Oh, vieni a suonarmi!”.
 
@@ -21,7 +20,7 @@ Ogni volta che vedeva qualcuno passare lì vicino, gli diceva: “Oh, vieni a su
 
 “Non ti preoccupare”, diceva lei.
 
-E allora tutti andavano e muovevano un po’ le dita sulle corde: chi faceva degli accordi belli, chi sapeva suonare, chi non sapeva suonare per niente. 
+E allora tutti andavano e muovevano un po’ le dita sulle corde: chi faceva degli accordi belli, chi sapeva suonare, chi non sapeva suonare per niente.
 
 Lei era sempre felice.
 
@@ -29,7 +28,7 @@ Un giorno però, mentre un signore stava suonando una bella melodia, una delle c
 
 E la chitarra si spaventò. Tutti cercarono subito di aiutarla, perché quella chitarra era simpatica proprio a tutti.
 
-La portarono all’ospedale delle chitarre e le misero una corda nuova, bella tesa. 
+La portarono all’ospedale delle chitarre e le misero una corda nuova, bella tesa.
 
 Poi le dissero: “Adesso come ti senti, chitarra?”.
 
@@ -40,7 +39,7 @@ Erano tutti felicissimi che la chitarra stesse meglio, l’accompagnarono a casa
 
 Una volta arrivati dissero: “Bene, la chitarra è a posto, può tornare a suonare”.
 
-Ma quando la chitarra tornò a suonare, i suoni erano strani. 
+Ma quando la chitarra tornò a suonare, i suoni erano strani.
 
 Le note non erano giuste e la chitarra non era contenta. Si chiedeva “Ma come mai?!?!”.
 
@@ -54,11 +53,11 @@ La ragazza rispose: “Vuol dire che devo tirare un po’ le corde per rimetterl
 
 La chitarra tutta contenta disse: “Sì, sì, certo”.
 
-La ragazza mise la mano all'estremità della chitarra, dove c’erano i gancetti, e cominciò a girarli finché trovò la nota giusta. 
+La ragazza mise la mano all'estremità della chitarra, dove c’erano i gancetti, e cominciò a girarli finché trovò la nota giusta.
 
 Quando ebbe trovato la nota giusta, la chitarra era pronta per tornare a suonare.
 
-La ragazza cominciò a suonarla. 
+La ragazza cominciò a suonarla.
 
 La chitarra ascoltò il suono che produceva e si innamorò della canzone che stava suonando.
 

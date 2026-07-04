@@ -5,7 +5,6 @@ description: "Ari e Bruno salvano Lilla nel bosco vicino alla Baia dell’Alce."
 cover: /episodes/007-il_gruppo_degli_animali_salvano_lilla.png
 spotifyUrl: https://open.spotify.com/episode/0MiYLFcUhNGy3SLKZYeEgj?si=Mf0W1OQcQiWkGq0ELR1ljA
 publishDate: 2026-04-04
-featured: true
 tags:
   - fantasia
 ---
